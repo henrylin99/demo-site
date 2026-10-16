@@ -18,7 +18,10 @@ a{color:var(--accent)}
 .kicker{font-size:13px;color:var(--accent);letter-spacing:.14em;font-weight:600}
 h1{font-size:30px;margin:10px 0 4px;line-height:1.35}
 .en{font-size:15px;color:var(--mut);font-style:italic;margin-bottom:16px}
-.cover{width:100%;border-radius:12px;border:1px solid var(--line);margin:6px 0 14px;display:block}
+.cover{width:100%;height:540px;object-fit:cover;object-position:top center;
+border-radius:12px;border:1px solid var(--line);margin:6px 0 6px;display:block}
+a.coverlink{display:block}
+a.coverlink:hover{opacity:.92}
 .meta{font-size:13.5px;color:var(--mut)}
 section.q{margin-top:46px}
 section.q h2{font-size:21px;color:var(--ink);border-bottom:2px solid var(--accent);
@@ -59,7 +62,9 @@ padding-top:16px;line-height:1.9}
 <div class="kicker">旗舰案例 · FLAGSHIP CASE · 交付方法论</div>
 <h1>AI 量化研究的验证与审计闭环</h1>
 <div class="en">An Auditable Quant Research Workflow</div>
-<img class="cover" src="assets/workflow-audit-cover.jpg" alt="验证与审计闭环：从研究想法到可审计交付">
+<a class="coverlink" href="assets/demo.png" target="_blank" title="点击查看完整长图">
+<img class="cover" src="assets/demo.png" alt="系统真实回测报告输出示例（点击查看完整长图）"></a>
+<div class="meta" style="margin-bottom:14px">▲ 平台真实输出的回测报告示例（长图截取顶部，<a href="assets/demo.png" target="_blank">点击查看完整报告</a>）。图中数据用于说明系统产出物形态，历史回测不构成任何收益承诺。</div>
 <div class="meta">本文按六个问题拆解我们的交付方法论：<b>原来的工作方式 → 真正的问题 → 具体做了什么 → 如何证明 → 交付什么 → 从哪开始</b>。
 文中所有数字为 <b>2026-10-16 实测值</b>，来源逐节标注；未经实测的事项明确标注「不声称」。<a href="../">← 返回首页</a></div>
 </header>
