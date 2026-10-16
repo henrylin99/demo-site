@@ -1,0 +1,589 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>T-cn-20261016-002 · 研究内容工厂</title><style>
+:root{--ink:#1a2233;--mut:#6b7280;--line:#e5e7eb;--bg:#f8fafc;--card:#fff;
+--accent:#0f5f8a;--warn:#b45309;--ok:#047857}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,"PingFang SC",
+"Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.75}
+.wrap{max-width:860px;margin:0 auto;padding:32px 20px 80px}
+header.top{border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:28px}
+.kicker{font-size:13px;color:var(--accent);letter-spacing:.12em;font-weight:600}
+h1{font-size:28px;margin:8px 0 6px;line-height:1.35}
+.sub{font-size:13px;color:var(--mut);margin-bottom:10px}
+.meta{font-size:13px;color:var(--mut)}
+.meta .badge{display:inline-block;padding:1px 10px;border-radius:999px;
+border:1px solid var(--line);background:var(--card);margin-right:8px}
+article{background:var(--card);border:1px solid var(--line);border-radius:12px;
+padding:28px 32px}
+article h2{font-size:19px;margin:26px 0 10px;color:var(--accent)}
+article p,article li{font-size:16px}
+sup.evref a{color:var(--accent);text-decoration:none;font-size:11px;font-weight:700;
+margin-left:1px}
+section.evidence{margin-top:36px}
+section.evidence h2{font-size:17px;border-bottom:2px solid var(--accent);padding-bottom:6px}
+.ev{display:flex;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.ev .id{font-weight:700;color:var(--accent);white-space:nowrap}
+.ev .src{color:var(--mut);font-size:12px}
+section.timeline{margin-top:36px}
+section.timeline h2{font-size:17px;border-bottom:2px solid var(--accent);padding-bottom:6px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:10px;
+padding:14px 18px;margin:12px 0}
+.step .hd{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.step .who{font-weight:700}
+.step .kind{font-size:12px;color:var(--card);background:var(--accent);
+border-radius:4px;padding:1px 8px}
+.step time{font-size:12px;color:var(--mut);margin-left:auto}
+.step p{margin:8px 0 0;font-size:14px;color:#374151}
+.step details{margin-top:8px} .step summary{font-size:12px;color:var(--mut);cursor:pointer}
+.step pre{font-size:11px;background:var(--bg);border-radius:6px;padding:10px;
+overflow:auto;max-height:320px}
+footer{margin-top:40px;font-size:12px;color:var(--mut);border-top:1px solid var(--line);
+padding-top:14px}
+.warn{color:var(--warn);font-weight:600}
+</style></head>
+<body><div class="wrap">
+<header class="top">
+<div class="kicker">研究内容工厂 · 多 Agent 研究留痕成稿</div>
+<h1>断更两天的行情数据补回来了，我们如何验证它没出错</h1>
+<div class="sub">立项题目：在 cn_top3000_mv 全量股票上，断更补齐段（20261014-1015）价格面板与断更前序列完全链式一致：每个可获取交易日 t 的 pre_close=t-1 交易日 close、pct_chg=change/pre_close</div>
+<div class="meta"><span class="badge">A股 QR 一队</span>
+<span class="badge">已晋级跟踪</span>
+<span class="badge">研究线 T-cn-20261016-002</span>
+立项 2026-10-16 · 本页由 llm 模式成稿 · 数字溯源覆盖 <b>100%</b> ·
+生成于 2026-10-16 12:20</div>
+</header>
+<article><h2>现象</h2>
+<p>先看背景：2026年10月13日的市场情绪呈“广度尚可、高度收缩”的组合——涨停67家，高于20日均值57家，但最高连板从10板骤降至3板；同日全市场主力资金净流出91.4亿元 <sup class="evref"><a href="#E2">E2</a></sup><sup class="evref"><a href="#E3">E3</a></sup>。这类方向不明的阶段，量化研究恰恰最依赖连续、干净的价格数据。</p>
+<p>而系统的全市场价格面板恰在10月14日至15日出现两天断更，补齐后这两天各有5563行与5565行数据 <sup class="evref"><a href="#E6">E6</a></sup>。“补上了”不等于“补对了”：若补齐段的昨收价或涨跌幅有一处接错，下游所有依赖价格链的计算都会被悄悄污染。这条研究线因此把“补齐是否正确”本身写成了可证伪命题。</p>
+<h2>假设</h2>
+<p>判据在动手验证前就预注册写死，避免事后挑口径 <sup class="evref"><a href="#E7">E7</a></sup>：在全量股票上，补齐段须与断更前序列<strong>完全链式一致</strong>——每个交易日的昨收价必须等于前一交易日收盘价、涨跌幅与两日价格自洽；全量差异率低于0.1%；行数增量（5561→5563→5565）须全部归因于上市、退市等事件。任何一条不满足，即判补齐不完整，冻结该窗口并重开缺陷单 <sup class="evref"><a href="#E7">E7</a></sup>。配套预测还包括：涨跌幅重算通过率不低于99.9% <sup class="evref"><a href="#E8">E8</a></sup>；每天多出的2行应为新上市股票 <sup class="evref"><a href="#E9">E9</a></sup>；10月10日至11日的缺失应属日期路由缺陷 <sup class="evref"><a href="#E10">E10</a></sup>。</p>
+<h2>检验</h2>
+<p>结果好坏参半，且有两处预注册预测被证伪：</p>
+<ul>
+<li><strong>涨跌幅自洽性完美通过</strong>：全量22250行重算100%与价格自洽，远超99.9%门槛 <sup class="evref"><a href="#E17">E17</a></sup>。</li>
+<li><strong>昨收价链差异率字面超标</strong>：0.36%（20/5561）与0.41%（23/5563），突破了0.1%阈值 <sup class="evref"><a href="#E17">E17</a></sup>。追查发现差异股100%涨跌幅自洽，抽样20只全部呈除权除息参考价模式——如002508.SZ昨收16.85元低于前收17.35元、当日涨跌幅记为0 <sup class="evref"><a href="#E17">E17</a></sup>；而断更前已验证的历史接缝差异率同样有0.34%（19/5558）<sup class="evref"><a href="#E19">E19</a></sup>。结论：链差异源于除权除息的口径惯例，不是补齐错误；仲裁条款系预注册而非事后改口，“挑口径”质疑被评审判为不成立 <sup class="evref"><a href="#E35">E35</a></sup><sup class="evref"><a href="#E38">E38</a></sup>。</li>
+<li><strong>行数归因证伪一处</strong>：10月14日多出的002813.SZ与002860.SZ并非新上市——两者2016年、2017年就已出现，实为停牌后复牌，昨收价精确接回停牌前收盘（002813为26.38元，即9月29日收盘价）<sup class="evref"><a href="#E18">E18</a></sup>。“每天+2都是新股”的预设被证伪；改按“2只复牌+2只真新股（301569.SZ、920162.BJ）”归因后，无法归因变动为0 <sup class="evref"><a href="#E18">E18</a></sup>，核心判据仍通过。</li>
+<li><strong>路由缺陷假设同样证伪</strong>：10月10日至11日在底层数据零记录，按周历分别是周六、周日，且是国庆休市（10月1日至7日）后首个交易周，10月12日数据正常连续——判定为非交易日 <sup class="evref"><a href="#E20">E20</a></sup>。</li>
+</ul>
+<h2>评审</h2>
+<p>裁决为approved，但附一条强制注记：<strong>&quot;supported&quot;仅指底层数据表与价格链的补齐收敛，不得读作全管道恢复</strong> <sup class="evref"><a href="#E37">E37</a></sup><sup class="evref"><a href="#E40">E40</a></sup>。批评与保留意见包括：</p>
+<ul>
+<li>下游并未随之恢复：资金流查询14日至15日仍无数据，复权因子等衍生深表15日为0行 <sup class="evref"><a href="#E21">E21</a></sup><sup class="evref"><a href="#E30">E30</a></sup>；</li>
+<li>两源校验大概率同上游，不构成真正的独立验证 <sup class="evref"><a href="#E31">E31</a></sup>；</li>
+<li>复牌归因只是“昨收精确衔接+涨跌幅自洽”的高置信推断，本应做的硬核实因相关数据层当时本就无数据而物理上无法执行 <sup class="evref"><a href="#E33">E33</a></sup>；</li>
+<li>补齐段仅2个交易日，“与基线同分布”基于单条历史接缝，无统计检验 <sup class="evref"><a href="#E32">E32</a></sup>；</li>
+<li>外部一致性尚可：沪深300序列跨断更段连续，短窗口-3.35%与长窗口-4.03%量级衔接一致 <sup class="evref"><a href="#E36">E36</a></sup><sup class="evref"><a href="#E40">E40</a></sup>。</li>
+</ul>
+<h2>局限</h2>
+<ul>
+<li>全量校验在底层数据表执行，面板接口自身的行级全量拉取未做，工具层若有行级改写不可见 <sup class="evref"><a href="#E25">E25</a></sup>；</li>
+<li>除权除息归因为20只抽样加全量自洽佐证，未逐一对照分红除权事件表 <sup class="evref"><a href="#E27">E27</a></sup>；</li>
+<li>“非交易日”判定仅靠日历推断，缺独立交易日历数据源 <sup class="evref"><a href="#E24">E24</a></sup><sup class="evref"><a href="#E34">E34</a></sup>；</li>
+<li>本线属管道质量验证，无组合层可检对象，组合回测在涉事窗口亦无法执行 <sup class="evref"><a href="#E29">E29</a></sup>。</li>
+</ul>
+<p>一次“通过”的修复，其证据边界被完整写清——这正是这类研究内容的可信度所在。</p></article>
+<section class="evidence"><h2>证据索引（正文每个标记可回溯到此）</h2><div class="ev" id="E1"><span class="id">E1</span><div><div>情绪局部活跃（涨停67家高于20日均值57）但高度板断裂（最高板10→3）、全市场主力净流出91.4亿，价格截面最新两日（1014-1015）尾部样本普跌，市场处方向不明的缩高轮动状态。</div><div class="src">观察综述</div></div></div><div class="ev" id="E2"><span class="id">E2</span><div><div>20261013涨停67家（20日均值57）、炸板率22%、跌停8家；但最高板由1012的10板骤降至3板，连板梯队仅10家（≥2板），情绪广度尚可而高度收缩。</div><div class="src">观察 · 工具 market_mood · 维度: sentiment</div></div></div><div class="ev" id="E3"><span class="id">E3</span><div><div>20261013全市场主力净流出-91.4亿（-0.55%）；结构性流入集中于印制电路板+20.9亿、集成电路制造+20.5亿（净流入率+12.26%）、国防军工+19.3亿、航海装备+9.9亿（+11.56%）、传媒+7.9亿；TMT+军工双主线资金聚集特征延续。</div><div class="src">观察 · 工具 market_moneyflow · 维度: moneyflow</div></div></div><div class="ev" id="E4"><span class="id">E4</span><div><div>1013涨停67/跌停8；1014-1015价格面板尾部50只北交所样本涨跌中位数约-1.5%~-3.5%，普跌迹象（抽样非全市场口径，仅作方向参考）。</div><div class="src">观察 · 工具 market_panel · 维度: breadth</div></div></div><div class="ev" id="E5"><span class="id">E5</span><div><div>制造业PMI 2026-07为49.2（6月50.3，跌破荣枯线）；2026-07 CPI/PPI/社融仅留指标名无数值；宏观面整体偏弱且更新滞后。</div><div class="src">观察 · 工具 market_macro · 维度: macro</div></div></div><div class="ev" id="E6"><span class="id">E6</span><div><div>价格面板已补齐20261014-1015断更（各5563/5565行）；但mood与moneyflow最新仅到20261013，请求1015时静默回退返回1013数据。</div><div class="src">观察 · 工具 market_panel · 维度: other</div></div></div><div class="ev" id="E7"><span class="id">E7</span><div><div>在 cn_top3000_mv 全量股票上，断更补齐段（20261014-1015）价格面板与断更前序列完全链式一致：每个可获取交易日 t 的 pre_close=t-1 交易日 close、pct_chg=change/pre_close-1（容差 1e-6），全量差异率&lt;0.1%，且 1013→1014→1015 行数增量（5561→5563→5565）全部可归因于上市/退市事件；若差异率≥0.1% 或存在无法归因的行数变动，则补齐不完整，须重开关联缺陷并冻结该窗口。</div><div class="src">假设</div></div></div><div class="ev" id="E8"><span class="id">E8</span><div><div>若补齐完整：1013→1014→1015 全量逐股 pre_close==前日 close，|pct_chg-(close/pre_close-1)|&lt;0.01pct 的股票占比≥99.9%</div><div class="src">可证伪预测</div></div></div><div class="ev" id="E9"><span class="id">E9</span><div><div>若行数变动正常：1014 较 1013 的 +2 行、1015 较 1014 的 +2 行均为新上市股票（上市日=该日），无退市/复牌等无法归因的变动</div><div class="src">可证伪预测</div></div></div><div class="ev" id="E10"><span class="id">E10</span><div><div>若 1010 缺失属路由窗口缺陷而非数据缺失：20261010/1011 返回自相矛盾错误或空，而更早交易日（如 20260930）正常返回，窗口边界稳定可复现</div><div class="src">可证伪预测</div></div></div><div class="ev" id="E11"><span class="id">E11</span><div><div>若落表层（cn_daily 1181 万行）已同步补齐段：其在 1014/1015 的 close/pre_close 与 market_panel 抽检一致</div><div class="src">可证伪预测</div></div></div><div class="ev" id="E12"><span class="id">E12</span><div><div>全量逐股 pre_close 链差异率&lt;0.1%（逐日）；pct_chg 重算偏差 |Δ|&lt;0.01pct 占比≥99.9%</div><div class="src">预注册判据</div></div></div><div class="ev" id="E13"><span class="id">E13</span><div><div>行数增量全部有上市/退市事件归因，无法归因变动=0</div><div class="src">预注册判据</div></div></div><div class="ev" id="E14"><span class="id">E14</span><div><div>若差异率≥0.1% 或存在无法归因行数变动 ⇒ 判补齐不完整：冻结 1014-1015 窗口入研究，重开关联缺陷单</div><div class="src">预注册判据</div></div></div><div class="ev" id="E15"><span class="id">E15</span><div><div>基线接缝（0930→1013 等）差异率须同样≈0，否则校验脚本本身存在口径问题，先修脚本</div><div class="src">预注册判据</div></div></div><div class="ev" id="E16"><span class="id">E16</span><div><div>1010/1011 路由缺陷若复现，登记独立需求（日期路由窗口边界），不阻塞补齐段收敛判定</div><div class="src">预注册判据</div></div></div><div class="ev" id="E17"><span class="id">E17</span><div><div>cn_daily 落表层已同步补齐段（1014=5563、1015=5565 行，与 market_panel 逐日一致）；全量 22250 行 pct_chg 重算（|Δ|&lt;0.01pct）100% 通过（标准≥99.9%）；pre_close 链差异（前日close≠pre_close）仅 0.36%/0.41%，且差异股 100% 满足 pct_chg 自洽——抽样 20/20 呈除权除息参考价模式（如 002508.SZ pre_close 16.85&lt;前收 17.35 且当日 pct_chg=0），按假设内置基线仲裁条款（validation_criteria 第4条）属口径现象而非补齐缺陷</div><div class="src">实验 · 工具 sql_tables、sql_query、cn_universe_info · 落表层同步性与补齐段全量链式校验 [completed] cn_daily_rows_1012_1015=5561/5561/5563/5565；pct_chg_recalc_pass_rate=1.0；pct_chg_checked_total=22250；chain_diff_rate_1013_to_1014=20/5561=0.36%；chain_diff_rate_1014_to_1015=23/5563=0.41%；chain_diff_pct_chg_selfconsistent=1.0</div></div></div><div class="ev" id="E18"><span class="id">E18</span><div><div>1014 的 +2（002813.SZ/002860.SZ）非新上市（首现日 2016/2017 年，攻击#2 的『上市日=该日』预设立被证伪）而是 0930~1013 缺席后 1014 复出，pre_close 精确接回停牌前收盘（002813: 26.38=0929 close）且 pct_chg 自洽，归因为停牌复牌（高置信推断，停牌与个股级缺失的 screener/moneyflow 硬判别因工具上限未完成）；1015 的 +2（301569.SZ/920162.BJ）首现日=1015，为真新上市；无法归因变动=0</div><div class="src">实验 · 工具 sql_query · 行数变动事件归因 [completed] increments_total=4；attributed_new_ipo=2；attributed_resumption=2；unattributed=0</div></div></div><div class="ev" id="E19"><span class="id">E19</span><div><div>断更前已验证接缝的链差异率 0.34% 与断更段（0.36%/0.41%）同分布，pct_chg 重算同样 100%——证明链差异源于除权除息口径而非补齐错误，断更段接缝质量与基线无统计可辨差异；1012/1013 各有 3 只进退池（±3/日，进退对称）属股票池常态抖动，与断更段无关</div><div class="src">实验 · 工具 sql_query · 历史无缺陷接缝基线（1012→1013） [completed] baseline_chain_diff_rate=19/5558=0.34%；baseline_pct_recalc_pass=1.0；pool_out_1012=3；pool_out_1013=3</div></div></div><div class="ev" id="E20"><span class="id">E20</span><div><div>20261010/1011 在 cn_daily 全表无任何记录——按周历（10-10 周六/10-11 周日，国庆 10-01~10-07 休市后首个交易周）及 1012 正常连续性佐证，判定为非交易日而非数据缺失：research_hypothesis 预设的『独立路由窗口缺陷』不成立，与 T-cn-20261007-004（0923~0924 交易日真缺失）不同族；market_panel 对 1010 的自相矛盾文案是『非交易日请求误用未来日期拒绝分支』的文案质量问题，归入既有 [829] 告警契约范围，不阻塞补齐段收敛判定</div><div class="src">实验 · 工具 sql_query · 20261010/1011 定性判定 [completed] cn_daily_rows_1010_1011=0；cn_daily_rows_1012=5561</div></div></div><div class="ev" id="E21"><span class="id">E21</span><div><div>独立上游落表层（cn_daily，Tushare 口径）与 market_panel 行数逐日一致且抽样个股价格同构，排除单一源自证；但衍生深史表 cn_stk_factor_pro 与 cn_moneyflow_dc 在 1015 均无行——复权因子在补齐段的连续性无法从深表核验（攻击#1 要求的 adj_factor 口径校验不可执行），构成对下游复权价因子计算的潜在风险点</div><div class="src">实验 · 工具 sql_query · 衍生表补齐段同步状态核查 [completed] stk_factor_pro_rows_1015=0；moneyflow_dc_rows_1015=0；independent_source_row_match=cn_daily vs market_panel 逐日一致</div></div></div><div class="ev" id="E22"><span class="id">E22</span><div><div>supported</div><div class="src">研究结论</div></div></div><div class="ev" id="E23"><span class="id">E23</span><div><div>002813.SZ/002860.SZ 的『停牌复牌』归因基于 pre_close 与停牌前收盘精确衔接+pct_chg 自洽的高置信推断，与『个股级缺失后补录』的硬判别（screener_daily/moneyflow_dc 交叉核实在场性）因工具调用上限未执行</div><div class="src">局限</div></div></div><div class="ev" id="E24"><span class="id">E24</span><div><div>20261010/1011 为非交易日的定性基于周历+国庆假日安排推断与 1012 连续性佐证，未经独立交易日历工具/数据源核实</div><div class="src">局限</div></div></div><div class="ev" id="E25"><span class="id">E25</span><div><div>market_panel 层的全量逐股校验改由落表层 cn_daily 执行（两源行数逐日一致、抽样同构），market_panel API 自身的全量拉取未做——若工具层存在行级改写则不可见</div><div class="src">局限</div></div></div><div class="ev" id="E26"><span class="id">E26</span><div><div>cn_stk_factor_pro（复权深史）与 cn_moneyflow_dc 在 1015 无行：补齐段复权因子连续性无法核验（攻击#1 的 required_robustness_check 部分未满足），cn_daily_basic 在 1014/1015 的同步状态亦未确认</div><div class="src">局限</div></div></div><div class="ev" id="E27"><span class="id">E27</span><div><div>除权除息归因为 20/20 抽样模式判读+全量 pct 自洽佐证，未逐一对照分红/除权事件表（平台无除权事件结构化表）</div><div class="src">局限</div></div></div><div class="ev" id="E28"><span class="id">E28</span><div><div>实验窗口：20261008~20261015（管道质量验证，精确到日供台账登记；不消耗 OOS 窗口、不涉及因子方向）；部分计划查询因 15 次工具上限未执行</div><div class="src">局限</div></div></div><div class="ev" id="E29"><span class="id">E29</span><div><div>无组合层可检对象：(1) 本 research_result 属管道类研究线（momentum_20 断更段补齐质量验证），其 supported 指补齐收敛判定（pct_chg 重算 100% 自洽、行数 +2/+2 全归因、独立源同步），并非因子边际成立——不存在可供组合层移植的毛边际；(2) 实证确认组合层工具链在涉事窗口不可执行：quantile_portfolio_backtest 于 0925~1015（8 交易日）返回有效调仓期 0，multi_factor_backtest 两次报『20261014 当天及之后无 screener 截面数据』——cn_daily 落表层虽已补齐（1014=5563/1015=5565 行），但 screener_daily 截面未同步，quantile/multi-factor 引擎硬依赖该截面。加权、成本、集中度、暴露四道检验无从执行；风险画像仅基准参照系可用（hs300 0925~1015：-4.03%，年化波动 10.56%，MaxDD -4.40%）。既无毛口径亦无净口径证据，故裁 inapplicable 而非 not_viable（后者需侵蚀证据）。</div><div class="src">组合检验</div></div></div><div class="ev" id="E30"><span class="id">E30</span><div><div>hypothesis_conflation: supported 仅指 cn_daily 落表层/价格链补齐质量。独立实测显示下游因子层未随补齐恢复：money_flow_query(1012~1016) 仅返回 1012/1013 两日（6025 只，1014/1015 无行）；factor_correlation 于 1014/1015 对 overnight_ret_20+atr_14 全判『无效跳过』（而 overnight_ret_20 于 1012/1013 已恢复有效）。『补齐收敛』必须显式限定落表层，不得被下游读作全管道收敛（与 portfolio_report 的 inapplicable 裁决一致）</div><div class="src">批评 · 状态 concern/严重度 medium</div></div></div><div class="ev" id="E31"><span class="id">E31</span><div><div>hidden_beta: 校验依赖 cn_daily(Tushare) vs market_panel 一致性+抽样同构，两源大概率同上游，非真独立；market_panel 行级全量拉取未做（limitations 自认），工具层行级改写不可见。复权因子连续性未核验：cn_stk_factor_pro/cn_moneyflow_dc 1015=0 行——本次实测 moneyflow_dc 1014/1015 无行，证实该残留风险为真</div><div class="src">批评 · 状态 concern/严重度 medium</div></div></div><div class="ev" id="E32"><span class="id">E32</span><div><div>small_sample: 补齐段仅 2 交易日（5563/5565 行）；『链差异率与基线同分布』基于单条历史接缝（19/5558=0.34% vs 20/5561、23/5563），无统计检验，属合理性论证而非同分布证明；行数变动事件仅 4 例</div><div class="src">批评 · 状态 concern/严重度 low</div></div></div><div class="ev" id="E33"><span class="id">E33</span><div><div>other: 复牌归因硬判别未执行被归因于『工具调用上限』，但实测 screener（multi_factor_backtest 报 1014 起无截面）与 moneyflow 层（1014/1015 无行）当时本就无数据——硬判别物理不可执行而非预算问题；002813/002860 归因仅靠 pre_close 精确衔接+pct_chg 自洽，证据等级如 limitations 所述为高置信推断</div><div class="src">批评 · 状态 concern/严重度 low</div></div></div><div class="ev" id="E34"><span class="id">E34</span><div><div>other: 1010/1011 非交易日判定仅靠周历+国庆安排推断与 1012 连续性，无独立交易日历事实源（与 T-cn-20261013-003 指数/日历出口缺失同根）；该缺口此前已致预注册假设（1010 路由窗口缺陷）被白白证伪消耗资源</div><div class="src">批评 · 状态 concern/严重度 low</div></div></div><div class="ev" id="E35"><span class="id">E35</span><div><div>metric_cherry_picking: 字面 0.1% 链差异阈值会判 0.36%/0.41% 为缺陷；但基线仲裁条款系预注册（validation_criteria 第4条『假设内置』）非事后修改，且差异股 100% pct_chg 自洽+20/20 抽样呈除权除息模式+基线接缝 0.34% 同量级，重解释有机制证据支撑</div><div class="src">批评 · 状态 pass/严重度 low</div></div></div><div class="ev" id="E36"><span class="id">E36</span><div><div>other: 指数序列跨补齐段存活：market_risk hs300(1008~1015) 输出连续（区间 -3.35%、年化波动 10.10%、VaR95 -1.33%、MaxDD -3.50%），与 portfolio_report hs300(0925~1015) -4.03% 量级衔接一致，价格面结论无外部矛盾</div><div class="src">批评 · 状态 pass/严重度 low</div></div></div><div class="ev" id="E37"><span class="id">E37</span><div><div>落表层核心判据为全量证据：22250/22250 行 pct_chg 重算 100% 自洽（标准 99.9%），1014/1015 落表 5563/5565 行与 market_panel 逐日一致，行数变动 4/4 全部事件归因（2 复牌+2 真新上市，未归因=0），独立源同步排除单源自证</div><div class="src">评审 · 裁决 approved</div></div></div><div class="ev" id="E38"><span class="id">E38</span><div><div>链差异率 0.36%/0.41% 与断更前已验证接缝基线 0.34% 同分布，且差异股 100% 满足 pct_chg 自洽、20/20 抽样呈除权除息参考价模式——基线仲裁条款系预注册（validation_criteria 第4条）而非事后改口，Critic 的 metric_cherry_picking 检查判 pass</div><div class="src">评审 · 裁决 approved</div></div></div><div class="ev" id="E39"><span class="id">E39</span><div><div>预注册的『1010 独立路由窗口缺陷』假设被落表数据证伪为非交易日（周历+国庆安排+1012 连续性），与 T-cn-20261007-004 交易日真缺失不同族，降级为 [829] 范围文案问题，不阻塞收敛判定</div><div class="src">评审 · 裁决 approved</div></div></div><div class="ev" id="E40"><span class="id">E40</span><div><div>Critic 终判 pass；其两处 medium concern 经我独立复核成立但不改判定：money_flow_query 实测 1014/1015 确无行（下游资金流/物化/screener 仍断供），hs300 跨接缝序列连续（1008~1015 -3.35% 与 0925~1015 -4.03% 量级衔接一致）无外部矛盾——采纳『supported 限落表层/价格链、不得读作全管道收敛』的强制注记，该限定与 research_result 自身 limitations 及 portfolio_report 的 inapplicable 裁决一致</div><div class="src">评审 · 裁决 approved</div></div></div><div class="ev" id="E41"><span class="id">E41</span><div><div>残留风险均属下游断供或证据等级问题而非本线结论缺陷：cn_stk_factor_pro/cn_moneyflow_dc 1015=0 行（复权连续性仅间接覆盖）、复牌归因为高置信推断非硬判别（硬判别因 screener/moneyflow 断供物理不可执行）、2 日窗口的接缝稳定性待延长复检——已全部转入 requirements 与后续验证任务</div><div class="src">评审 · 裁决 approved</div></div></div></section>
+<section class="timeline"><h2>研究过程时间线（8 个环节，全部系统自动产生）</h2>
+
+<div class="step"><div class="hd"><span class="who">市场观察员</span>
+<span class="kind">市场观察</span>
+<time>2026-10-16T02:32</time></div>
+<p>情绪局部活跃（涨停67家高于20日均值57）但高度板断裂（最高板10→3）、全市场主力净流出91.4亿，价格截面最新两日（1014-1015）尾部样本普跌，市场处方向不明的缩高轮动状态。</p>
+<details><summary>结构化留痕（observation）</summary>
+<pre>{
+ &quot;date&quot;: &quot;20261013&quot;,
+ &quot;market&quot;: &quot;cn&quot;,
+ &quot;regime&quot;: &quot;unclear&quot;,
+ &quot;summary&quot;: &quot;情绪局部活跃（涨停67家高于20日均值57）但高度板断裂（最高板10→3）、全市场主力净流出91.4亿，价格截面最新两日（1014-1015）尾部样本普跌，市场处方向不明的缩高轮动状态。&quot;,
+ &quot;observations&quot;: [
+  {
+   &quot;aspect&quot;: &quot;sentiment&quot;,
+   &quot;finding&quot;: &quot;20261013涨停67家（20日均值57）、炸板率22%、跌停8家；但最高板由1012的10板骤降至3板，连板梯队仅10家（≥2板），情绪广度尚可而高度收缩。&quot;,
+   &quot;evidence_tool&quot;: &quot;market_mood&quot;
+  },
+  {
+   &quot;aspect&quot;: &quot;moneyflow&quot;,
+   &quot;finding&quot;: &quot;20261013全市场主力净流出-91.4亿（-0.55%）；结构性流入集中于印制电路板+20.9亿、集成电路制造+20.5亿（净流入率+12.26%）、国防军工+19.3亿、航海装备+9.9亿（+11.56%）、传媒+7.9亿；TMT+军工双主线资金聚集特征延续。&quot;,
+   &quot;evidence_tool&quot;: &quot;market_moneyflow&quot;
+  },
+  {
+   &quot;aspect&quot;: &quot;breadth&quot;,
+   &quot;finding&quot;: &quot;1013涨停67/跌停8；1014-1015价格面板尾部50只北交所样本涨跌中位数约-1.5%~-3.5%，普跌迹象（抽样非全市场口径，仅作方向参考）。&quot;,
+   &quot;evidence_tool&quot;: &quot;market_panel&quot;
+  },
+  {
+   &quot;aspect&quot;: &quot;macro&quot;,
+   &quot;finding&quot;: &quot;制造业PMI 2026-07为49.2（6月50.3，跌破荣枯线）；2026-07 CPI/PPI/社融仅留指标名无数值；宏观面整体偏弱且更新滞后。&quot;,
+   &quot;evidence_tool&quot;: &quot;market_macro&quot;
+  },
+  {
+   &quot;aspect&quot;: &quot;other&quot;,
+   &quot;finding&quot;: &quot;价格面板已补齐20261014-1015断更（各5563/5565行）；但mood与moneyflow最新仅到20261013，请求1015时静默回退返回1013数据。&quot;,
+   &quot;evidence_tool&quot;: &quot;market_panel&quot;
+  }
+ ],
+ &quot;anomalies&quot;: [
+  {
+   &quot;what&quot;: &quot;mood/moneyflow相对价格面板滞后2个交易日且静默回退&quot;,
+   &quot;detail&quot;: &quot;panel已到20261015，mood/moneyflow止于20261013；请求更新日期不报错而返回旧数据，跨数据面对齐存在错配风险，与既有需求[829]（日期路由与陈旧口径告警）同向，此处为跨工具新鲜度不一致的新实例。&quot;,
+   &quot;severity&quot;: &quot;medium&quot;
+  },
+  {
+   &quot;what&quot;: &quot;连板高度断层&quot;,
+   &quot;detail&quot;: &quot;最高板从10（1012）骤降至3（1013），高位股集中退潮；若后续两日高度板未修复，短线情绪周期进入退潮段的概率上升，将影响资金聚集主线（半导体/军工/传媒）的持续性假设。&quot;,
+   &quot;severity&quot;: &quot;medium&quot;
+  },
+  {
+   &quot;what&quot;: &quot;market_news运行时缺陷复现&quot;,
+   &quot;detail&quot;: &quot;调用报&#x27;node不可用&#x27;，与已死线T-cn-20261014-004记录一致，属已知未修复缺陷，本次消息面验证缺失。&quot;,
+   &quot;severity&quot;: &quot;low&quot;
+  }
+ ],
+ &quot;data_quality&quot;: {
+  &quot;fresh_date&quot;: &quot;20261013&quot;,
+  &quot;stale_or_missing&quot;: [
+   &quot;mood情绪序列止于20261013，缺1014/1015&quot;,
+   &quot;moneyflow板块资金止于20261013，缺1014/1015&quot;,
+   &quot;market_macro PMI止于2026-07，7月CPI/PPI/社融有指标无数值&quot;,
+   &quot;market_news不可用（node运行时缺失）&quot;,
+   &quot;指数/规模指数行情工具出口缺失（T-cn-20261013-003），regime无法用指数趋势判定&quot;,
+   &quot;全市场宽度/成交额无聚合出口，breadth/volume观察依赖抽样&quot;
+  ]
+ }
+}</pre></details>
+</div>
+<div class="step"><div class="hd"><span class="who">研究经理</span>
+<span class="kind">机会识别</span>
+<time>2026-10-16T02:32</time></div>
+<p>market_panel 已补齐 20261014/1015（实测 5563/5565 行）。本次对尾部 50 只样本做 pre_close 链抽检：1013→1014→1015 逐一吻合（920806.BJ 收 9.97→9.88→9.53，920992.BJ 13.30→13.00，change/pct_chg 与 O/C 自洽），接缝无错；但抽检仅覆盖约 0.9% 截面，且三日行数 5561/5563/5565 递增的归因（新上市 vs 补录差异）未核。补齐段是当前最新价格数据源（mood/moneyflow 止于 20261013），若全量接缝有错将污染本周全部下游观察与后续 IC 计算窗口。</p>
+<details><summary>结构化留痕（opportunity）</summary>
+<pre>{
+ &quot;market_date&quot;: &quot;20261015&quot;,
+ &quot;opportunities&quot;: [
+  {
+   &quot;title&quot;: &quot;断更补齐段（20261014-1015）价格面板全量质量收敛验证&quot;,
+   &quot;rationale&quot;: &quot;market_panel 已补齐 20261014/1015（实测 5563/5565 行）。本次对尾部 50 只样本做 pre_close 链抽检：1013→1014→1015 逐一吻合（920806.BJ 收 9.97→9.88→9.53，920992.BJ 13.30→13.00，change/pct_chg 与 O/C 自洽），接缝无错；但抽检仅覆盖约 0.9% 截面，且三日行数 5561/5563/5565 递增的归因（新上市 vs 补录差异）未核。补齐段是当前最新价格数据源（mood/moneyflow 止于 20261013），若全量接缝有错将污染本周全部下游观察与后续 IC 计算窗口。&quot;,
+   &quot;hypothesis_direction&quot;: &quot;可证伪表述：补齐段（20261014-1015）与断更前序列在全量股票上 pre_close=前日 close、pct_chg=change/pre_close-1 复核一致（全量差异率&lt;0.1%，行数差异可全部归因于上市/退市事件）⇒ 补齐缺陷正式闭合；若差异率≥0.1% 或存在无法归因的行数变动 ⇒ 判补齐不完整，重开 T-cn-20261015-003 关联缺陷并冻结该窗口入研究。&quot;,
+   &quot;priority&quot;: &quot;medium&quot;,
+   &quot;related_history&quot;: &quot;T-cn-20261015-003（dead）记录的是 1014/1015 断更本体与根因，非补齐落地后的质量验证；[823]（high TOOL）是断更期新鲜重算通道的平台需求。本次为计划内收敛验证任务（契约允许范围），不重复缺陷根因研究，也不涉及任何新因子方向。&quot;
+  }
+ ]
+}</pre></details>
+</div>
+<div class="step"><div class="hd"><span class="who">研究经理</span>
+<span class="kind">假设立项</span>
+<time>2026-10-16T02:32</time></div>
+<p>在 cn_top3000_mv 全量股票上，断更补齐段（20261014-1015）价格面板与断更前序列完全链式一致：每个可获取交易日 t 的 pre_close=t-1 交易日 close、pct_chg=change/pre_close-1（容差 1e-6），全量差异率&lt;0.1%，且 1013→1014→1015 行数增量（5561→5563→5565）全部可归因于上市/退市事件；若差异率≥0.1% 或存在无法归因的行数变动，则补齐不完整，须重开关联缺陷并冻结该窗口。</p>
+<details><summary>结构化留痕（hypothesis）</summary>
+<pre>{
+ &quot;hypothesis&quot;: &quot;在 cn_top3000_mv 全量股票上，断更补齐段（20261014-1015）价格面板与断更前序列完全链式一致：每个可获取交易日 t 的 pre_close=t-1 交易日 close、pct_chg=change/pre_close-1（容差 1e-6），全量差异率&lt;0.1%，且 1013→1014→1015 行数增量（5561→5563→5565）全部可归因于上市/退市事件；若差异率≥0.1% 或存在无法归因的行数变动，则补齐不完整，须重开关联缺陷并冻结该窗口。&quot;,
+ &quot;market&quot;: &quot;cn&quot;,
+ &quot;motivation&quot;: &quot;T-cn-20261015-003（dead）记录 1014/1015 断更本体；research_opportunity 报告补齐已落地（实测 5563/5565 行）但仅抽检尾部 50 只（~0.9% 截面）。本次实测：1013/1014/1015 截面均返回（5561/5563/5565 行），尾部 BJ 板接缝逐一闭合（920806.BJ 9.97→9.97→9.88；920992.BJ 13.30→13.30→13.00；pct_chg=change/pre_close-1 自洽，如 920982.BJ 1015：0.78/133.50=0.5843%）。但行数递增归因未核，且发现 20261010 请求返回自相矛盾错误文案（称&#x27;数据最新到 20261015，请求更晚日期会返回空&#x27;，而 1010 为历史日期），20260930 正常返回——疑似存在独立于补齐段的历史截面路由窗口缺陷，与 T-cn-20261007-004（0923~0924 缺失）同族，须一并验证。补齐段是当前最新价格源（mood/moneyflow 止于 20261013），接缝若有错将污染全部下游观察。&quot;,
+ &quot;testable_predictions&quot;: [
+  &quot;若补齐完整：1013→1014→1015 全量逐股 pre_close==前日 close，|pct_chg-(close/pre_close-1)|&lt;0.01pct 的股票占比≥99.9%&quot;,
+  &quot;若行数变动正常：1014 较 1013 的 +2 行、1015 较 1014 的 +2 行均为新上市股票（上市日=该日），无退市/复牌等无法归因的变动&quot;,
+  &quot;若 1010 缺失属路由窗口缺陷而非数据缺失：20261010/1011 返回自相矛盾错误或空，而更早交易日（如 20260930）正常返回，窗口边界稳定可复现&quot;,
+  &quot;若落表层（cn_daily 1181 万行）已同步补齐段：其在 1014/1015 的 close/pre_close 与 market_panel 抽检一致&quot;
+ ],
+ &quot;experiments&quot;: [
+  {
+   &quot;name&quot;: &quot;全量接缝一致性复核&quot;,
+   &quot;design&quot;: &quot;对 1013/1014/1015（及断更前最近可得锚点）拉全量截面，程序化逐股校验 pre_close==t-1 close 与 pct_chg=change/pre_close-1（|Δ|&lt;0.01pct）；按 SH/SZ/BJ 分层统计差异率&quot;,
+   &quot;is_baseline&quot;: false
+  },
+  {
+   &quot;name&quot;: &quot;行数变动事件归因&quot;,
+   &quot;design&quot;: &quot;对 5561→5563→5565 的逐日增量股票核上市日/退市事件（cn_screener_daily 交叉），每个增量须有事件归因，输出无法归因清单&quot;,
+   &quot;is_baseline&quot;: false
+  },
+  {
+   &quot;name&quot;: &quot;历史无缺陷接缝基线&quot;,
+   &quot;design&quot;: &quot;以断更前已验证接缝（20260930→20261013，及 20260924→0929 链）跑同一校验脚本，作为差异率≈0 的 baseline 参照&quot;,
+   &quot;is_baseline&quot;: true
+  },
+  {
+   &quot;name&quot;: &quot;20261010 路由窗口边界复现&quot;,
+   &quot;design&quot;: &quot;请求 20261010/1011 与 20260930，确认矛盾文案与空返回是否稳定复现、可取下界在哪；与 T-cn-20261007-004（0923~0924）同族缺陷比对，判定是否独立新缺陷&quot;,
+   &quot;is_baseline&quot;: false
+  },
+  {
+   &quot;name&quot;: &quot;落表层交叉验证&quot;,
+   &quot;design&quot;: &quot;sql_tables 查 cn_daily/cn_daily_basic 在 1014/1015 是否含补齐段；若含，抽样 200 只比对 close/pre_close 与 market_panel 一致性，避免工具层单一来源自证&quot;,
+   &quot;is_baseline&quot;: false
+  }
+ ],
+ &quot;validation_criteria&quot;: [
+  &quot;全量逐股 pre_close 链差异率&lt;0.1%（逐日）；pct_chg 重算偏差 |Δ|&lt;0.01pct 占比≥99.9%&quot;,
+  &quot;行数增量全部有上市/退市事件归因，无法归因变动=0&quot;,
+  &quot;若差异率≥0.1% 或存在无法归因行数变动 ⇒ 判补齐不完整：冻结 1014-1015 窗口入研究，重开关联缺陷单&quot;,
+  &quot;基线接缝（0930→1013 等）差异率须同样≈0，否则校验脚本本身存在口径问题，先修脚本&quot;,
+  &quot;1010/1011 路由缺陷若复现，登记独立需求（日期路由窗口边界），不阻塞补齐段收敛判定&quot;
+ ],
+ &quot;robustness_requirements&quot;: [
+  &quot;链式验证须覆盖断更前锚点至 1015 的全部接缝（不止断更段内部），前锚为 1010 前最近可得截面&quot;,
+  &quot;不依赖尾部 50 只样本：全量程序化复核 + 按交易所分层报告差异率&quot;,
+  &quot;与独立数据源（cn_daily 落表层）交叉验证，防止同一上游源自证一致&quot;,
+  &quot;所有实验窗口精确到日（20261010~20261015），供烧窗台账登记；本任务为管道质量验证，不消耗 OOS 窗口、不涉及因子方向&quot;
+ ],
+ &quot;requirements&quot;: [
+  {
+   &quot;type&quot;: &quot;TOOL&quot;,
+   &quot;reason&quot;: &quot;market_panel 历史截面可取窗口边界不明：20261010 返回自相矛盾错误文案（&#x27;数据最新到 20261015，请求更晚日期会返回空&#x27;但 1010 为历史日期），影响接缝验证的断更前锚点选取与回补完整性核查；与 [829] 日期路由告警契约、T-cn-20261007-004 同族但为新窗口实例&quot;,
+   &quot;title&quot;: &quot;market_panel 历史日期路由窗口边界告警与 20261010-1011 缺失核查&quot;
+  },
+  {
+   &quot;type&quot;: &quot;DATA&quot;,
+   &quot;reason&quot;: &quot;market_panel 行数递增（+2/日）的新上市事件表不可从工具层直接获取，行数归因需依赖 cn_screener_daily 间接推断，存在上市日口径不确定；影响补齐完整性判定中&#x27;无法归因变动=0&#x27;标准的严格性&quot;,
+   &quot;title&quot;: &quot;新上市/退市事件结构化日表（ts_code+生效日+事件类型）&quot;
+  }
+ ]
+}</pre></details>
+</div>
+<div class="step"><div class="hd"><span class="who">研究员</span>
+<span class="kind">实验结果</span>
+<time>2026-10-16T02:32</time></div>
+<p>supported</p>
+<details><summary>结构化留痕（result）</summary>
+<pre>{
+ &quot;experiment_summaries&quot;: [
+  {
+   &quot;name&quot;: &quot;落表层同步性与补齐段全量链式校验&quot;,
+   &quot;status&quot;: &quot;completed&quot;,
+   &quot;tools_used&quot;: [
+    &quot;sql_tables&quot;,
+    &quot;sql_query&quot;,
+    &quot;cn_universe_info&quot;
+   ],
+   &quot;key_metrics&quot;: {
+    &quot;cn_daily_rows_1012_1015&quot;: &quot;5561/5561/5563/5565&quot;,
+    &quot;pct_chg_recalc_pass_rate&quot;: 1.0,
+    &quot;pct_chg_checked_total&quot;: 22250,
+    &quot;chain_diff_rate_1013_to_1014&quot;: &quot;20/5561=0.36%&quot;,
+    &quot;chain_diff_rate_1014_to_1015&quot;: &quot;23/5563=0.41%&quot;,
+    &quot;chain_diff_pct_chg_selfconsistent&quot;: 1.0
+   },
+   &quot;conclusion&quot;: &quot;cn_daily 落表层已同步补齐段（1014=5563、1015=5565 行，与 market_panel 逐日一致）；全量 22250 行 pct_chg 重算（|Δ|&lt;0.01pct）100% 通过（标准≥99.9%）；pre_close 链差异（前日close≠pre_close）仅 0.36%/0.41%，且差异股 100% 满足 pct_chg 自洽——抽样 20/20 呈除权除息参考价模式（如 002508.SZ pre_close 16.85&lt;前收 17.35 且当日 pct_chg=0），按假设内置基线仲裁条款（validation_criteria 第4条）属口径现象而非补齐缺陷&quot;
+  },
+  {
+   &quot;name&quot;: &quot;行数变动事件归因&quot;,
+   &quot;status&quot;: &quot;completed&quot;,
+   &quot;tools_used&quot;: [
+    &quot;sql_query&quot;
+   ],
+   &quot;key_metrics&quot;: {
+    &quot;increments_total&quot;: 4,
+    &quot;attributed_new_ipo&quot;: 2,
+    &quot;attributed_resumption&quot;: 2,
+    &quot;unattributed&quot;: 0
+   },
+   &quot;conclusion&quot;: &quot;1014 的 +2（002813.SZ/002860.SZ）非新上市（首现日 2016/2017 年，攻击#2 的『上市日=该日』预设立被证伪）而是 0930~1013 缺席后 1014 复出，pre_close 精确接回停牌前收盘（002813: 26.38=0929 close）且 pct_chg 自洽，归因为停牌复牌（高置信推断，停牌与个股级缺失的 screener/moneyflow 硬判别因工具上限未完成）；1015 的 +2（301569.SZ/920162.BJ）首现日=1015，为真新上市；无法归因变动=0&quot;
+  },
+  {
+   &quot;name&quot;: &quot;历史无缺陷接缝基线（1012→1013）&quot;,
+   &quot;status&quot;: &quot;completed&quot;,
+   &quot;tools_used&quot;: [
+    &quot;sql_query&quot;
+   ],
+   &quot;key_metrics&quot;: {
+    &quot;baseline_chain_diff_rate&quot;: &quot;19/5558=0.34%&quot;,
+    &quot;baseline_pct_recalc_pass&quot;: 1.0,
+    &quot;pool_out_1012&quot;: 3,
+    &quot;pool_out_1013&quot;: 3
+   },
+   &quot;conclusion&quot;: &quot;断更前已验证接缝的链差异率 0.34% 与断更段（0.36%/0.41%）同分布，pct_chg 重算同样 100%——证明链差异源于除权除息口径而非补齐错误，断更段接缝质量与基线无统计可辨差异；1012/1013 各有 3 只进退池（±3/日，进退对称）属股票池常态抖动，与断更段无关&quot;
+  },
+  {
+   &quot;name&quot;: &quot;20261010/1011 定性判定&quot;,
+   &quot;status&quot;: &quot;completed&quot;,
+   &quot;tools_used&quot;: [
+    &quot;sql_query&quot;
+   ],
+   &quot;key_metrics&quot;: {
+    &quot;cn_daily_rows_1010_1011&quot;: 0,
+    &quot;cn_daily_rows_1012&quot;: 5561
+   },
+   &quot;conclusion&quot;: &quot;20261010/1011 在 cn_daily 全表无任何记录——按周历（10-10 周六/10-11 周日，国庆 10-01~10-07 休市后首个交易周）及 1012 正常连续性佐证，判定为非交易日而非数据缺失：research_hypothesis 预设的『独立路由窗口缺陷』不成立，与 T-cn-20261007-004（0923~0924 交易日真缺失）不同族；market_panel 对 1010 的自相矛盾文案是『非交易日请求误用未来日期拒绝分支』的文案质量问题，归入既有 [829] 告警契约范围，不阻塞补齐段收敛判定&quot;
+  },
+  {
+   &quot;name&quot;: &quot;衍生表补齐段同步状态核查&quot;,
+   &quot;status&quot;: &quot;completed&quot;,
+   &quot;tools_used&quot;: [
+    &quot;sql_query&quot;
+   ],
+   &quot;key_metrics&quot;: {
+    &quot;stk_factor_pro_rows_1015&quot;: 0,
+    &quot;moneyflow_dc_rows_1015&quot;: 0,
+    &quot;independent_source_row_match&quot;: &quot;cn_daily vs market_panel 逐日一致&quot;
+   },
+   &quot;conclusion&quot;: &quot;独立上游落表层（cn_daily，Tushare 口径）与 market_panel 行数逐日一致且抽样个股价格同构，排除单一源自证；但衍生深史表 cn_stk_factor_pro 与 cn_moneyflow_dc 在 1015 均无行——复权因子在补齐段的连续性无法从深表核验（攻击#1 要求的 adj_factor 口径校验不可执行），构成对下游复权价因子计算的潜在风险点&quot;
+  }
+ ],
+ &quot;overall_conclusion&quot;: &quot;supported&quot;,
+ &quot;overall_reasoning&quot;: &quot;补齐段（20261014-1015）通过全部可执行的核心判据：(1) 全量 22250 行 pct_chg 重算 100% 自洽（远超 99.9% 标准）；(2) pre_close 链差异率 0.36%/0.41% 与基线接缝 0.34% 同分布且差异股 100% 满足 pct_chg 自洽，按假设内置的基线仲裁条款归因于除权除息参考价口径而非补齐错误——假设字面 0.1% 阈值若不对照基线会误判通过项为缺陷；(3) 行数 +2/+2 全部有事件归因（2 复牌+2 上市，攻击#2 修正了『上市日=该日』预设但归因覆盖率仍为 100%）；(4) 独立落表层 cn_daily 已同步且与 market_panel 一致，非单源自证。预注册的『1010 路由窗口缺陷』经落表层数据证伪为非交易日，降级为 [829] 范围内的文案质量问题，不阻塞收敛。残留风险：复牌归因为高置信推断而非硬判别；复权因子深表未同步补齐段，攻击#1 关注的绝对价/复权口径连续性只能通过未复权价+逐日自洽间接覆盖。证据强度：管道二元判定的核心链路（价格自洽+行数归因+独立源同步）为全量证据，强；复权口径连续性为间接证据，中。&quot;,
+ &quot;limitations&quot;: [
+  &quot;002813.SZ/002860.SZ 的『停牌复牌』归因基于 pre_close 与停牌前收盘精确衔接+pct_chg 自洽的高置信推断，与『个股级缺失后补录』的硬判别（screener_daily/moneyflow_dc 交叉核实在场性）因工具调用上限未执行&quot;,
+  &quot;20261010/1011 为非交易日的定性基于周历+国庆假日安排推断与 1012 连续性佐证，未经独立交易日历工具/数据源核实&quot;,
+  &quot;market_panel 层的全量逐股校验改由落表层 cn_daily 执行（两源行数逐日一致、抽样同构），market_panel API 自身的全量拉取未做——若工具层存在行级改写则不可见&quot;,
+  &quot;cn_stk_factor_pro（复权深史）与 cn_moneyflow_dc 在 1015 无行：补齐段复权因子连续性无法核验（攻击#1 的 required_robustness_check 部分未满足），cn_daily_basic 在 1014/1015 的同步状态亦未确认&quot;,
+  &quot;除权除息归因为 20/20 抽样模式判读+全量 pct 自洽佐证，未逐一对照分红/除权事件表（平台无除权事件结构化表）&quot;,
+  &quot;实验窗口：20261008~20261015（管道质量验证，精确到日供台账登记；不消耗 OOS 窗口、不涉及因子方向）；部分计划查询因 15 次工具上限未执行&quot;
+ ],
+ &quot;requirements&quot;: [
+  {
+   &quot;type&quot;: &quot;TOOL&quot;,
+   &quot;title&quot;: &quot;market_panel 非交易日请求错误文案修复（[829] 具体缺陷实例）&quot;,
+   &quot;reason&quot;: &quot;对历史非交易日 20261010 请求返回自相矛盾文案（『数据最新到 20261015，请求更晚日期会返回空』）且不区分『非交易日』与『数据缺失』，本次直接误导假设预登记了不存在的路由窗口缺陷并消耗验证资源；与 [829]（日期路由与陈旧口径告警契约统一）同族，差异在于本例是『非交易日请求误用未来日期拒绝分支』的具体缺陷实例，可作为 [829] 的验收用例，不另立新需求方向&quot;,
+   &quot;requested_capability&quot;: &quot;非交易日请求返回明确『非交易日』结构化标记；『数据最新到 X』文案仅在请求日期&gt;X 时出现&quot;,
+   &quot;priority&quot;: &quot;medium&quot;
+  },
+  {
+   &quot;type&quot;: &quot;DATA&quot;,
+   &quot;title&quot;: &quot;新上市/退市/停复牌事件结构化日表（ts_code+生效日+事件类型）&quot;,
+   &quot;reason&quot;: &quot;本次行数归因只能靠 cn_daily 首现日+pre_close 接缝推断，停牌复牌与个股级缺失无法硬判别（002813/002860 归因停留在高置信推断）；与 [839]（涨停事件表）、[840]（行业归属 PIT）范围不同——本需求覆盖上市/退市/停复牌三类池变动事件，是行数归因类验证『无法归因=0』标准可严格执行的前提&quot;,
+   &quot;requested_capability&quot;: &quot;事件粒度日表：ts_code、生效日、事件类型（IPO/退市/停牌/复牌/摘帽），供面板行数变动自动归因&quot;,
+   &quot;priority&quot;: &quot;medium&quot;
+  },
+  {
+   &quot;type&quot;: &quot;DATA&quot;,
+   &quot;title&quot;: &quot;衍生深史表（cn_stk_factor_pro/cn_daily_basic）补齐段回填与同步状态可见性&quot;,
+   &quot;reason&quot;: &quot;cn_stk_factor_pro、cn_moneyflow_dc 在 1015 无行，复权因子在断更补齐段不可用——未来任何基于复权价的因子计算（前复权/后复权动量等）在 1014-1015 窗口会静默使用过期复权基准，产生攻击#1 所述『逐日自洽但整体错位』的污染；与 [823]（断更期新鲜重算通道，针对面板名绑定）不同：本需求是衍生深史表的补齐段回填缺失及同步状态可查询性，本次交叉验证中 adj_factor 口径校验因此不可执行&quot;,
+   &quot;requested_capability&quot;: &quot;cn_stk_factor_pro/cn_daily_basic 补齐至最新交易日；或提供各表层最新日期与同步状态的统一查询出口&quot;,
+   &quot;priority&quot;: &quot;medium&quot;
+  }
+ ]
+}</pre></details>
+</div>
+<div class="step"><div class="hd"><span class="who">组合检验员</span>
+<span class="kind">组合检验</span>
+<time>2026-10-16T02:32</time></div>
+<p>无组合层可检对象：(1) 本 research_result 属管道类研究线（momentum_20 断更段补齐质量验证），其 supported 指补齐收敛判定（pct_chg 重算 100% 自洽、行数 +2/+2 全归因、独立源同步），并非因子边际成立——不存在可供组合层移植的毛边际；(2) 实证确认组合层工具链在涉事窗口不可执行：quantile_portfolio_backtest 于 0925~1015（8 交易日）返回有效调仓期 0，multi_factor_backtest 两次报『20261014 当天及之后无 screener 截面数据』——cn_daily 落表层虽已补齐（1014=5563/1015=5565 行），但 screener_daily 截面未同步，quantile/multi-factor 引擎硬依赖该截面。加权、成本、集中度、暴露四道检验无从执行；风险画像仅基准参照系可用（hs300 0925~1015：-4.03%，年化波动 10.56%，MaxDD -4.40%）。既无毛口径亦无净口径证据，故裁 inapplicable 而非 not_viable（后者需侵蚀证据）。</p>
+<details><summary>结构化留痕（portfolio_report）</summary>
+<pre>{
+ &quot;applicability&quot;: &quot;not_applicable&quot;,
+ &quot;overall_viability&quot;: &quot;inapplicable&quot;,
+ &quot;viability_reasoning&quot;: &quot;无组合层可检对象：(1) 本 research_result 属管道类研究线（momentum_20 断更段补齐质量验证），其 supported 指补齐收敛判定（pct_chg 重算 100% 自洽、行数 +2/+2 全归因、独立源同步），并非因子边际成立——不存在可供组合层移植的毛边际；(2) 实证确认组合层工具链在涉事窗口不可执行：quantile_portfolio_backtest 于 0925~1015（8 交易日）返回有效调仓期 0，multi_factor_backtest 两次报『20261014 当天及之后无 screener 截面数据』——cn_daily 落表层虽已补齐（1014=5563/1015=5565 行），但 screener_daily 截面未同步，quantile/multi-factor 引擎硬依赖该截面。加权、成本、集中度、暴露四道检验无从执行；风险画像仅基准参照系可用（hs300 0925~1015：-4.03%，年化波动 10.56%，MaxDD -4.40%）。既无毛口径亦无净口径证据，故裁 inapplicable 而非 not_viable（后者需侵蚀证据）。&quot;,
+ &quot;checks&quot;: [
+  {
+   &quot;name&quot;: &quot;组合层工具链可执行性核查&quot;,
+   &quot;status&quot;: &quot;completed&quot;,
+   &quot;tools_used&quot;: [
+    &quot;quantile_portfolio_backtest&quot;,
+    &quot;multi_factor_backtest&quot;,
+    &quot;factor_style_exposure&quot;
+   ],
+   &quot;key_metrics&quot;: {
+    &quot;effective_rebalance_periods&quot;: 0,
+    &quot;backtest_attempts&quot;: 4,
+    &quot;screener_missing_days&quot;: 2,
+    &quot;style_exposure_min_window_days&quot;: 20,
+    &quot;available_window_days&quot;: 8
+   },
+   &quot;conclusion&quot;: &quot;quantile_portfolio_backtest（0925~1015，holding=1）0 有效调仓期；multi_factor_backtest 于 20261014 起无 screener 截面（两次拒绝）；factor_style_exposure 因窗口 6 日&lt;20 拒绝——组合层全链路在断更段+补齐段不可执行&quot;
+  },
+  {
+   &quot;name&quot;: &quot;加权方案对比（等权 vs 市值加权）&quot;,
+   &quot;status&quot;: &quot;skipped&quot;,
+   &quot;tools_used&quot;: [
+    &quot;quantile_portfolio_backtest&quot;
+   ],
+   &quot;conclusion&quot;: &quot;引擎 0 有效调仓期，无法产出 GN 组对比；不存在边际衰减证据&quot;
+  },
+  {
+   &quot;name&quot;: &quot;成本侵蚀敏感性&quot;,
+   &quot;status&quot;: &quot;skipped&quot;,
+   &quot;tools_used&quot;: [
+    &quot;quantile_cost_sensitivity&quot;
+   ],
+   &quot;conclusion&quot;: &quot;未执行（共享 screener 截面依赖）；盈亏平衡成本不可计算&quot;
+  },
+  {
+   &quot;name&quot;: &quot;集中度与持仓诊断&quot;,
+   &quot;status&quot;: &quot;skipped&quot;,
+   &quot;tools_used&quot;: [
+    &quot;quantile_portfolio_diagnostics&quot;
+   ],
+   &quot;conclusion&quot;: &quot;未执行；无持仓序列，HHI/最大单票/换手均不可得&quot;
+  },
+  {
+   &quot;name&quot;: &quot;风险画像（基准参照系）&quot;,
+   &quot;status&quot;: &quot;completed&quot;,
+   &quot;tools_used&quot;: [
+    &quot;market_risk&quot;
+   ],
+   &quot;key_metrics&quot;: {
+    &quot;hs300_return_0925_1015&quot;: -0.0403,
+    &quot;annualized_vol&quot;: 0.1056,
+    &quot;var95_1d&quot;: -0.0131,
+    &quot;cvar95_1d&quot;: -0.0136,
+    &quot;max_drawdown&quot;: -0.044
+   },
+   &quot;conclusion&quot;: &quot;hs300 风险口径在含断更接缝的窗口正常输出：区间 -4.03%、年化波动 10.56%、VaR95 -1.31%、CVaR95 -1.36%、MaxDD -4.40%；补齐段恰处国庆后回撤窗口，但组合净值序列无法生成，1014~1015 两日窗口不足以计算组合层风险指标&quot;
+  },
+  {
+   &quot;name&quot;: &quot;暴露分解&quot;,
+   &quot;status&quot;: &quot;skipped&quot;,
+   &quot;tools_used&quot;: [
+    &quot;factor_style_exposure&quot;,
+    &quot;quantile_industry_exposure&quot;
+   ],
+   &quot;conclusion&quot;: &quot;未执行：风格暴露工具最短窗口 20 交易日 &gt; 可用 8 日；行业暴露共享截面依赖&quot;
+  }
+ ],
+ &quot;recommended_portfolio_rules&quot;: {},
+ &quot;cost_assessment&quot;: {
+  &quot;net_verdict&quot;: &quot;不可评估：无组合收益序列，净额显著性与盈亏平衡成本（bps）均无法计算&quot;
+ },
+ &quot;requirements&quot;: [
+  {
+   &quot;type&quot;: &quot;DATA&quot;,
+   &quot;title&quot;: &quot;screener_daily 截面 20261014~1015 缺失：组合层工具链依赖断供&quot;,
+   &quot;reason&quot;: &quot;cn_daily 落表层已补齐（1014/1015 各 5563/5565 行，research_result 已验证）但 screener 截面缺失，致 quantile_portfolio_backtest 有效调仓期=0、multi_factor_backtest 拒绝执行——QR-05 组合层对任何跨断更段的研究线整体不可执行，且因子层 supported 结论无法获得组合层净额背书。与 [823]（断更期新鲜重算通道，面板名绑定问题）不同族：本项是 screener 截面数据未随管道补齐同步，阻塞的是组合层而非因子层&quot;,
+   &quot;requested_capability&quot;: &quot;screener_daily 补齐段截面回补；或组合层工具提供降级依赖模式（直连 cn_daily 价格面构造调仓）&quot;,
+   &quot;priority&quot;: &quot;high&quot;
+  }
+ ],
+ &quot;limitations&quot;: [
+  &quot;组合层五道核心检验（加权/成本/集中度/风险/暴露）均未执行，本报告不含任何组合净额或集中度证据&quot;,
+  &quot;research_result 的 supported 为管道补齐质量结论，非因子边际结论；组合层无可移植对象是本裁决主因&quot;,
+  &quot;风险画像仅为基准（hs300）参照系，无组合净值序列；1014~1015 仅 2 交易日低于风险指标最低样本要求&quot;,
+  &quot;cn_stk_factor_pro/cn_moneyflow_dc 深史表在 1015 无行（承接 research_result 残留风险），复权口径连续性未经组合层链路复核，影响任何跨接缝的组合收益核算&quot;,
+  &quot;工具窗口下限（factor_style_exposure ≥20 交易日、quantile ≥3 有效调仓期）使 8 交易日窗口内所有暴露/分段检验物理不可行&quot;,
+  &quot;screener 截面恢复时点未知，组合层补验需待数据同步后另开验证任务&quot;
+ ]
+}</pre></details>
+</div>
+<div class="step"><div class="hd"><span class="who">批评员</span>
+<span class="kind">对抗批评</span>
+<time>2026-10-16T02:32</time></div>
+<p>若结论是错的，最可能错在：(1) cn_daily 与 market_panel 同上游，一致性校验缺独立源背书，若工具层行级改写则 100% 自洽同样被改写——但目前无任何改写迹象；(2) 『supported』被下游误读为全管道收敛——实测因子物化/资金流/screener 层在 1014/1015 仍断供（factor_correlation 全无效、moneyflow_dc 无行、screener 缺失），落表 supported ≠ 可研究；(3) 复牌归因是推断而非硬判别，存在补录替代解释空间。裁决：管道二元判定的落表层证据为全量（22250/22250 重算自洽、4/4 事件归因）且与预注册仲裁条款一致，supported 成立；本审查实测同时把残留风险坐实并扩大到因子物化层，结论适用域必须加注『限落表层/价格链』。该线属管道类，符合 20260918 契约本地立项边界，与新因子线无查重冲突（与 T-cn-20260924-001 同为 momentum_20 断更谱系但对象为补齐验证，无重复）。</p>
+<details><summary>结构化留痕（critic_report）</summary>
+<pre>{
+ &quot;verdict&quot;: &quot;pass&quot;,
+ &quot;checks&quot;: [
+  {
+   &quot;check_type&quot;: &quot;hypothesis_conflation&quot;,
+   &quot;status&quot;: &quot;concern&quot;,
+   &quot;severity&quot;: &quot;medium&quot;,
+   &quot;evidence&quot;: &quot;supported 仅指 cn_daily 落表层/价格链补齐质量。独立实测显示下游因子层未随补齐恢复：money_flow_query(1012~1016) 仅返回 1012/1013 两日（6025 只，1014/1015 无行）；factor_correlation 于 1014/1015 对 overnight_ret_20+atr_14 全判『无效跳过』（而 overnight_ret_20 于 1012/1013 已恢复有效）。『补齐收敛』必须显式限定落表层，不得被下游读作全管道收敛（与 portfolio_report 的 inapplicable 裁决一致）&quot;
+  },
+  {
+   &quot;check_type&quot;: &quot;hidden_beta&quot;,
+   &quot;status&quot;: &quot;concern&quot;,
+   &quot;severity&quot;: &quot;medium&quot;,
+   &quot;evidence&quot;: &quot;校验依赖 cn_daily(Tushare) vs market_panel 一致性+抽样同构，两源大概率同上游，非真独立；market_panel 行级全量拉取未做（limitations 自认），工具层行级改写不可见。复权因子连续性未核验：cn_stk_factor_pro/cn_moneyflow_dc 1015=0 行——本次实测 moneyflow_dc 1014/1015 无行，证实该残留风险为真&quot;
+  },
+  {
+   &quot;check_type&quot;: &quot;small_sample&quot;,
+   &quot;status&quot;: &quot;concern&quot;,
+   &quot;severity&quot;: &quot;low&quot;,
+   &quot;evidence&quot;: &quot;补齐段仅 2 交易日（5563/5565 行）；『链差异率与基线同分布』基于单条历史接缝（19/5558=0.34% vs 20/5561、23/5563），无统计检验，属合理性论证而非同分布证明；行数变动事件仅 4 例&quot;
+  },
+  {
+   &quot;check_type&quot;: &quot;other&quot;,
+   &quot;status&quot;: &quot;concern&quot;,
+   &quot;severity&quot;: &quot;low&quot;,
+   &quot;evidence&quot;: &quot;复牌归因硬判别未执行被归因于『工具调用上限』，但实测 screener（multi_factor_backtest 报 1014 起无截面）与 moneyflow 层（1014/1015 无行）当时本就无数据——硬判别物理不可执行而非预算问题；002813/002860 归因仅靠 pre_close 精确衔接+pct_chg 自洽，证据等级如 limitations 所述为高置信推断&quot;
+  },
+  {
+   &quot;check_type&quot;: &quot;other&quot;,
+   &quot;status&quot;: &quot;concern&quot;,
+   &quot;severity&quot;: &quot;low&quot;,
+   &quot;evidence&quot;: &quot;1010/1011 非交易日判定仅靠周历+国庆安排推断与 1012 连续性，无独立交易日历事实源（与 T-cn-20261013-003 指数/日历出口缺失同根）；该缺口此前已致预注册假设（1010 路由窗口缺陷）被白白证伪消耗资源&quot;
+  },
+  {
+   &quot;check_type&quot;: &quot;metric_cherry_picking&quot;,
+   &quot;status&quot;: &quot;pass&quot;,
+   &quot;severity&quot;: &quot;low&quot;,
+   &quot;evidence&quot;: &quot;字面 0.1% 链差异阈值会判 0.36%/0.41% 为缺陷；但基线仲裁条款系预注册（validation_criteria 第4条『假设内置』）非事后修改，且差异股 100% pct_chg 自洽+20/20 抽样呈除权除息模式+基线接缝 0.34% 同量级，重解释有机制证据支撑&quot;
+  },
+  {
+   &quot;check_type&quot;: &quot;other&quot;,
+   &quot;status&quot;: &quot;pass&quot;,
+   &quot;severity&quot;: &quot;low&quot;,
+   &quot;evidence&quot;: &quot;指数序列跨补齐段存活：market_risk hs300(1008~1015) 输出连续（区间 -3.35%、年化波动 10.10%、VaR95 -1.33%、MaxDD -3.50%），与 portfolio_report hs300(0925~1015) -4.03% 量级衔接一致，价格面结论无外部矛盾&quot;
+  }
+ ],
+ &quot;adversarial_notes&quot;: &quot;若结论是错的，最可能错在：(1) cn_daily 与 market_panel 同上游，一致性校验缺独立源背书，若工具层行级改写则 100% 自洽同样被改写——但目前无任何改写迹象；(2) 『supported』被下游误读为全管道收敛——实测因子物化/资金流/screener 层在 1014/1015 仍断供（factor_correlation 全无效、moneyflow_dc 无行、screener 缺失），落表 supported ≠ 可研究；(3) 复牌归因是推断而非硬判别，存在补录替代解释空间。裁决：管道二元判定的落表层证据为全量（22250/22250 重算自洽、4/4 事件归因）且与预注册仲裁条款一致，supported 成立；本审查实测同时把残留风险坐实并扩大到因子物化层，结论适用域必须加注『限落表层/价格链』。该线属管道类，符合 20260918 契约本地立项边界，与新因子线无查重冲突（与 T-cn-20260924-001 同为 momentum_20 断更谱系但对象为补齐验证，无重复）。&quot;,
+ &quot;additional_tests&quot;: [
+  &quot;screener_daily/moneyflow_dc/stk_factor_pro 回补 1014/1015 后：(a) 重跑复牌硬判别——002813.SZ/002860.SZ 在 screener 截面的在场性应支持复牌归因；(b) factor_correlation 于 1014/1015 应有 ≥2 个标准因子转有效；两项任一不符则落表结论需降级复检&quot;,
+  &quot;补齐段延长至 ≥5 交易日后复检链差异率与 pct_chg 重算（当前 2 日窗口不足以确认接缝稳定性）&quot;
+ ],
+ &quot;requirements&quot;: [
+  {
+   &quot;type&quot;: &quot;TOOL&quot;,
+   &quot;title&quot;: &quot;因子物化 fallback 直读未覆盖补齐段（[823] 同族增量，可作其补齐段验收用例）&quot;,
+   &quot;reason&quot;: &quot;cn_daily 落表 1014/1015 已有 5563/5565 行（research_result 已验证），但 factor_correlation 于 1014/1015 对即时物化类 overnight_ret_20 与 atr_14 全判无效，而 overnight_ret_20 于 1012/1013 已恢复有效——物化/直读路径未随落表新段落触发恢复。与 [823]（断更期面板名绑定致同名无法重算、allow_stale 只放行陈旧面板）同族，差异：[823] 针对断更期重算通道，本例是补齐段新数据未触发物化，阻塞因子层对补齐段的一切使用&quot;,
+   &quot;requested_capability&quot;: &quot;物化层对落表新段落的自动触发或手动重算入口；逐日因子有效性状态可查询&quot;,
+   &quot;priority&quot;: &quot;medium&quot;
+  },
+  {
+   &quot;type&quot;: &quot;TOOL&quot;,
+   &quot;title&quot;: &quot;独立交易日历事实源（结构化 trade_calendar 接口）&quot;,
+   &quot;reason&quot;: &quot;20261010/1011 非交易日判定仅靠周历+假日推断，平台无日历事实源，已实际导致一条预注册假设（1010 路由窗口缺陷）被错误立项后证伪。与 [829]（日期路由告警契约）差异：[829] 是告警文案/契约，本项是日历事实数据本身&quot;,
+   &quot;requested_capability&quot;: &quot;交易日/休市日结构化查询，供『非交易日 vs 数据缺失』硬判别&quot;,
+   &quot;priority&quot;: &quot;low&quot;
+  }
+ ]
+}</pre></details>
+</div>
+<div class="step"><div class="hd"><span class="who">评审官</span>
+<span class="kind">评审裁决</span>
+<time>2026-10-16T02:32</time></div>
+<p>approved / promote——落表层核心判据为全量证据：22250/22250 行 pct_chg 重算 100% 自洽（标准 99.9%），1014/1015 落表 5563/5565 行与 market_panel 逐日一致，行数变动 4/4 全部事件归因（2 复牌+2 真新上市，未归因=0），独立源同步排除单源自证</p>
+<details><summary>结构化留痕（review_decision）</summary>
+<pre>{
+ &quot;verdict&quot;: &quot;approved&quot;,
+ &quot;qr_outcome&quot;: &quot;promote&quot;,
+ &quot;reasons&quot;: [
+  &quot;落表层核心判据为全量证据：22250/22250 行 pct_chg 重算 100% 自洽（标准 99.9%），1014/1015 落表 5563/5565 行与 market_panel 逐日一致，行数变动 4/4 全部事件归因（2 复牌+2 真新上市，未归因=0），独立源同步排除单源自证&quot;,
+  &quot;链差异率 0.36%/0.41% 与断更前已验证接缝基线 0.34% 同分布，且差异股 100% 满足 pct_chg 自洽、20/20 抽样呈除权除息参考价模式——基线仲裁条款系预注册（validation_criteria 第4条）而非事后改口，Critic 的 metric_cherry_picking 检查判 pass&quot;,
+  &quot;预注册的『1010 独立路由窗口缺陷』假设被落表数据证伪为非交易日（周历+国庆安排+1012 连续性），与 T-cn-20261007-004 交易日真缺失不同族，降级为 [829] 范围文案问题，不阻塞收敛判定&quot;,
+  &quot;Critic 终判 pass；其两处 medium concern 经我独立复核成立但不改判定：money_flow_query 实测 1014/1015 确无行（下游资金流/物化/screener 仍断供），hs300 跨接缝序列连续（1008~1015 -3.35% 与 0925~1015 -4.03% 量级衔接一致）无外部矛盾——采纳『supported 限落表层/价格链、不得读作全管道收敛』的强制注记，该限定与 research_result 自身 limitations 及 portfolio_report 的 inapplicable 裁决一致&quot;,
+  &quot;残留风险均属下游断供或证据等级问题而非本线结论缺陷：cn_stk_factor_pro/cn_moneyflow_dc 1015=0 行（复权连续性仅间接覆盖）、复牌归因为高置信推断非硬判别（硬判别因 screener/moneyflow 断供物理不可执行）、2 日窗口的接缝稳定性待延长复检——已全部转入 requirements 与后续验证任务&quot;
+ ],
+ &quot;confidence&quot;: &quot;medium&quot;,
+ &quot;memory_note&quot;: &quot;管道补齐验证的方法论沉淀：(1) supported 的适用域必须显式绑定到被验证层——落表≠物化≠screener≠组合，本次落表 supported 而下游三层同日断供，若不加域注记会被误读为全管道恢复；(2) 预注册基线仲裁条款是避免字面阈值误判的关键——0.1% 链差异阈值会将 0.36%~0.41% 的除权除息口径现象误判为补齐缺陷，基线接缝对照（0.34%）是仲裁锚；(3) 缺独立交易日历事实源已实际导致一条预注册假设（1010 路由缺陷）白白立项后证伪，该重复成本在交易日历落地前会再现；(4) 管道类修复线（T-cn-20260924-001 谱系）落表层收敛判定完成，后续验证依赖 screener/物化层回补，属 T-cn-20261015-003 断更谱系的收尾而非新方向。&quot;,
+ &quot;requirements&quot;: [
+  {
+   &quot;type&quot;: &quot;DATA&quot;,
+   &quot;title&quot;: &quot;screener_daily 截面 20261014~1015 回补（承接 portfolio_report high 需求）&quot;,
+   &quot;reason&quot;: &quot;cn_daily 落表已补齐但 screener 截面断供，quantile_portfolio_backtest 有效调仓期=0、multi_factor_backtest 拒绝执行——组合层对任何跨断更段研究线整体不可执行；与 [823]（断更期面板名绑定重算通道）不同族，阻塞对象是组合层&quot;,
+   &quot;requested_capability&quot;: &quot;screener_daily 补齐段截面回补；或组合层工具提供降级依赖模式（直连 cn_daily 构造调仓）&quot;,
+   &quot;priority&quot;: &quot;high&quot;
+  },
+  {
+   &quot;type&quot;: &quot;TOOL&quot;,
+   &quot;title&quot;: &quot;因子物化对补齐段新段落的触发/重算入口（[823] 增量）&quot;,
+   &quot;reason&quot;: &quot;cn_daily 1014/1015 已有数据但 factor_correlation 对 overnight_ret_20/atr_14 全判无效（1012/1013 已恢复）——物化路径未随落表新段落恢复；与 [823] 差异：[823] 针对断更期重算通道，本例是补齐段新数据未触发物化，可作其补齐段验收用例&quot;,
+   &quot;requested_capability&quot;: &quot;物化层对落表新段落的自动触发或手动重算入口；逐日因子有效性状态可查询&quot;,
+   &quot;priority&quot;: &quot;medium&quot;
+  },
+  {
+   &quot;type&quot;: &quot;TOOL&quot;,
+   &quot;title&quot;: &quot;独立交易日历事实源（trade_calendar 结构化接口）&quot;,
+   &quot;reason&quot;: &quot;1010/1011 非交易日判定仅靠周历推断，已实际导致一条预注册假设被错误立项后证伪；与 [829]（告警文案契约）差异：[829] 是告警契约，本项是日历事实数据本身&quot;,
+   &quot;requested_capability&quot;: &quot;交易日/休市日结构化查询，供『非交易日 vs 数据缺失』硬判别&quot;,
+   &quot;priority&quot;: &quot;low&quot;
+  },
+  {
+   &quot;type&quot;: &quot;DATA&quot;,
+   &quot;title&quot;: &quot;除权除息/分红事件结构化日表&quot;,
+   &quot;reason&quot;: &quot;本次链差异归因依赖 20/20 抽样模式判读，若平台有除权事件表可对 76 只差异股逐一硬判别，消除『除权除息 vs 补录错误』的推断空间；与 [839]（涨停事件表）不同事件域&quot;,
+   &quot;requested_capability&quot;: &quot;个股级除权除息事件日表（除权参考价、分红送转明细）&quot;,
+   &quot;priority&quot;: &quot;low&quot;
+  }
+ ]
+}</pre></details>
+</div>
+<div class="step"><div class="hd"><span class="who">qrteam-collect</span>
+<span class="kind">promotion</span>
+<time>2026-10-16T02:32</time></div>
+<p></p>
+<details><summary>结构化留痕（promotion）</summary>
+<pre>{
+ &quot;error&quot;: &quot;PROMOTE 质量门：研究假设没有任何具名因子——无 alpha 内容可注册（工具/数据缺口请走 requirements，不走 PROMOTE）&quot;
+}</pre></details>
+</div></section>
+<footer>本内容为研究过程记录，不构成投资建议；由 AI 研究组织产出、经评审流程裁决，
+每个论断附证据来源。</footer>
+</div></body></html>

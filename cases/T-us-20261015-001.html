@@ -1,0 +1,555 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>T-us-20261015-001 · 研究内容工厂</title><style>
+:root{--ink:#1a2233;--mut:#6b7280;--line:#e5e7eb;--bg:#f8fafc;--card:#fff;
+--accent:#0f5f8a;--warn:#b45309;--ok:#047857}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,"PingFang SC",
+"Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.75}
+.wrap{max-width:860px;margin:0 auto;padding:32px 20px 80px}
+header.top{border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:28px}
+.kicker{font-size:13px;color:var(--accent);letter-spacing:.12em;font-weight:600}
+h1{font-size:28px;margin:8px 0 6px;line-height:1.35}
+.sub{font-size:13px;color:var(--mut);margin-bottom:10px}
+.meta{font-size:13px;color:var(--mut)}
+.meta .badge{display:inline-block;padding:1px 10px;border-radius:999px;
+border:1px solid var(--line);background:var(--card);margin-right:8px}
+article{background:var(--card);border:1px solid var(--line);border-radius:12px;
+padding:28px 32px}
+article h2{font-size:19px;margin:26px 0 10px;color:var(--accent)}
+article p,article li{font-size:16px}
+sup.evref a{color:var(--accent);text-decoration:none;font-size:11px;font-weight:700;
+margin-left:1px}
+section.evidence{margin-top:36px}
+section.evidence h2{font-size:17px;border-bottom:2px solid var(--accent);padding-bottom:6px}
+.ev{display:flex;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.ev .id{font-weight:700;color:var(--accent);white-space:nowrap}
+.ev .src{color:var(--mut);font-size:12px}
+section.timeline{margin-top:36px}
+section.timeline h2{font-size:17px;border-bottom:2px solid var(--accent);padding-bottom:6px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:10px;
+padding:14px 18px;margin:12px 0}
+.step .hd{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.step .who{font-weight:700}
+.step .kind{font-size:12px;color:var(--card);background:var(--accent);
+border-radius:4px;padding:1px 8px}
+.step time{font-size:12px;color:var(--mut);margin-left:auto}
+.step p{margin:8px 0 0;font-size:14px;color:#374151}
+.step details{margin-top:8px} .step summary{font-size:12px;color:var(--mut);cursor:pointer}
+.step pre{font-size:11px;background:var(--bg);border-radius:6px;padding:10px;
+overflow:auto;max-height:320px}
+footer{margin-top:40px;font-size:12px;color:var(--mut);border-top:1px solid var(--line);
+padding-top:14px}
+.warn{color:var(--warn);font-weight:600}
+</style></head>
+<body><div class="wrap">
+<header class="top">
+<div class="kicker">研究内容工厂 · 多 Agent 研究留痕成稿</div>
+<h1>拥挤之后是反转吗？一次美股合约情绪因子的证伪记录</h1>
+<div class="sub">立项题目：美股合约 equity 族情绪存量锚反转假设（验证级，非晋级级）：高 basis_z_30d/高 taker_buy_ratio_24 对≥336b 前向收益负向且稳健于尾部剔除——本轮预检已部分动摇，改写为条件化验证假设：仅当 basis</div>
+<div class="meta"><span class="badge">美股 QR 一队</span>
+<span class="badge">已终止</span>
+<span class="badge">研究线 T-us-20261015-001</span>
+立项 2026-10-15 · 本页由 llm 模式成稿 · 数字溯源覆盖 <b>100%</b> ·
+生成于 2026-10-16 12:23</div>
+</header>
+<article><h2>现象</h2>
+<p>本轮研究起于一组互相打架的信号，对象是代币化美股永续合约（TRADIFI 口径，字段沿用 crypto，特此标注）<sup class="evref"><a href="#E34">E34</a></sup>。30 日内全市场未平仓量扩张约 21%（2.37B→2.87B 美元），增量集中在指数与反向 ETF：QQQ +36%、SOXS +29%、UVXY +39%、BSP +335%；同期单名科技股合约收缩 21~45%（如 DELL -29%、CRWD -31%）<sup class="evref"><a href="#E2">E2</a></sup>。</p>
+<p>情绪端同样矛盾：散户账户多空比中位由 9-23 低点 1.56 升至 1.877，处 30 日高位 <sup class="evref"><a href="#E3">E3</a></sup>；大户持仓多空比中位 1.311，自 9-30 高点 1.60 回落 <sup class="evref"><a href="#E4">E4</a></sup>；主动成交流的 taker 买卖比近一周多数日 &lt;1，末日 0.957 <sup class="evref"><a href="#E5">E5</a></sup>。账户在加多、成交流偏卖——拥挤是否预示反转，需要数据检验而非直觉。</p>
+<h2>假设</h2>
+<p>原假设为：basis_z_30d（基差偏离标准化因子）与 taker_buy_ratio_24 偏高的合约，336b 长窗前向收益更差，且负向关系稳健于尾部剔除 <sup class="evref"><a href="#E9">E9</a></sup>。预注册晋级判据：336b IC（衡量因子预测力的指标）&lt;-0.04、ICIR≤-0.3、独立截面≥18、k=3 尾部剔除后符号不变、组合层价差 t≥1.5 <sup class="evref"><a href="#E15">E15</a></sup>。证伪结线：信号延迟 48 根 bar 后与实时口径 IC 之差≥0.04，即判为前视伪影 <sup class="evref"><a href="#E16">E16</a></sup>。</p>
+<h2>检验</h2>
+<p>检验基于 equity 族 153 席、2025-06 起的 1h 面板 <sup class="evref"><a href="#E6">E6</a></sup><sup class="evref"><a href="#E18">E18</a></sup>，先主检验、再逐轮攻击：</p>
+<ul>
+<li>主检验方向对但不达标：basis_z_30d 的 336b IC=-0.055（ICIR -0.48，n=9）、残差口径 -0.061（ICIR -0.56，n=8）、taker24 -0.088（n=17）。方向与假设一致，但截面数 8-17 全低于 18 的硬门槛，晋级功效不可判，仅观察级成立 <sup class="evref"><a href="#E19">E19</a></sup>。</li>
+<li>攻击 1 命中证伪结线：延迟 48 根 bar 后 IC 塌至 -0.008，差值 0.047≥0.04 <sup class="evref"><a href="#E20">E20</a></sup>。效应几乎全部位于信号 2 天有效期内，超快衰减或前视伪影二选一，336b 长窗反转构念不可捕获 <sup class="evref"><a href="#E20">E20</a></sup>。</li>
+<li>攻击 2（组成漂移）：上市天数因子原值 IC=-0.085，残差化后翻正为 +0.036/+0.066——组成效应与情绪锚高度共线，线性正交化无法分离 <sup class="evref"><a href="#E21">E21</a></sup>。</li>
+<li>攻击 3b（月度分段）：168b 分段符号正负交替（六月 +0.143、七月 -0.023、八月 -0.110、九月 +0.1、十月 +0.029），每段仅 1-2 截面无统计意义；八月段 basis_z 与 taker 反号（-0.110 对 +0.018），同一“拥挤”构念的三个代理不同向，构念一致性存疑 <sup class="evref"><a href="#E22">E22</a></sup>。</li>
+<li>攻击 3c：BTC 贝塔混杂被排除（IC=+0.014），但波动状态混杂在场（vixfix_22 IC=+0.115）<sup class="evref"><a href="#E23">E23</a></sup>。</li>
+<li>通过项如实记录：winsorize 尾部剔除后 IC 逐位不变（-0.055/-0.088），“尾部驱动”路径不成立，但改写不了攻击 1 的结论 <sup class="evref"><a href="#E25">E25</a></sup>。</li>
+<li>组合层：三分组组均收益完全单调递增、与 IC 负号方向翻转，GN−G1 t=+0.96、p=0.373、boot p=0.267，不显著 <sup class="evref"><a href="#E24">E24</a></sup>。</li>
+</ul>
+<p>结论定为 <strong>not_supported</strong> <sup class="evref"><a href="#E26">E26</a></sup>。</p>
+<h2>评审</h2>
+<p>评审以 approved 裁决维持证伪：</p>
+<ul>
+<li>独立复跑逐位一致：实时与 lag48 口径覆盖同为 134/153、同为 9 个截面，差值 0.047 触及判据线 <sup class="evref"><a href="#E45">E45</a></sup>。</li>
+<li>中等严重度关切确认但不翻案：全程 -0.055（n=9）与分段 +0.081（n=5）、+0.043（n=4）在日期集上不可调和，段 1 剔除单个极值截面后 IC 塌至 +0.034，观察级负号自身脆弱 <sup class="evref"><a href="#E36">E36</a></sup>；按更保守解读“窗口内无稳健效应”，not_supported 反而更稳 <sup class="evref"><a href="#E49">E49</a></sup>。</li>
+<li>regime 前提降级：标准拥挤锚 3.70e-05（66% 分位）处于 dormant 状态，散户-大户多空比背离仅算族内观察 <sup class="evref"><a href="#E40">E40</a></sup><sup class="evref"><a href="#E50">E50</a></sup>。</li>
+<li>成本路径关死：毛口径已不显著（t=1.15、p=0.295；24b 窗口 t=-0.58、p=0.562），净费后无翻案可能 <sup class="evref"><a href="#E41">E41</a></sup><sup class="evref"><a href="#E47">E47</a></sup>。</li>
+</ul>
+<h2>局限</h2>
+<ul>
+<li>功效边界：equity 族 2026-04 上市、无深历史，截面仅 8-17（门槛 18），一切 IC 数字仅观察级参考 <sup class="evref"><a href="#E27">E27</a></sup>。</li>
+<li>组成月漂移约 16%，横截面成员月度更换约六分之一，全样本与分段 IC 均混入组成效应 <sup class="evref"><a href="#E28">E28</a></sup>。</li>
+<li>残差因子与 basis_z_7d 面板仅覆盖 55/153（36%），落在非随机子样本上 <sup class="evref"><a href="#E29">E29</a></sup>。</li>
+<li>上市天数面板 2026-09-12 后断更 <sup class="evref"><a href="#E30">E30</a></sup>；LSR/OI 有 30 天硬顶，跨年 regime 对照不可行 <sup class="evref"><a href="#E31">E31</a></sup>；分段每段仅 1-2 截面 <sup class="evref"><a href="#E32">E32</a></sup>；组合层 7 期位于已消耗历史窗，仅作负证据判据 <sup class="evref"><a href="#E33">E33</a></sup>。</li>
+</ul>
+<p>这项研究的价值恰在负结果的诚实呈现：一个直觉上顺理成章的故事（拥挤会反转），在时效、组成漂移与波动混杂的三重攻击下未能站住。未经检验的规律只是猜测——这正是预注册判据与证伪结线的意义。</p></article>
+<section class="evidence"><h2>证据索引（正文每个标记可回溯到此）</h2><div class="ev" id="E1"><span class="id">E1</span><div><div>美股perp全市场30日OI扩张约21%（2.37B→2.87B USD）且明显向指数/反向ETF集中（QQQ +36%、SOXS +29%、UVXY +39%、BSP +335%），散户账户多空比升至1.877近月高而大户1.311回落、taker买卖比连续&lt;1，多空信号互相矛盾且缺价格/波动率与basis数值证据，regime判unclear；⚠️功效边界：品种2026-04上市仅约6个月深历史、universe组成月漂移~16%，结论仅对近月有效。</div><div class="src">观察综述</div></div></div><div class="ev" id="E2"><span class="id">E2</span><div><div>全市场OI 30日从2.37B升至2.87B USD（10-13单日+6.2%）；增量高度集中于QQQUSDT（+36%至103M）、SOXS（+29%）、UVXY（+39%）、STRC（+48%）、BSP（+335%），单名科技股OI同日收缩21~45%（DELL -29%、CRWD -31%、SNOW -23%、PANW -23%）</div><div class="src">观察 · 工具 crypto_oi_lsr_query(open_interest_hist) · 维度: moneyflow</div></div></div><div class="ev" id="E3"><span class="id">E3</span><div><div>散户账户多空比中位30日由1.56（9-23低点）升至1.877（p75 2.573，30日区间高位），多头拥挤度上升</div><div class="src">观察 · 工具 crypto_oi_lsr_query(global_lsr_account) · 维度: sentiment</div></div></div><div class="ev" id="E4"><span class="id">E4</span><div><div>大户持仓多空比中位1.311，自9-30高点1.60回落，与散户加多形成分化；个券极值：VST 10.7/GOOGL 7.8 vs XLE 0.36/PLTR 0.39/MSFT 0.48</div><div class="src">观察 · 工具 crypto_oi_lsr_query(top_lsr_position) · 维度: sentiment</div></div></div><div class="ev" id="E5"><span class="id">E5</span><div><div>taker买卖比中位近一周多数日&lt;1（10-08~10-13：0.85/0.87/0.85/1.03/0.72/0.85，末日0.957），主动成交流偏卖，与账户多头拥挤背离</div><div class="src">观察 · 工具 crypto_oi_lsr_query(taker_ratio) · 维度: moneyflow</div></div></div><div class="ev" id="E6"><span class="id">E6</span><div><div>basis_z_30d与taker_buy_ratio_24两因子已物化至1h面板（164符号，2025-06起）；basis_z面板末端滞后约2天（与既有需求834/837对应，不重复提报）；本轮未取到basis_z数值，basis锚缺失</div><div class="src">观察 · 工具 crypto_basis_z · 维度: factor</div></div></div><div class="ev" id="E7"><span class="id">E7</span><div><div>live_rank(momentum)与live_risk两工具均失败（数据路径/上游不可达，重试1次仍败），价格趋势与波动率截面缺失，trend/vol锚缺证据</div><div class="src">观察 · 工具 crypto_live_rank · 维度: liquidity</div></div></div><div class="ev" id="E8"><span class="id">E8</span><div><div>equity分族覆盖153符号；OI/LSR/taker受Binance 30天硬顶限制，仅支持近月regime对照</div><div class="src">观察 · 工具 crypto_oi_lsr_query(taker_ratio) · 维度: other</div></div></div><div class="ev" id="E9"><span class="id">E9</span><div><div>美股合约 equity 族情绪存量锚反转假设（验证级，非晋级级）：高 basis_z_30d/高 taker_buy_ratio_24 对≥336b 前向收益负向且稳健于尾部剔除——本轮预检已部分动摇，改写为条件化验证假设：仅当 basis_z 面板时效修复后（lag48 版 336b IC 由-0.055 塌至-0.008，2 天滞后口径下效应不可捕获，时效是先决条件），以 153 席、20260601 起全样本（~2027-01 达≥18 独立截面）复验：①resid_funding_onboarding 口径 336b IC&lt;-0.04 且 ICIR≤-0.3；②k=1..3 尾部剔除后符号不变；③分段证据显示 2026-06/07 正段（168b +0.116）系组成漂移/regime 特异，须可解释；④期限结构倒挂（basis_z_7d 短窗正/30d 锚长窗负）与散户-大户 LSR 背离同存。k 剔除后翻转或 ICIR 回到|·|&lt;0.2 即证伪结线。实际研究对象为 us 市场 equity perp（schema 字段受限填 cn，特此标注）。</div><div class="src">假设</div></div></div><div class="ev" id="E10"><span class="id">E10</span><div><div>时效修复后 basis_z_30d/resid 变体 336b IC&lt;-0.04、ICIR≤-0.3（独立截面≥18）</div><div class="src">可证伪预测</div></div></div><div class="ev" id="E11"><span class="id">E11</span><div><div>k=1..3 尾部剔除后负号不变（当前 taker 336b k=2 后 -0.012 是已知风险点）</div><div class="src">可证伪预测</div></div></div><div class="ev" id="E12"><span class="id">E12</span><div><div>basis_z_7d 短窗（24-168b）正号与 30d 锚长窗负号同存=期限结构倒挂成立</div><div class="src">可证伪预测</div></div></div><div class="ev" id="E13"><span class="id">E13</span><div><div>2026-06/07 段正向 IC 可由新上市席位组成漂移或 funding regime 解释（对照 2026-08 后段）</div><div class="src">可证伪预测</div></div></div><div class="ev" id="E14"><span class="id">E14</span><div><div>vixfix_22 336b +0.115 经正交化（k=3 后衰至+0.018）被判定为波动状态混杂而非独立拥挤信号</div><div class="src">可证伪预测</div></div></div><div class="ev" id="E15"><span class="id">E15</span><div><div>晋级需：336b IC&lt;-0.04 且 ICIR≤-0.3、独立截面≥18、k=3 剔除后符号不变、组合层净多空价差 t≥1.5 且剔有利 3 期&gt;0</div><div class="src">预注册判据</div></div></div><div class="ev" id="E16"><span class="id">E16</span><div><div>证伪结线：k 剔除后翻转，或时效修复后 lag48 口径与实时口径 IC 差仍≥0.04（效应=前视伪影）</div><div class="src">预注册判据</div></div></div><div class="ev" id="E17"><span class="id">E17</span><div><div>分段门槛：任一月度段正向 IC 须有组成漂移/regime 的可证解释，否则假设降级为 regime 条件式</div><div class="src">预注册判据</div></div></div><div class="ev" id="E18"><span class="id">E18</span><div><div>153 席面板 0 滞后（末 bar 2026-10-14 18:00）全部 ok；散户 LSR 1.877 月高 vs 大户 1.311 回落背离延续，多头拥挤 regime 前提在线上——regime 观察层成立，与假设预检一致。</div><div class="src">实验 · 工具 crypto_factor_list、crypto_panel_coverage、crypto_oi_lsr_query · 市场全量观察：equity 153 席覆盖与 LSR regime 锚 [completed] pairs=153；panel_lag_bars=0；retail_lsr_median=1.877；top_lsr_median=1.311</div></div></div><div class="ev" id="E19"><span class="id">E19</span><div><div>实时口径方向与预检一致（resid_onboarding 336b -0.061/ICIR -0.56），但独立截面 8-17 全部低于 18 硬门槛、ICIR 仅部分达标——晋级标准①在功效上不可判，仅观察级成立。</div><div class="src">实验 · 工具 crypto_factor_ic_analyze · 主检验：情绪存量锚全 horizon IC 复验 [completed] basisz30_336b_ic=-0.055；basisz30_336b_icir=-0.48；basisz30_n_dates=9；resid_onboarding_336b_ic=-0.061；resid_onboarding_icir=-0.56；resid_onboarding_n_dates=8；taker24_336b_ic=-0.088；taker24_n_dates=17</div></div></div><div class="ev" id="E20"><span class="id">E20</span><div><div>lag48 口径 336b IC 塌至 -0.008，与实时差 0.047≥0.04——命中预注册证伪结线；末端 5% 剔除后 IC 不变（-0.055），排除回填时序错位，效应集中于信号 2 天有效期内（超快衰减或前视伪影），336b 长窗反转构念不可交易。</div><div class="src">实验 · 工具 crypto_factor_ic_analyze · 攻击1：前视伪影判别（lag48 vs 实时 + 末端 5% 剔除） [completed] lag48_gap_336b=0.047；live_ic=-0.055；lag48_ic=-0.008；end_trimmed_ic=-0.055</div></div></div><div class="ev" id="E21"><span class="id">E21</span><div><div>days_since_onboarding 原值 336b IC=-0.085（新席跑赢=上市初期机械红利方向），残差化后翻正（+0.036/+0.066）——组成效应与情绪锚高度共线，线性正交化无法分离，8 月后负 IC 无法排除上市批次效应。</div><div class="src">实验 · 工具 crypto_factor_ic_analyze · 攻击2：组成漂移/席位年龄伪影 [completed] dso_336b_ic=-0.085；dso_resid_beta_336b_ic=0.036；dso_resid_volz_336b_ic=0.066</div></div></div><div class="ev" id="E22"><span class="id">E22</span><div><div>168b 分段符号交替（+/-/+/-/+），非『8 月后驱动』；每段仅 1-2 独立截面无统计意义；8 月段 basis_z -0.110 与 taker +0.018 反号——同一拥挤构念的三代理不同向共变，构念一致性存疑，分段门槛不通过。</div><div class="src">实验 · 工具 crypto_factor_ic_analyze · 攻击3b：月度分段 IC（分段门槛） [completed] jun_168b_ic=0.143；jul_168b_ic=-0.023；aug_168b_ic=-0.11；sep_168b_ic=0.1；oct_168b_ic=0.029；per_seg_n_dates_336b=2</div></div></div><div class="ev" id="E23"><span class="id">E23</span><div><div>beta_btc_168 336b IC=+0.014≈0，β 慢均值回归混杂排除；vixfix_22 +0.115 确认波动状态混杂在场（与假设预判一致：波动混杂而非独立信号）；beta_spy_168 覆盖 1/153 不可用。</div><div class="src">实验 · 工具 crypto_factor_ic_analyze · 攻击3c：β/波动混杂对照 [completed] beta_btc_336b_ic=0.014；beta_spy_coverage_pairs=1；vixfix22_336b_ic=0.115</div></div></div><div class="ev" id="E24"><span class="id">E24</span><div><div>resid 因子 3 分组 336b 组均收益完全单调递增（与 IC 负号方向翻转），GN−G1 t=+0.96/p=0.37 不显著——IC 层与组合层分歧且组合层无信号，t≥1.5 不达标；7 期在已消耗历史窗内仅作负证据判据。</div><div class="src">实验 · 工具 crypto_quantile_spread_test · 组合层量化价差（预注册负证据判据） [completed] ls_t=0.96；ls_mean_pct_per_period=1.67；ls_p=0.373；boot_p=0.267；monotonicity=1.0；nonoverlap_periods=7</div></div></div><div class="ev" id="E25"><span class="id">E25</span><div><div>winsorize 后 IC 逐位不变（-0.055/-0.088），两因子 336b 负号对尾部剔除稳健，『尾部驱动』路径在 IC 层不成立；但不改变攻击1 lag48 判别的证伪结论。</div><div class="src">实验 · 工具 crypto_factor_process、crypto_factor_ic_analyze · 尾部截尾敏感性（winsorize 物化） [completed] basisz30_win_336b_ic=-0.055；taker24_win_336b_ic=-0.088</div></div></div><div class="ev" id="E26"><span class="id">E26</span><div><div>not_supported</div><div class="src">研究结论</div></div></div><div class="ev" id="E27"><span class="id">E27</span><div><div>功效边界：equity 族 2026-04 起上市无深历史，独立截面仅 8-17（硬门槛 18），一切 IC/ICIR 数字受此约束，仅观察级参考</div><div class="src">局限</div></div></div><div class="ev" id="E28"><span class="id">E28</span><div><div>组成月漂移 ~16%：横截面成员月度更换约 1/6，全样本与分段 IC 均混入组成效应，攻击2 残差化后符号翻转即为直接证据</div><div class="src">局限</div></div></div><div class="ev" id="E29"><span class="id">E29</span><div><div>resid_funding_onboarding 与 basis_z_7d 面板仅 55/153（36%）覆盖，正交化与期限结构倒挂判据局限在非随机子样本</div><div class="src">局限</div></div></div><div class="ev" id="E30"><span class="id">E30</span><div><div>days_since_onboarding 面板 2026-09-12 后断更（既有需求 833/836），席位年龄分层复验无法覆盖最近月份</div><div class="src">局限</div></div></div><div class="ev" id="E31"><span class="id">E31</span><div><div>LSR/OI 仅 30 天硬顶，跨年 regime 对照不可行（D1 重开条件未满足），本轮仅限条件化声明、无 regime 外推</div><div class="src">局限</div></div></div><div class="ev" id="E32"><span class="id">E32</span><div><div>分段 336b 每段仅 1-2 独立截面，全部分段单元格无统计意义（QR#253 全 horizon 披露亦然）</div><div class="src">局限</div></div></div><div class="ev" id="E33"><span class="id">E33</span><div><div>组合层 7 期非重叠样本位于 FREEZE_CUTOFF=20260918 前已消耗历史窗，仅作负证据判据，不构成任何晋级依据</div><div class="src">局限</div></div></div><div class="ev" id="E34"><span class="id">E34</span><div><div>本假设研究对象实为 us 市场 equity perp（TRADIFI 代币化美股），schema 字段受限沿用 crypto 口径，特此标注</div><div class="src">局限</div></div></div><div class="ev" id="E35"><span class="id">E35</span><div><div>research_result.overall_conclusion=&#x27;not_supported&#x27;，因子层未成立，组合层（成本/风险/集中度）检验不适用——由 portfolio_applicable 门禁确定性合成，未消耗 LLM 预算。</div><div class="src">组合检验</div></div></div><div class="ev" id="E36"><span class="id">E36</span><div><div>single_period_dependency: 分段复验（crypto_factor_ic_analyze，336b，20260601-20260815 / 20260816-20261014）：段1 live +0.081(n=5) vs lag48 +0.032(n=5)，段2 live +0.043(n=4) vs lag48 +0.036(n=4)——lag48 差值集中在段1（+0.049）而段2 近零（+0.007）；段1 k=1 剔除后 live IC 从 +0.081 塌至 +0.034（单截面极值驱动）。且全程 -0.055(n=9) 与两段 +0.081/+0.043 在日期集上不可调和，提示全程聚合被少数日期主导。但该脆弱性只削弱『负 IC 观察级成立』的表述强度，不构成对证伪结论（not_supported）的翻案——若 -0.055 本身是噪声聚合，无效应结论更稳。severity: medium</div><div class="src">批评 · 状态 concern/严重度 medium</div></div></div><div class="ev" id="E37"><span class="id">E37</span><div><div>small_sample: 独立截面 8-17 &lt; 18 硬门槛复验确认：basis_z 336b n=9、resid_funding_onboarding n=8、dso n=16、vixfix n=17（本轮复跑与研究记录逐位一致）。功效边界（2026-04 上市）如实标注且未被用于晋级，处理正确</div><div class="src">批评 · 状态 pass/严重度 high</div></div></div><div class="ev" id="E38"><span class="id">E38</span><div><div>single_style_dependency: 同构念三代理分段相位不同步已被研究方自曝并计入证伪（攻击3b：8月段 basis_z -0.110 vs taker +0.018）；本轮全 horizon 矩阵进一步显示 168b 段1 +0.121 / 段2 -0.049 符号翻转——情绪反转构念在 2026 窗口内无任何 horizon 稳定成形</div><div class="src">批评 · 状态 pass/严重度 medium</div></div></div><div class="ev" id="E39"><span class="id">E39</span><div><div>hidden_beta: beta_btc_168 336b IC=+0.014 排除 BTC β 慢混杂（复验一致）；但残差化后 dso_resid_volz48 IC +0.066（pos% 0.69）与 vixfix_22 +0.115 一致指向波动状态主导截面——剩余混杂是 vol 状态而非情绪；beta_spy_168 覆盖 1/153，美股 β 暴露无法排除（数据物理边界，已在 limitations 披露）。severity: low</div><div class="src">批评 · 状态 concern/严重度 low</div></div></div><div class="ev" id="E40"><span class="id">E40</span><div><div>regime_dependency: funding_crowd_status 复验：anchor（funding_mean_30d 族截面中位）3.70e-05（66% 分位）低于 soft 5e-05，状态 dormant——实验1『多头拥挤 regime 前提在线上』基于 equity 族 LSR 背离（散户 1.877 vs 大户 1.311），与标准拥挤锚不同族且未对齐；regime 前提声明应降级为『族内 LSR 背离观察』，且 dormant regime 下不得开 L1 型条件化检验。不影响本轮证伪（研究未做 regime 条件化晋级主张）。severity: low</div><div class="src">批评 · 状态 concern/严重度 low</div></div></div><div class="ev" id="E41"><span class="id">E41</span><div><div>cost_sensitivity: 组合层毛口径（cost_bps=0）已不显著：336b GN−G1 t=+1.15/p=0.295、boot p=0.219（研究记录 t=0.96，差异为 universe 冻结/持有期偏移口径，两口径同判不显著）；24b t=-0.58/p=0.562。毛 null ⇒ 净只能更差，成本门无翻案可能</div><div class="src">批评 · 状态 pass/严重度 high</div></div></div><div class="ev" id="E42"><span class="id">E42</span><div><div>turnover_feasibility: 攻击1 指向的『2 天有效期内』残余路径已关闭：24b 组合层复验 106 非重叠期 t=-0.58、单调性 -0.50（组序号不符 IC 方向）——即便超快效应真实存在也无交易价值；336b 路径换手更低但同样 null，可行性问题 moot</div><div class="src">批评 · 状态 pass/严重度 high</div></div></div><div class="ev" id="E43"><span class="id">E43</span><div><div>hypothesis_conflation: 攻击2 复验逐位一致：dso 原值 336b IC -0.085 → resid_beta168 +0.036 / resid_volz48 +0.066 翻正——组成漂移与情绪锚强共线、线性正交化不可分的披露诚实且构成证伪依据；前视判别本身无面板深度伪影：basis_z_30d 与 lag48 覆盖同 134/153、n_dates 同 9（D2 教训的口径可比性风险在本例不成立）</div><div class="src">批评 · 状态 pass/严重度 high</div></div></div><div class="ev" id="E44"><span class="id">E44</span><div><div>metric_cherry_picking: QR#253 全 horizon 披露本轮补齐：24/48/168/336 分段矩阵中全部超判据格（168b 段1 +0.121 等）n=8-10、无统计意义且被工具自动标记；主检验数字复验逐位一致（live -0.055 / lag48 -0.008 / resid -0.061）；组合层方向翻转（组均完全递增）与非显著并存被如实呈现而非只报有利侧</div><div class="src">批评 · 状态 pass/严重度 medium</div></div></div><div class="ev" id="E45"><span class="id">E45</span><div><div>预注册证伪判据命中且逐位复现：reviewer 独立复跑 equity 族 336b IC——basis_z_30d live -0.055/ICIR -0.48/n=9 vs basis_z_30d_lag48 -0.008/n=9，差值 0.047≥0.04 判据线；且两者覆盖同 134/153、同 9 个独立截面（D2 面板深度可比性风险在本例不成立），效应量几乎全部位于信号 2 天有效期内——前视伪影/超快衰减二选一，336b 反转构念不可捕获</div><div class="src">评审 · 裁决 approved</div></div></div><div class="ev" id="E46"><span class="id">E46</span><div><div>晋级功效物理不可达被如实标注：三主代理独立截面 8-17 全部低于 18 硬门槛（2026-04 上市功效边界），研究未用观察级数字做任何晋级主张，诚实边界处理正确</div><div class="src">评审 · 裁决 approved</div></div></div><div class="ev" id="E47"><span class="id">E47</span><div><div>组合层负证据双成本口径复核通过：resid_onboarding 336b 三分组 GN−G1 t=+0.96/p=0.373、boot p=0.267、单调性 +1.0（reviewer @8bps 净费复现与记录逐位一致；critic 毛口径 t=1.15 同判 null）——组均收益相对 IC 负号方向完全翻转且净费后无信号，无成本翻案路径</div><div class="src">评审 · 裁决 approved</div></div></div><div class="ev" id="E48"><span class="id">E48</span><div><div>组成漂移混杂确证：days_since_onboarding 原值 336b IC -0.085 → resid_volz48 翻正 +0.066（复现一致），~16%/月席位组成漂移与情绪锚强共线、线性正交化不可分，8 月后负 IC 无法排除上市批次效应——not_supported 的④号依据成立</div><div class="src">评审 · 裁决 approved</div></div></div><div class="ev" id="E49"><span class="id">E49</span><div><div>critic 中等严重度关切确认但不翻案：reviewer 复跑分段确认全程 -0.055(n=9) 与分段 +0.081(n=5)/+0.043(n=4) 日期集不可调和，段1 k=1 剔除塌至 +0.034、QR#253 全 horizon 矩阵符号交替（168b 段1 +0.121 vs 段2 -0.049）——观察级负号自身脆弱；但按更保守解读『窗口内无稳健效应（噪声+组成漂移+疑似回填时序效应混合）』，not_supported 结论反而更稳</div><div class="src">评审 · 裁决 approved</div></div></div><div class="ev" id="E50"><span class="id">E50</span><div><div>regime 前提降级恰当：funding_crowd_status 复核 anchor 3.70e-05（66% 分位）状态 dormant，实验1『多头拥挤 regime 在线上』所引 equity 族 LSR 背离（散户 1.877 vs 大户 1.311）与标准拥挤锚不同族未对齐——critic 降级为『族内 LSR 背离观察』正确，且研究未做 regime 条件化晋级主张，不影响证伪</div><div class="src">评审 · 裁决 approved</div></div></div><div class="ev" id="E51"><span class="id">E51</span><div><div>尾部门关死：basisz30_win/taker24_win winsorize 后 IC 逐位不变（-0.055/-0.088），24b 超快路径组合层 106 期 t=-0.58、单调性反号——即便 2 天窗口内效应真实也无交易价值，残余路径全部关闭</div><div class="src">评审 · 裁决 approved</div></div></div></section>
+<section class="timeline"><h2>研究过程时间线（7 个环节，全部系统自动产生）</h2>
+
+<div class="step"><div class="hd"><span class="who">市场观察员</span>
+<span class="kind">市场观察</span>
+<time>2026-10-15T08:31</time></div>
+<p>美股perp全市场30日OI扩张约21%（2.37B→2.87B USD）且明显向指数/反向ETF集中（QQQ +36%、SOXS +29%、UVXY +39%、BSP +335%），散户账户多空比升至1.877近月高而大户1.311回落、taker买卖比连续&lt;1，多空信号互相矛盾且缺价格/波动率与basis数值证据，regime判unclear；⚠️功效边界：品种2026-04上市仅约6个月深历史、universe组成月漂移~16%，结论仅对近月有效。</p>
+<details><summary>结构化留痕（observation）</summary>
+<pre>{
+ &quot;date&quot;: &quot;20261014&quot;,
+ &quot;market&quot;: &quot;cn&quot;,
+ &quot;regime&quot;: &quot;unclear&quot;,
+ &quot;summary&quot;: &quot;美股perp全市场30日OI扩张约21%（2.37B→2.87B USD）且明显向指数/反向ETF集中（QQQ +36%、SOXS +29%、UVXY +39%、BSP +335%），散户账户多空比升至1.877近月高而大户1.311回落、taker买卖比连续&lt;1，多空信号互相矛盾且缺价格/波动率与basis数值证据，regime判unclear；⚠️功效边界：品种2026-04上市仅约6个月深历史、universe组成月漂移~16%，结论仅对近月有效。&quot;,
+ &quot;observations&quot;: [
+  {
+   &quot;aspect&quot;: &quot;moneyflow&quot;,
+   &quot;finding&quot;: &quot;全市场OI 30日从2.37B升至2.87B USD（10-13单日+6.2%）；增量高度集中于QQQUSDT（+36%至103M）、SOXS（+29%）、UVXY（+39%）、STRC（+48%）、BSP（+335%），单名科技股OI同日收缩21~45%（DELL -29%、CRWD -31%、SNOW -23%、PANW -23%）&quot;,
+   &quot;evidence_tool&quot;: &quot;crypto_oi_lsr_query(open_interest_hist)&quot;
+  },
+  {
+   &quot;aspect&quot;: &quot;sentiment&quot;,
+   &quot;finding&quot;: &quot;散户账户多空比中位30日由1.56（9-23低点）升至1.877（p75 2.573，30日区间高位），多头拥挤度上升&quot;,
+   &quot;evidence_tool&quot;: &quot;crypto_oi_lsr_query(global_lsr_account)&quot;
+  },
+  {
+   &quot;aspect&quot;: &quot;sentiment&quot;,
+   &quot;finding&quot;: &quot;大户持仓多空比中位1.311，自9-30高点1.60回落，与散户加多形成分化；个券极值：VST 10.7/GOOGL 7.8 vs XLE 0.36/PLTR 0.39/MSFT 0.48&quot;,
+   &quot;evidence_tool&quot;: &quot;crypto_oi_lsr_query(top_lsr_position)&quot;
+  },
+  {
+   &quot;aspect&quot;: &quot;moneyflow&quot;,
+   &quot;finding&quot;: &quot;taker买卖比中位近一周多数日&lt;1（10-08~10-13：0.85/0.87/0.85/1.03/0.72/0.85，末日0.957），主动成交流偏卖，与账户多头拥挤背离&quot;,
+   &quot;evidence_tool&quot;: &quot;crypto_oi_lsr_query(taker_ratio)&quot;
+  },
+  {
+   &quot;aspect&quot;: &quot;factor&quot;,
+   &quot;finding&quot;: &quot;basis_z_30d与taker_buy_ratio_24两因子已物化至1h面板（164符号，2025-06起）；basis_z面板末端滞后约2天（与既有需求834/837对应，不重复提报）；本轮未取到basis_z数值，basis锚缺失&quot;,
+   &quot;evidence_tool&quot;: &quot;crypto_basis_z&quot;
+  },
+  {
+   &quot;aspect&quot;: &quot;liquidity&quot;,
+   &quot;finding&quot;: &quot;live_rank(momentum)与live_risk两工具均失败（数据路径/上游不可达，重试1次仍败），价格趋势与波动率截面缺失，trend/vol锚缺证据&quot;,
+   &quot;evidence_tool&quot;: &quot;crypto_live_rank&quot;
+  },
+  {
+   &quot;aspect&quot;: &quot;other&quot;,
+   &quot;finding&quot;: &quot;equity分族覆盖153符号；OI/LSR/taker受Binance 30天硬顶限制，仅支持近月regime对照&quot;,
+   &quot;evidence_tool&quot;: &quot;crypto_oi_lsr_query(taker_ratio)&quot;
+  }
+ ],
+ &quot;anomalies&quot;: [
+  {
+   &quot;what&quot;: &quot;OI增量向指数/反向ETF集中、单名科技OI收缩&quot;,
+   &quot;detail&quot;: &quot;QQQ单席103M USD（+36%）叠加SOXS/UVXY同向放量，或反映单名流动性撤离、转向指数暴露与对冲；若为结构性迁移值得跟踪，但受组成月漂移~16%干扰，需席位级固化面板验证&quot;,
+   &quot;severity&quot;: &quot;medium&quot;
+  },
+  {
+   &quot;what&quot;: &quot;散户多头拥挤vs大户减多vs主动卖压三方背离&quot;,
+   &quot;detail&quot;: &quot;账户LSR升至月高1.877、大户LSR回落至1.311、taker比连续&lt;1；典型拥挤/背离形态，潜在反向信号候选，但缺basis与价格证据，不足以立项&quot;,
+   &quot;severity&quot;: &quot;medium&quot;
+  },
+  {
+   &quot;what&quot;: &quot;basis/regime锚数据缺口&quot;,
+   &quot;detail&quot;: &quot;basis_z数值未取到且面板滞后~2天，资金费率锚缺失，regime三锚仅taker比一锚有效&quot;,
+   &quot;severity&quot;: &quot;medium&quot;
+  }
+ ],
+ &quot;data_quality&quot;: {
+  &quot;fresh_date&quot;: &quot;20261014&quot;,
+  &quot;stale_or_missing&quot;: [
+   &quot;live_rank/live_risk不可用（ARP_CRYPTO_DATA_PATH数据缺失或Binance不可达，已重试失败），价格/波动率截面缺失&quot;,
+   &quot;basis_z面板末端滞后约2天（既有需求834/837，未重复提报）&quot;,
+   &quot;days_since_onboarding面板断更（既有需求833/836）&quot;,
+   &quot;OI/LSR/taker仅30天窗口（Binance硬顶），funding深历史仅回填至2023-08&quot;,
+   &quot;equity perp 2026-04上市无深历史，跨年regime对照不可行&quot;,
+   &quot;universe组成月漂移~16%，横截面结论需席位级固化面板兜底&quot;
+  ]
+ }
+}</pre></details>
+</div>
+<div class="step"><div class="hd"><span class="who">研究经理</span>
+<span class="kind">机会识别</span>
+<time>2026-10-15T08:31</time></div>
+<p>观察层面：[sentiment] 散户账户 LSR 升至月高 1.877 与大户 LSR 回落 1.311 分化、[moneyflow] taker 买卖比一周多数日 &lt;1（0.72~0.95）构成典型多头拥挤/三方背离形态（anomaly #2，当时仅判&#x27;候选不足立项&#x27;）。本轮工具证据使其升级为可验证线索：equity 153 席、2026 段（=全样本，面板自 2026-06 起）basis_z_30d 全 horizon 一致负 IC（6b -0.047/24b -0.034/48b -0.028/168b -0.048/336b -0.055，ICIR -0.28~-0.48，336b pos% 仅 0.22），taker_buy_ratio_24 同向（168b -0.044、336b -0.088）；正交化后 basis_z_30d_resid_funding（24b/168b 均 -0.054，k=1..3 剔除后 -0.045~-0.050 稳定）与 resid_funding_onboarding（-0.053/-0.057）仍存——非 funding/onboarding 伪影；basis_z_7d 短窗符号相反（24b +0.043 vs 30d 锚 -0.054）提示期限结构倒挂的拥挤修复结构；vixfix_22 336b +0.115（pos 0.65）为</p>
+<details><summary>结构化留痕（opportunity）</summary>
+<pre>{
+ &quot;market_date&quot;: &quot;20261014&quot;,
+ &quot;opportunities&quot;: [
+  {
+   &quot;title&quot;: &quot;equity 族情绪存量锚（basis_z_30d / taker_buy_ratio_24）长 horizon 反向效应的条件化验证&quot;,
+   &quot;rationale&quot;: &quot;观察层面：[sentiment] 散户账户 LSR 升至月高 1.877 与大户 LSR 回落 1.311 分化、[moneyflow] taker 买卖比一周多数日 &lt;1（0.72~0.95）构成典型多头拥挤/三方背离形态（anomaly #2，当时仅判&#x27;候选不足立项&#x27;）。本轮工具证据使其升级为可验证线索：equity 153 席、2026 段（=全样本，面板自 2026-06 起）basis_z_30d 全 horizon 一致负 IC（6b -0.047/24b -0.034/48b -0.028/168b -0.048/336b -0.055，ICIR -0.28~-0.48，336b pos% 仅 0.22），taker_buy_ratio_24 同向（168b -0.044、336b -0.088）；正交化后 basis_z_30d_resid_funding（24b/168b 均 -0.054，k=1..3 剔除后 -0.045~-0.050 稳定）与 resid_funding_onboarding（-0.053/-0.057）仍存——非 funding/onboarding 伪影；basis_z_7d 短窗符号相反（24b +0.043 vs 30d 锚 -0.054）提示期限结构倒挂的拥挤修复结构；vixfix_22 336b +0.115（pos 0.65）为同向次级佐证但 k=3 剔除后衰至 +0.018。诚实边界：效应量 |IC|≤0.09、独立截面仅 9~35、taker 336b 在 k=2 剔除后跌至 -0.012（部分尾部驱动）、universe 组成月漂移 ~16%、basis_z 面板末端滞后 ~2 天（既有需求 834/837，不重复提报）、days_since_onboarding 断更（既有需求 833/836）——故定位为验证级而非晋级级，须先修复数据时效再做全流程组合层检验。&quot;,
+   &quot;hypothesis_direction&quot;: &quot;在 TRADIFI equity 分族（席位级固化面板、basis_z 面板时效修复后）：高 basis_z_30d / 高 taker_buy_ratio_24 横截面排序对 ≥336b（14 天）前向收益呈显著负向（IC&lt;0、quantile_spread_test 多空价差 ≤0、计入成本与 funding），且稳健于 k 期尾部剔除与分段（按月分窗）；若 basis_z_7d 短窗正向（拥挤修复先走）与 30d 锚长窗负向的期限结构倒挂同时成立，则升级假设为『散户高拥挤情绪存量在 equity perp 上先短窗延续、后 14 天尺度反转』；k 剔除后符号翻转或 ICIR 回到 |·|&lt;0.2 即证伪并结线。&quot;,
+   &quot;priority&quot;: &quot;high&quot;,
+   &quot;related_history&quot;: &quot;与死线 D1（crypto 族 24h 动量反转，2026-08-29 判死）方向不同：D1 是动量反转构念且三重证伪为窗口特例；本线索是情绪存量锚（basis/taker 水平）与 LS 账户结构背离，且 D1 重开条件中的『按第三变量正交化/条件分组』工具（resid_funding/resid_funding_onboarding/正交化物化因子）现已部分就位、OI/LSR 回填限制依然存在（跨年 regime 对照不可行，本轮不做 regime 声明）。不重开 momentum 反转本身；近期无其他已拒/已死线，已提报需求 833/834/836/837 为数据修复项，本机会为其下游验证而非重复提报。&quot;
+  }
+ ]
+}</pre></details>
+</div>
+<div class="step"><div class="hd"><span class="who">研究经理</span>
+<span class="kind">假设立项</span>
+<time>2026-10-15T08:31</time></div>
+<p>美股合约 equity 族情绪存量锚反转假设（验证级，非晋级级）：高 basis_z_30d/高 taker_buy_ratio_24 对≥336b 前向收益负向且稳健于尾部剔除——本轮预检已部分动摇，改写为条件化验证假设：仅当 basis_z 面板时效修复后（lag48 版 336b IC 由-0.055 塌至-0.008，2 天滞后口径下效应不可捕获，时效是先决条件），以 153 席、20260601 起全样本（~2027-01 达≥18 独立截面）复验：①resid_funding_onboarding 口径 336b IC&lt;-0.04 且 ICIR≤-0.3；②k=1..3 尾部剔除后符号不变；③分段证据显示 2026-06/07 正段（168b +0.116）系组成漂移/regime 特异，须可解释；④期限结构倒挂（basis_z_7d 短窗正/30d 锚长窗负）与散户-大户 LSR 背离同存。k 剔除后翻转或 ICIR 回到|·|&lt;0.2 即证伪结线。实际研究对象为 us 市场 equity perp（schema 字段受限填 cn，特此标注）。</p>
+<details><summary>结构化留痕（hypothesis）</summary>
+<pre>{
+ &quot;hypothesis&quot;: &quot;美股合约 equity 族情绪存量锚反转假设（验证级，非晋级级）：高 basis_z_30d/高 taker_buy_ratio_24 对≥336b 前向收益负向且稳健于尾部剔除——本轮预检已部分动摇，改写为条件化验证假设：仅当 basis_z 面板时效修复后（lag48 版 336b IC 由-0.055 塌至-0.008，2 天滞后口径下效应不可捕获，时效是先决条件），以 153 席、20260601 起全样本（~2027-01 达≥18 独立截面）复验：①resid_funding_onboarding 口径 336b IC&lt;-0.04 且 ICIR≤-0.3；②k=1..3 尾部剔除后符号不变；③分段证据显示 2026-06/07 正段（168b +0.116）系组成漂移/regime 特异，须可解释；④期限结构倒挂（basis_z_7d 短窗正/30d 锚长窗负）与散户-大户 LSR 背离同存。k 剔除后翻转或 ICIR 回到|·|&lt;0.2 即证伪结线。实际研究对象为 us 市场 equity perp（schema 字段受限填 cn，特此标注）。&quot;,
+ &quot;market&quot;: &quot;cn&quot;,
+ &quot;motivation&quot;: &quot;观察：散户 LSR 1.877 月高 vs 大户 1.311 回落背离+taker 比持续&lt;1（多头拥挤）。工具复核（20261014，本轮新增证据）：basis_z_30d 336b IC=-0.055/ICIR-0.48/pos0.22（9 截面）；taker_buy_ratio_24 336b -0.088；正交化仍存（resid_funding_onboarding 336b -0.061/ICIR-0.56）。但两项预检削弱：①basis_z_30d_lag48 336b IC=-0.008——2 天滞后致命；②月度分段 6-7 月段反号（168b +0.116），全样本负 IC 由 8 月后驱动且每段仅 2-6 截面。与死线 D1（crypto 24h 动量反转，三重证伪）方向不同：本线为情绪存量锚+LSR 结构背离，非动量构念，不重开。已提报 833/834/836/837 为数据修复项，本假设是其下游验证非重复。&quot;,
+ &quot;testable_predictions&quot;: [
+  &quot;时效修复后 basis_z_30d/resid 变体 336b IC&lt;-0.04、ICIR≤-0.3（独立截面≥18）&quot;,
+  &quot;k=1..3 尾部剔除后负号不变（当前 taker 336b k=2 后 -0.012 是已知风险点）&quot;,
+  &quot;basis_z_7d 短窗（24-168b）正号与 30d 锚长窗负号同存=期限结构倒挂成立&quot;,
+  &quot;2026-06/07 段正向 IC 可由新上市席位组成漂移或 funding regime 解释（对照 2026-08 后段）&quot;,
+  &quot;vixfix_22 336b +0.115 经正交化（k=3 后衰至+0.018）被判定为波动状态混杂而非独立拥挤信号&quot;
+ ],
+ &quot;experiments&quot;: [
+  {
+   &quot;name&quot;: &quot;时效修复后全流程 IC 复验&quot;,
+   &quot;design&quot;: &quot;等 834/837 落地→basis_z_30d/taker_buy_ratio_24/resid_funding_onboarding @equity 153 席，horizon{24,48,168,336}，月度分段+QR#253 全 horizon 披露+k 剔除敏感性（QR#416），crypto_factor_ic_analyze&quot;,
+   &quot;is_baseline&quot;: true
+  },
+  {
+   &quot;name&quot;: &quot;期限结构倒挂检验&quot;,
+   &quot;design&quot;: &quot;basis_z_7d vs basis_z_30d 同截面并列（7d 面板 55/153 覆盖须先补齐或声明），短窗正/长窗负同存判据+条件分组 IC&quot;,
+   &quot;is_baseline&quot;: false
+  },
+  {
+   &quot;name&quot;: &quot;组合层量化价差验证&quot;,
+   &quot;design&quot;: &quot;独立截面≥18 后 quantile_spread_test 3 分组 336b、成本+funding 计提、剔 best-3 期、月度分窗 OOS；步行前向 NAV 负证据则结线&quot;,
+   &quot;is_baseline&quot;: false
+  }
+ ],
+ &quot;validation_criteria&quot;: [
+  &quot;晋级需：336b IC&lt;-0.04 且 ICIR≤-0.3、独立截面≥18、k=3 剔除后符号不变、组合层净多空价差 t≥1.5 且剔有利 3 期&gt;0&quot;,
+  &quot;证伪结线：k 剔除后翻转，或时效修复后 lag48 口径与实时口径 IC 差仍≥0.04（效应=前视伪影）&quot;,
+  &quot;分段门槛：任一月度段正向 IC 须有组成漂移/regime 的可证解释，否则假设降级为 regime 条件式&quot;
+ ],
+ &quot;robustness_requirements&quot;: [
+  &quot;独立截面数硬门槛≥18（当前 9-17，功效边界：本面板 2026-04 起上市、组成月漂移~16%，一切结论标注此边界）&quot;,
+  &quot;尾部剔除 k=1..3 敏感性（D2 教训：短强 IC 先截尾）&quot;,
+  &quot;funding/onboarding/mom 三重正交化后存留（resid_mom_beta 空壳须先修复再验）&quot;,
+  &quot;跨年 regime 对照不可行（OI/LSR 回填缺口，D1 重开条件未满足），本轮禁止 regime 外推声明&quot;,
+  &quot;vixfix/波动状态混杂：须在残差口径下复验而非原值&quot;
+ ],
+ &quot;requirements&quot;: [
+  {
+   &quot;type&quot;: &quot;DATA&quot;,
+   &quot;reason&quot;: &quot;basis_z_30d_lag48 预检显示 2 天滞后使 336b IC 从-0.055 塌至-0.008，效应量几乎全部位于滞后期内——时效修复（既有 834/837）从&#x27;改进项&#x27;升级为本假设成立与否的先决条件&quot;
+  },
+  {
+   &quot;type&quot;: &quot;DATA&quot;,
+   &quot;reason&quot;: &quot;basis_z_30d_resid_mom_beta 空壳物化（factor_list 可见但 n_dates=0，面板全 NaN），mom beta 正交化通道不可用（新缺陷，非 833-837 重复）&quot;
+  },
+  {
+   &quot;type&quot;: &quot;DATA&quot;,
+   &quot;reason&quot;: &quot;momentum_336 在 equity universe 下 n_dates=0（面板 pair 与价格 universe 零交集），动量混杂核查被迫中断——需修 pair 映射后补跑（新缺陷）&quot;
+  }
+ ]
+}</pre></details>
+</div>
+<div class="step"><div class="hd"><span class="who">研究员</span>
+<span class="kind">实验结果</span>
+<time>2026-10-15T08:31</time></div>
+<p>not_supported</p>
+<details><summary>结构化留痕（result）</summary>
+<pre>{
+ &quot;experiment_summaries&quot;: [
+  {
+   &quot;name&quot;: &quot;市场全量观察：equity 153 席覆盖与 LSR regime 锚&quot;,
+   &quot;status&quot;: &quot;completed&quot;,
+   &quot;tools_used&quot;: [
+    &quot;crypto_factor_list&quot;,
+    &quot;crypto_panel_coverage&quot;,
+    &quot;crypto_oi_lsr_query&quot;
+   ],
+   &quot;key_metrics&quot;: {
+    &quot;pairs&quot;: 153,
+    &quot;panel_lag_bars&quot;: 0,
+    &quot;retail_lsr_median&quot;: 1.877,
+    &quot;top_lsr_median&quot;: 1.311
+   },
+   &quot;conclusion&quot;: &quot;153 席面板 0 滞后（末 bar 2026-10-14 18:00）全部 ok；散户 LSR 1.877 月高 vs 大户 1.311 回落背离延续，多头拥挤 regime 前提在线上——regime 观察层成立，与假设预检一致。&quot;
+  },
+  {
+   &quot;name&quot;: &quot;主检验：情绪存量锚全 horizon IC 复验&quot;,
+   &quot;status&quot;: &quot;completed&quot;,
+   &quot;tools_used&quot;: [
+    &quot;crypto_factor_ic_analyze&quot;
+   ],
+   &quot;key_metrics&quot;: {
+    &quot;basisz30_336b_ic&quot;: -0.055,
+    &quot;basisz30_336b_icir&quot;: -0.48,
+    &quot;basisz30_n_dates&quot;: 9,
+    &quot;resid_onboarding_336b_ic&quot;: -0.061,
+    &quot;resid_onboarding_icir&quot;: -0.56,
+    &quot;resid_onboarding_n_dates&quot;: 8,
+    &quot;taker24_336b_ic&quot;: -0.088,
+    &quot;taker24_n_dates&quot;: 17
+   },
+   &quot;conclusion&quot;: &quot;实时口径方向与预检一致（resid_onboarding 336b -0.061/ICIR -0.56），但独立截面 8-17 全部低于 18 硬门槛、ICIR 仅部分达标——晋级标准①在功效上不可判，仅观察级成立。&quot;
+  },
+  {
+   &quot;name&quot;: &quot;攻击1：前视伪影判别（lag48 vs 实时 + 末端 5% 剔除）&quot;,
+   &quot;status&quot;: &quot;completed&quot;,
+   &quot;tools_used&quot;: [
+    &quot;crypto_factor_ic_analyze&quot;
+   ],
+   &quot;key_metrics&quot;: {
+    &quot;lag48_gap_336b&quot;: 0.047,
+    &quot;live_ic&quot;: -0.055,
+    &quot;lag48_ic&quot;: -0.008,
+    &quot;end_trimmed_ic&quot;: -0.055
+   },
+   &quot;conclusion&quot;: &quot;lag48 口径 336b IC 塌至 -0.008，与实时差 0.047≥0.04——命中预注册证伪结线；末端 5% 剔除后 IC 不变（-0.055），排除回填时序错位，效应集中于信号 2 天有效期内（超快衰减或前视伪影），336b 长窗反转构念不可交易。&quot;
+  },
+  {
+   &quot;name&quot;: &quot;攻击2：组成漂移/席位年龄伪影&quot;,
+   &quot;status&quot;: &quot;completed&quot;,
+   &quot;tools_used&quot;: [
+    &quot;crypto_factor_ic_analyze&quot;
+   ],
+   &quot;key_metrics&quot;: {
+    &quot;dso_336b_ic&quot;: -0.085,
+    &quot;dso_resid_beta_336b_ic&quot;: 0.036,
+    &quot;dso_resid_volz_336b_ic&quot;: 0.066
+   },
+   &quot;conclusion&quot;: &quot;days_since_onboarding 原值 336b IC=-0.085（新席跑赢=上市初期机械红利方向），残差化后翻正（+0.036/+0.066）——组成效应与情绪锚高度共线，线性正交化无法分离，8 月后负 IC 无法排除上市批次效应。&quot;
+  },
+  {
+   &quot;name&quot;: &quot;攻击3b：月度分段 IC（分段门槛）&quot;,
+   &quot;status&quot;: &quot;completed&quot;,
+   &quot;tools_used&quot;: [
+    &quot;crypto_factor_ic_analyze&quot;
+   ],
+   &quot;key_metrics&quot;: {
+    &quot;jun_168b_ic&quot;: 0.143,
+    &quot;jul_168b_ic&quot;: -0.023,
+    &quot;aug_168b_ic&quot;: -0.11,
+    &quot;sep_168b_ic&quot;: 0.1,
+    &quot;oct_168b_ic&quot;: 0.029,
+    &quot;per_seg_n_dates_336b&quot;: 2
+   },
+   &quot;conclusion&quot;: &quot;168b 分段符号交替（+/-/+/-/+），非『8 月后驱动』；每段仅 1-2 独立截面无统计意义；8 月段 basis_z -0.110 与 taker +0.018 反号——同一拥挤构念的三代理不同向共变，构念一致性存疑，分段门槛不通过。&quot;
+  },
+  {
+   &quot;name&quot;: &quot;攻击3c：β/波动混杂对照&quot;,
+   &quot;status&quot;: &quot;completed&quot;,
+   &quot;tools_used&quot;: [
+    &quot;crypto_factor_ic_analyze&quot;
+   ],
+   &quot;key_metrics&quot;: {
+    &quot;beta_btc_336b_ic&quot;: 0.014,
+    &quot;beta_spy_coverage_pairs&quot;: 1,
+    &quot;vixfix22_336b_ic&quot;: 0.115
+   },
+   &quot;conclusion&quot;: &quot;beta_btc_168 336b IC=+0.014≈0，β 慢均值回归混杂排除；vixfix_22 +0.115 确认波动状态混杂在场（与假设预判一致：波动混杂而非独立信号）；beta_spy_168 覆盖 1/153 不可用。&quot;
+  },
+  {
+   &quot;name&quot;: &quot;组合层量化价差（预注册负证据判据）&quot;,
+   &quot;status&quot;: &quot;completed&quot;,
+   &quot;tools_used&quot;: [
+    &quot;crypto_quantile_spread_test&quot;
+   ],
+   &quot;key_metrics&quot;: {
+    &quot;ls_t&quot;: 0.96,
+    &quot;ls_mean_pct_per_period&quot;: 1.67,
+    &quot;ls_p&quot;: 0.373,
+    &quot;boot_p&quot;: 0.267,
+    &quot;monotonicity&quot;: 1.0,
+    &quot;nonoverlap_periods&quot;: 7
+   },
+   &quot;conclusion&quot;: &quot;resid 因子 3 分组 336b 组均收益完全单调递增（与 IC 负号方向翻转），GN−G1 t=+0.96/p=0.37 不显著——IC 层与组合层分歧且组合层无信号，t≥1.5 不达标；7 期在已消耗历史窗内仅作负证据判据。&quot;
+  },
+  {
+   &quot;name&quot;: &quot;尾部截尾敏感性（winsorize 物化）&quot;,
+   &quot;status&quot;: &quot;completed&quot;,
+   &quot;tools_used&quot;: [
+    &quot;crypto_factor_process&quot;,
+    &quot;crypto_factor_ic_analyze&quot;
+   ],
+   &quot;key_metrics&quot;: {
+    &quot;basisz30_win_336b_ic&quot;: -0.055,
+    &quot;taker24_win_336b_ic&quot;: -0.088
+   },
+   &quot;conclusion&quot;: &quot;winsorize 后 IC 逐位不变（-0.055/-0.088），两因子 336b 负号对尾部剔除稳健，『尾部驱动』路径在 IC 层不成立；但不改变攻击1 lag48 判别的证伪结论。&quot;
+  }
+ ],
+ &quot;overall_conclusion&quot;: &quot;not_supported&quot;,
+ &quot;overall_reasoning&quot;: &quot;证伪链闭合：①预注册证伪判据直接命中——lag48 与实时口径 336b IC 差 0.047≥0.04（攻击1），效应量几乎全部位于信号 2 天有效期内，末端剔除排除回填伪影后仍指向超快衰减/前视二选一，336b 反转构念不可捕获；②独立截面 8-17&lt;18 硬门槛，晋级统计功效物理不可达（2026-04 上市功效边界）；③分段门槛不通过——月度符号交替且三代理（basis_z/taker/resid）分段相位不同步，『2026-06/07 段可由组成漂移解释』的对照未能确立干净的反向案例；④攻击2 证实席位年龄/组成效应与情绪锚强共线（原值 -0.085、残差化翻正）；⑤组合层方向翻转且 t=0.96 不显著，IC 层负号不兑现为可交易价差。支持面仅剩：实时口径 IC 方向一致、尾部剔除稳健、β 混杂排除——不足以对抗①③⑤三重否定。按假设预注册：证伪结线。&quot;,
+ &quot;limitations&quot;: [
+  &quot;功效边界：equity 族 2026-04 起上市无深历史，独立截面仅 8-17（硬门槛 18），一切 IC/ICIR 数字受此约束，仅观察级参考&quot;,
+  &quot;组成月漂移 ~16%：横截面成员月度更换约 1/6，全样本与分段 IC 均混入组成效应，攻击2 残差化后符号翻转即为直接证据&quot;,
+  &quot;resid_funding_onboarding 与 basis_z_7d 面板仅 55/153（36%）覆盖，正交化与期限结构倒挂判据局限在非随机子样本&quot;,
+  &quot;days_since_onboarding 面板 2026-09-12 后断更（既有需求 833/836），席位年龄分层复验无法覆盖最近月份&quot;,
+  &quot;LSR/OI 仅 30 天硬顶，跨年 regime 对照不可行（D1 重开条件未满足），本轮仅限条件化声明、无 regime 外推&quot;,
+  &quot;分段 336b 每段仅 1-2 独立截面，全部分段单元格无统计意义（QR#253 全 horizon 披露亦然）&quot;,
+  &quot;组合层 7 期非重叠样本位于 FREEZE_CUTOFF=20260918 前已消耗历史窗，仅作负证据判据，不构成任何晋级依据&quot;,
+  &quot;本假设研究对象实为 us 市场 equity perp（TRADIFI 代币化美股），schema 字段受限沿用 crypto 口径，特此标注&quot;
+ ],
+ &quot;requirements&quot;: [
+  {
+   &quot;type&quot;: &quot;TOOL&quot;,
+   &quot;title&quot;: &quot;可配置滞后的走前判别检验（信号晚 N bar、前向收益起点不变）&quot;,
+   &quot;reason&quot;: &quot;本轮只能用平台 lag48 产物做间接判别，无法区分『前视伪影』与『效应超快衰减(&lt;2天)』两种死法——直接影响死因归档精度与未来重开条件的可证定义&quot;,
+   &quot;requested_capability&quot;: &quot;crypto_factor_ic_analyze 增加 signal_shift_bars 参数并自动并列输出实时/滞后 IC 差及 ≥0.04 判定&quot;,
+   &quot;priority&quot;: &quot;high&quot;
+  },
+  {
+   &quot;type&quot;: &quot;DATA&quot;,
+   &quot;title&quot;: &quot;修复 basis_z_30d_resid_mom_beta 空壳物化&quot;,
+   &quot;reason&quot;: &quot;factor_list 可见但面板全 NaN（n_dates=0），mom_beta 正交化通道不可用，攻击3 的三重正交化完备性验证被阻塞；与 833-837（时效/断更类）不同，此为物化管道缺陷&quot;,
+   &quot;requested_capability&quot;: &quot;补齐该因子物化或修复 mom beta 回归通道&quot;,
+   &quot;priority&quot;: &quot;medium&quot;
+  },
+  {
+   &quot;type&quot;: &quot;DATA&quot;,
+   &quot;title&quot;: &quot;修复 momentum_336 在 equity universe 的 pair 映射&quot;,
+   &quot;reason&quot;: &quot;momentum_336 面板与 equity 价格 universe 零交集（n_dates=0），动量混杂核查被迫中断，β/动量双重混杂无法完备排除；非 833-837 重复&quot;,
+   &quot;requested_capability&quot;: &quot;修 pair 映射后在 equity 153 席补跑 momentum_336&quot;,
+   &quot;priority&quot;: &quot;medium&quot;
+  },
+  {
+   &quot;type&quot;: &quot;DATA&quot;,
+   &quot;title&quot;: &quot;basis_z_7d 与 resid 系列面板 equity 覆盖补齐（55/153→≥90%）&quot;,
+   &quot;reason&quot;: &quot;期限结构倒挂判据因 7d 面板仅 36% 覆盖本轮无法执行（攻击4 的平凡性对照前提亦缺）；与既有 834/837 的时效缺口不同，此为广度/回补缺口，影响较低&quot;,
+   &quot;requested_capability&quot;: &quot;basis_z_7d 与 resid_funding_onboarding 对 6 月后新增席位回补&quot;,
+   &quot;priority&quot;: &quot;low&quot;
+  }
+ ]
+}</pre></details>
+</div>
+<div class="step"><div class="hd"><span class="who">组合检验员</span>
+<span class="kind">组合检验</span>
+<time>2026-10-15T08:31</time></div>
+<p>research_result.overall_conclusion=&#x27;not_supported&#x27;，因子层未成立，组合层（成本/风险/集中度）检验不适用——由 portfolio_applicable 门禁确定性合成，未消耗 LLM 预算。</p>
+<details><summary>结构化留痕（portfolio_report）</summary>
+<pre>{
+ &quot;applicability&quot;: &quot;not_applicable&quot;,
+ &quot;overall_viability&quot;: &quot;inapplicable&quot;,
+ &quot;viability_reasoning&quot;: &quot;research_result.overall_conclusion=&#x27;not_supported&#x27;，因子层未成立，组合层（成本/风险/集中度）检验不适用——由 portfolio_applicable 门禁确定性合成，未消耗 LLM 预算。&quot;,
+ &quot;checks&quot;: [],
+ &quot;limitations&quot;: [
+  &quot;门禁短路产物：无组合层实证数据&quot;
+ ]
+}</pre></details>
+</div>
+<div class="step"><div class="hd"><span class="who">批评员</span>
+<span class="kind">对抗批评</span>
+<time>2026-10-15T08:31</time></div>
+<p>如果这个结论是错的，最可能错在哪？三条路径均被检验后排除或降级为无交易价值：(1)『效应真、只在信号 2 天有效期内』——分段显示 live-vs-lag 差值集中在 6-8 月段（+0.049）而 8 月后近零（+0.007），形式上更像『窗口内短暂真实效应已消失』而非系统性前视伪影；但该段 k=1 剔除即塌（+0.081→+0.034），且 24b 组合层 106 期 t=-0.58、单调性反号，即便真实也不可交易——不改变 not_supported。(2)『负 IC 本身存在、只是功效不足』——分段复验暴露全程 -0.055 与两段 +0.081/+0.043 日期集不可调和，观察级负号自身脆弱，引用 -0.055 作为『负 IC 存在』证据会踩坑；正确表述是『该窗口无稳健效应（噪声+组成漂移+疑似回填时序效应混合）』——这比研究方的结论更保守，不构成翻案。(3)『lag48 判别是面板深度伪影』——已排除：live 与 lag48 同 134/153 覆盖、同 9 截面，同深度可比（D2 教训适用但本例通过）。另两点纪律提醒：标准拥挤锚 dormant 与 equity LSR 背离不同族，勿混用作为重开依据；重开自然条件=独立截面 ≥18（前向 holdout 累积约 2027 年后）且须先解决三代理构念一致性与组成漂移剥离（resid_onboarding 面板仅 5</p>
+<details><summary>结构化留痕（critic_report）</summary>
+<pre>{
+ &quot;verdict&quot;: &quot;pass&quot;,
+ &quot;checks&quot;: [
+  {
+   &quot;check_type&quot;: &quot;single_period_dependency&quot;,
+   &quot;status&quot;: &quot;concern&quot;,
+   &quot;evidence&quot;: &quot;分段复验（crypto_factor_ic_analyze，336b，20260601-20260815 / 20260816-20261014）：段1 live +0.081(n=5) vs lag48 +0.032(n=5)，段2 live +0.043(n=4) vs lag48 +0.036(n=4)——lag48 差值集中在段1（+0.049）而段2 近零（+0.007）；段1 k=1 剔除后 live IC 从 +0.081 塌至 +0.034（单截面极值驱动）。且全程 -0.055(n=9) 与两段 +0.081/+0.043 在日期集上不可调和，提示全程聚合被少数日期主导。但该脆弱性只削弱『负 IC 观察级成立』的表述强度，不构成对证伪结论（not_supported）的翻案——若 -0.055 本身是噪声聚合，无效应结论更稳。severity: medium&quot;,
+   &quot;severity&quot;: &quot;medium&quot;
+  },
+  {
+   &quot;check_type&quot;: &quot;small_sample&quot;,
+   &quot;status&quot;: &quot;pass&quot;,
+   &quot;evidence&quot;: &quot;独立截面 8-17 &lt; 18 硬门槛复验确认：basis_z 336b n=9、resid_funding_onboarding n=8、dso n=16、vixfix n=17（本轮复跑与研究记录逐位一致）。功效边界（2026-04 上市）如实标注且未被用于晋级，处理正确&quot;,
+   &quot;severity&quot;: &quot;high&quot;
+  },
+  {
+   &quot;check_type&quot;: &quot;single_style_dependency&quot;,
+   &quot;status&quot;: &quot;pass&quot;,
+   &quot;evidence&quot;: &quot;同构念三代理分段相位不同步已被研究方自曝并计入证伪（攻击3b：8月段 basis_z -0.110 vs taker +0.018）；本轮全 horizon 矩阵进一步显示 168b 段1 +0.121 / 段2 -0.049 符号翻转——情绪反转构念在 2026 窗口内无任何 horizon 稳定成形&quot;,
+   &quot;severity&quot;: &quot;medium&quot;
+  },
+  {
+   &quot;check_type&quot;: &quot;hidden_beta&quot;,
+   &quot;status&quot;: &quot;concern&quot;,
+   &quot;evidence&quot;: &quot;beta_btc_168 336b IC=+0.014 排除 BTC β 慢混杂（复验一致）；但残差化后 dso_resid_volz48 IC +0.066（pos% 0.69）与 vixfix_22 +0.115 一致指向波动状态主导截面——剩余混杂是 vol 状态而非情绪；beta_spy_168 覆盖 1/153，美股 β 暴露无法排除（数据物理边界，已在 limitations 披露）。severity: low&quot;,
+   &quot;severity&quot;: &quot;low&quot;
+  },
+  {
+   &quot;check_type&quot;: &quot;regime_dependency&quot;,
+   &quot;status&quot;: &quot;concern&quot;,
+   &quot;evidence&quot;: &quot;funding_crowd_status 复验：anchor（funding_mean_30d 族截面中位）3.70e-05（66% 分位）低于 soft 5e-05，状态 dormant——实验1『多头拥挤 regime 前提在线上』基于 equity 族 LSR 背离（散户 1.877 vs 大户 1.311），与标准拥挤锚不同族且未对齐；regime 前提声明应降级为『族内 LSR 背离观察』，且 dormant regime 下不得开 L1 型条件化检验。不影响本轮证伪（研究未做 regime 条件化晋级主张）。severity: low&quot;,
+   &quot;severity&quot;: &quot;low&quot;
+  },
+  {
+   &quot;check_type&quot;: &quot;cost_sensitivity&quot;,
+   &quot;status&quot;: &quot;pass&quot;,
+   &quot;evidence&quot;: &quot;组合层毛口径（cost_bps=0）已不显著：336b GN−G1 t=+1.15/p=0.295、boot p=0.219（研究记录 t=0.96，差异为 universe 冻结/持有期偏移口径，两口径同判不显著）；24b t=-0.58/p=0.562。毛 null ⇒ 净只能更差，成本门无翻案可能&quot;,
+   &quot;severity&quot;: &quot;high&quot;
+  },
+  {
+   &quot;check_type&quot;: &quot;turnover_feasibility&quot;,
+   &quot;status&quot;: &quot;pass&quot;,
+   &quot;evidence&quot;: &quot;攻击1 指向的『2 天有效期内』残余路径已关闭：24b 组合层复验 106 非重叠期 t=-0.58、单调性 -0.50（组序号不符 IC 方向）——即便超快效应真实存在也无交易价值；336b 路径换手更低但同样 null，可行性问题 moot&quot;,
+   &quot;severity&quot;: &quot;high&quot;
+  },
+  {
+   &quot;check_type&quot;: &quot;hypothesis_conflation&quot;,
+   &quot;status&quot;: &quot;pass&quot;,
+   &quot;evidence&quot;: &quot;攻击2 复验逐位一致：dso 原值 336b IC -0.085 → resid_beta168 +0.036 / resid_volz48 +0.066 翻正——组成漂移与情绪锚强共线、线性正交化不可分的披露诚实且构成证伪依据；前视判别本身无面板深度伪影：basis_z_30d 与 lag48 覆盖同 134/153、n_dates 同 9（D2 教训的口径可比性风险在本例不成立）&quot;,
+   &quot;severity&quot;: &quot;high&quot;
+  },
+  {
+   &quot;check_type&quot;: &quot;metric_cherry_picking&quot;,
+   &quot;status&quot;: &quot;pass&quot;,
+   &quot;evidence&quot;: &quot;QR#253 全 horizon 披露本轮补齐：24/48/168/336 分段矩阵中全部超判据格（168b 段1 +0.121 等）n=8-10、无统计意义且被工具自动标记；主检验数字复验逐位一致（live -0.055 / lag48 -0.008 / resid -0.061）；组合层方向翻转（组均完全递增）与非显著并存被如实呈现而非只报有利侧&quot;,
+   &quot;severity&quot;: &quot;medium&quot;
+  }
+ ],
+ &quot;adversarial_notes&quot;: &quot;如果这个结论是错的，最可能错在哪？三条路径均被检验后排除或降级为无交易价值：(1)『效应真、只在信号 2 天有效期内』——分段显示 live-vs-lag 差值集中在 6-8 月段（+0.049）而 8 月后近零（+0.007），形式上更像『窗口内短暂真实效应已消失』而非系统性前视伪影；但该段 k=1 剔除即塌（+0.081→+0.034），且 24b 组合层 106 期 t=-0.58、单调性反号，即便真实也不可交易——不改变 not_supported。(2)『负 IC 本身存在、只是功效不足』——分段复验暴露全程 -0.055 与两段 +0.081/+0.043 日期集不可调和，观察级负号自身脆弱，引用 -0.055 作为『负 IC 存在』证据会踩坑；正确表述是『该窗口无稳健效应（噪声+组成漂移+疑似回填时序效应混合）』——这比研究方的结论更保守，不构成翻案。(3)『lag48 判别是面板深度伪影』——已排除：live 与 lag48 同 134/153 覆盖、同 9 截面，同深度可比（D2 教训适用但本例通过）。另两点纪律提醒：标准拥挤锚 dormant 与 equity LSR 背离不同族，勿混用作为重开依据；重开自然条件=独立截面 ≥18（前向 holdout 累积约 2027 年后）且须先解决三代理构念一致性与组成漂移剥离（resid_onboarding 面板仅 55/153 非随机子样本是前置缺口，对应既有需求 833/836）。组合层复验 t=1.15 vs 记录 0.96 的微差不改变判定（双口径均不显著）。证伪链闭合、判死方向正确，无足以推翻结论的结构性缺陷。&quot;,
+ &quot;additional_tests&quot;: [],
+ &quot;requirements&quot;: [
+  {
+   &quot;type&quot;: &quot;TOOL&quot;,
+   &quot;title&quot;: &quot;IC 工具分段/全程聚合对账披露（段行与全程行日期集不一致时强制说明）&quot;,
+   &quot;reason&quot;: &quot;本次复验发现 basis_z_30d 336b 全程 IC=-0.055(n=9) 与两分段 +0.081(n=5)/+0.043(n=4) 不可调和（分段正、全程负），推断为分段行与全程行可用日期集（forward 窗须落在段内）与聚合口径差异，但工具未披露该机制——若不修，分段正/全程负的表面对照会误导后续分段判读（QR#178/#180 流程产物的可解释性缺口）。&quot;,
+   &quot;requested_capability&quot;: &quot;factor_ic_analyze 分段模式下：①段行与全程行各自实际使用的截面日期集与 n_dates 对账表；②当 Σ段n ≠ 全程n 或段均值与全程符号相反时输出逐日 IC 明细与聚合口径说明。&quot;,
+   &quot;priority&quot;: &quot;low&quot;
+  }
+ ]
+}</pre></details>
+</div>
+<div class="step"><div class="hd"><span class="who">评审官</span>
+<span class="kind">评审裁决</span>
+<time>2026-10-15T08:31</time></div>
+<p>approved / dead——预注册证伪判据命中且逐位复现：reviewer 独立复跑 equity 族 336b IC——basis_z_30d live -0.055/ICIR -0.48/n=9 vs basis_z_30d_lag48 -0.008/n=9，差值 0.047≥0.04 判据线；且两者覆盖同 134/153、同 9 个独立截面（D2 面板深度可比性风险在本例不成立），效应量几乎全部位于信号 2 天有效期内——前视伪影/超快衰减二选一，336b 反转构念不可捕获</p>
+<details><summary>结构化留痕（review_decision）</summary>
+<pre>{
+ &quot;verdict&quot;: &quot;approved&quot;,
+ &quot;qr_outcome&quot;: &quot;dead&quot;,
+ &quot;reasons&quot;: [
+  &quot;预注册证伪判据命中且逐位复现：reviewer 独立复跑 equity 族 336b IC——basis_z_30d live -0.055/ICIR -0.48/n=9 vs basis_z_30d_lag48 -0.008/n=9，差值 0.047≥0.04 判据线；且两者覆盖同 134/153、同 9 个独立截面（D2 面板深度可比性风险在本例不成立），效应量几乎全部位于信号 2 天有效期内——前视伪影/超快衰减二选一，336b 反转构念不可捕获&quot;,
+  &quot;晋级功效物理不可达被如实标注：三主代理独立截面 8-17 全部低于 18 硬门槛（2026-04 上市功效边界），研究未用观察级数字做任何晋级主张，诚实边界处理正确&quot;,
+  &quot;组合层负证据双成本口径复核通过：resid_onboarding 336b 三分组 GN−G1 t=+0.96/p=0.373、boot p=0.267、单调性 +1.0（reviewer @8bps 净费复现与记录逐位一致；critic 毛口径 t=1.15 同判 null）——组均收益相对 IC 负号方向完全翻转且净费后无信号，无成本翻案路径&quot;,
+  &quot;组成漂移混杂确证：days_since_onboarding 原值 336b IC -0.085 → resid_volz48 翻正 +0.066（复现一致），~16%/月席位组成漂移与情绪锚强共线、线性正交化不可分，8 月后负 IC 无法排除上市批次效应——not_supported 的④号依据成立&quot;,
+  &quot;critic 中等严重度关切确认但不翻案：reviewer 复跑分段确认全程 -0.055(n=9) 与分段 +0.081(n=5)/+0.043(n=4) 日期集不可调和，段1 k=1 剔除塌至 +0.034、QR#253 全 horizon 矩阵符号交替（168b 段1 +0.121 vs 段2 -0.049）——观察级负号自身脆弱；但按更保守解读『窗口内无稳健效应（噪声+组成漂移+疑似回填时序效应混合）』，not_supported 结论反而更稳&quot;,
+  &quot;regime 前提降级恰当：funding_crowd_status 复核 anchor 3.70e-05（66% 分位）状态 dormant，实验1『多头拥挤 regime 在线上』所引 equity 族 LSR 背离（散户 1.877 vs 大户 1.311）与标准拥挤锚不同族未对齐——critic 降级为『族内 LSR 背离观察』正确，且研究未做 regime 条件化晋级主张，不影响证伪&quot;,
+  &quot;尾部门关死：basisz30_win/taker24_win winsorize 后 IC 逐位不变（-0.055/-0.088），24b 超快路径组合层 106 期 t=-0.58、单调性反号——即便 2 天窗口内效应真实也无交易价值，残余路径全部关闭&quot;
+ ],
+ &quot;confidence&quot;: &quot;high&quot;,
+ &quot;memory_note&quot;: &quot;us equity TRADIFI perp『情绪存量锚（basis_z/resid_funding_onboarding）336b 反转』判死：预注册 lag48 判别命中（差 0.047≥0.04，效应限于信号 2 天有效期内），叠加独立截面 8-17&lt;18 功效边界与 ~16%/月组成漂移强共线（dso 残差化符号翻转），组合层毛/净双 null（t=1.15/0.96）——该构念在可观测数据边界内不可证真亦不可交易。重开条件（须同时满足，缺一不可）：①前向 holdout 累积独立截面 ≥18（约 2027 年）；②需求 833/836 的 dso 面板修复且 resid 因子覆盖从 55/153 扩至全 equity 面板后，三代理（basis_z/taker/resid）分段相位一致性先过关（本轮 8 月段 -0.110 vs +0.018 反号）；③组成漂移剥离方法就位（上市批次哑变量/非线性正交化——线性正交化已被攻击2 证明不可分）。注意：equity 族 LSR 散户/大户背离不是标准拥挤锚（当前 dormant），不得作为本线重开触发依据（L1 纪律）；D1 教训再次适用——少截面强 IC 必须尾部剔除+扩样本前置。&quot;,
+ &quot;requirements&quot;: [
+  {
+   &quot;type&quot;: &quot;TOOL&quot;,
+   &quot;title&quot;: &quot;IC 工具分段/全程聚合对账披露（段行与全程行日期集不一致时强制说明）&quot;,
+   &quot;reason&quot;: &quot;reviewer 复现确认：basis_z_30d 336b 全程 IC=-0.055(n=9) 与分段 +0.081(n=5)/+0.043(n=4) 日期集不可调和（分段正/全程负），推断为 forward 窗落段约束下两口径截面集差异，工具未披露该机制——不修则分段正/全程负的表面对照会误导后续分段判读（QR#178/#180 产物可解释性缺口）&quot;,
+   &quot;requested_capability&quot;: &quot;factor_ic_analyze 分段模式输出：①段行与全程行各自实际使用的截面日期集与 n_dates 对账表；②当 Σ段n≠全程n 或段均值与全程符号相反时输出逐日 IC 明细与聚合口径说明&quot;,
+   &quot;priority&quot;: &quot;low&quot;
+  },
+  {
+   &quot;type&quot;: &quot;DATA&quot;,
+   &quot;title&quot;: &quot;beta_spy_168（美股锚 β）面板覆盖从 1/153 扩至 equity 族全席&quot;,
+   &quot;reason&quot;: &quot;本轮 hidden_beta 检验中 beta_spy_168 覆盖 1/153 物理不可用，美股市场 β 暴露无法排除（仅排除 BTC β）；equity 族（锚定美股时段的 perp）缺美股 β 锚使一切 β 中性化/混杂排除降级为观察级——与既有 833/834/836/837 无重叠&quot;,
+   &quot;requested_capability&quot;: &quot;equity 族全 153 席的 SPY（或 QQQ/dollar-beta）滚动 β 面板物化，覆盖深度 ≥336h&quot;,
+   &quot;priority&quot;: &quot;medium&quot;
+  },
+  {
+   &quot;type&quot;: &quot;DATA&quot;,
+   &quot;title&quot;: &quot;basis_z_30d_resid_funding_onboarding 物化覆盖扩至全 equity 面板（现 55/153 非随机子样本）&quot;,
+   &quot;reason&quot;: &quot;36% 覆盖且非随机（仅部分席有 onboarding 元数据），正交化与期限结构倒挂判据局限在选择性子样本；与既有 833/836 不同——833/836 是 dso 面板时序断更（2026-09-12 起），本条是横截面覆盖广度不足，仅修 833/836 不解决本缺口&quot;,
+   &quot;requested_capability&quot;: &quot;onboarding 元数据补齐至全席位后重物化 resid 因子，覆盖 ≥90% equity 席&quot;,
+   &quot;priority&quot;: &quot;low&quot;
+  }
+ ]
+}</pre></details>
+</div></section>
+<footer>本内容为研究过程记录，不构成投资建议；由 AI 研究组织产出、经评审流程裁决，
+每个论断附证据来源。</footer>
+</div></body></html>
