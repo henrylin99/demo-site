@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>旗舰案例：AI 量化研究的验证与审计闭环 · An Auditable Quant Research Workflow</title>
+<meta name="description" content="交付方法论旗舰案例，六问拆解一个可审计的量化研究工作流：原来的工作方式、真正的问题、具体做了什么、如何证明、交付什么、客户从哪开始。所有数字为实测值，可核验。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+<style>
+:root{--ink:#1a2233;--mut:#6b7280;--line:#e5e7eb;--bg:#f8fafc;--card:#fff;
+--accent:#0f5f8a;--warn:#b45309;--ok:#047857}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+color:var(--ink);background:var(--bg);line-height:1.8}
+.wrap{max-width:880px;margin:0 auto;padding:36px 20px 80px}
+a{color:var(--accent)}
+.top{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:10px}
+.kicker{font-size:13px;color:var(--accent);letter-spacing:.14em;font-weight:600}
+h1{font-size:30px;margin:10px 0 4px;line-height:1.35}
+.en{font-size:15px;color:var(--mut);font-style:italic;margin-bottom:16px}
+.cover{width:100%;border-radius:12px;border:1px solid var(--line);margin:6px 0 14px;display:block}
+.meta{font-size:13.5px;color:var(--mut)}
+section.q{margin-top:46px}
+section.q h2{font-size:21px;color:var(--ink);border-bottom:2px solid var(--accent);
+padding-bottom:8px;margin-bottom:16px}
+.qnum{display:inline-block;background:var(--accent);color:#fff;font-size:13px;
+border-radius:6px;padding:1px 11px;margin-right:10px;vertical-align:2px}
+section.q p,section.q li{font-size:15.5px}
+section.q ul,section.q ol{padding-left:22px}
+section.q li{margin:7px 0}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;
+padding:20px 24px;margin:14px 0}
+.box h3{font-size:16px;margin:0 0 8px;color:var(--accent)}
+table{width:100%;border-collapse:collapse;font-size:14.5px;margin:12px 0;
+background:var(--card)}
+th,td{padding:10px 13px;text-align:left;border:1px solid var(--line);vertical-align:top}
+th{background:#eef4f8;font-weight:600}
+.tag-ok{color:var(--ok);font-weight:600}
+.figure{background:var(--card);border:1px solid var(--line);border-radius:12px;
+padding:18px;margin:14px 0;text-align:center}
+.figure figcaption{font-size:13px;color:var(--mut);margin-top:8px}
+pre.verify{background:#0f172a;color:#d7e3ee;border-radius:10px;padding:16px 18px;
+font-size:12.5px;overflow:auto;line-height:1.6}
+.cta{margin-top:34px;text-align:center}
+.btn{display:inline-block;padding:12px 26px;border-radius:8px;font-weight:600;
+text-decoration:none;margin:6px 8px;font-size:15px}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.primary:hover{background:#0c4f74}
+.btn.ghost{border:1px solid var(--line);color:var(--ink);background:var(--card)}
+.btn.ghost:hover{border-color:var(--accent)}
+footer{margin-top:52px;font-size:13px;color:var(--mut);border-top:1px solid var(--line);
+padding-top:16px;line-height:1.9}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+<div class="kicker">旗舰案例 · FLAGSHIP CASE · 交付方法论</div>
+<h1>AI 量化研究的验证与审计闭环</h1>
+<div class="en">An Auditable Quant Research Workflow</div>
+<img class="cover" src="assets/workflow-audit-cover.jpg" alt="验证与审计闭环：从研究想法到可审计交付">
+<div class="meta">本文按六个问题拆解我们的交付方法论：<b>原来的工作方式 → 真正的问题 → 具体做了什么 → 如何证明 → 交付什么 → 从哪开始</b>。
+文中所有数字为 <b>2026-10-16 实测值</b>，来源逐节标注；未经实测的事项明确标注「不声称」。<a href="../">← 返回首页</a></div>
+</header>
+
+<section class="q">
+<h2><span class="qnum">问题 1</span>原来的工作方式是什么？</h2>
+<p>这也是这套系统诞生之前、我们自己的工作方式——量化研究最常见的起点：</p>
+<ul>
+<li>研究想法记在笔记、聊天记录和个人脚本里，<b>想法与验证过程是断开的</b>；</li>
+<li>回测结果是一张张截图和 csv，参数版本、数据口径全靠记忆；</li>
+<li>换一个数据源或参数，就要人工重跑一遍，结果是新的、过程是丢的。</li>
+</ul>
+<p>三个典型症状：<b>换人就断</b>（只有作者本人能解释一个结论怎么来的）、<b>出错不自查</b>（数据口径变化静默污染历史结论）、<b>结论无法二次核验</b>（审计时只能重跑碰运气，没有留痕可比对）。</p>
+</section>
+
+<section class="q">
+<h2><span class="qnum">问题 2</span>真正的问题在哪里？</h2>
+<p>不是「没有回测」，而是缺三样东西：<b>统一口径、可复现执行、独立检查</b>。每一样在我们自己的系统里都真实发生过，举三个实例：</p>
+<div class="box"><h3>口径：数据本身会撒谎</h3>
+<p>A股行情源断更两天，补数之后我们专门跑了一轮核验，确认补回的数据没错——这条核验过程本身成稿为一条研究线（<a href="T-cn-20261016-002.html">《断更两天的行情数据补回来了，我们如何验证它没出错》</a>）。期货方面，主力连续合约换月跳空会给趋势因子喂出假突破，管道内置了换月跳空检测。</p></div>
+<div class="box"><h3>复现：回测虚高的头号来源是前视偏差</h3>
+<p>用了未来数据的策略，收益曲线格外漂亮且难以察觉。我们的策略库里专门保留一个 <b>lookahead_bias 反例类别</b>，让「错误的收益长什么样」始终有对照组可看。</p></div>
+<div class="box"><h3>独立检查：既当运动员又当裁判</h3>
+<p>结论由提出者自查，等于让同一拨人负责「得出结论」和「承认错误」——这是结构性问题，靠自觉解决不了，需要把批评和裁决做成独立环节。</p></div>
+</section>
+
+<section class="q">
+<h2><span class="qnum">问题 3</span>具体做了什么？</h2>
+<p>把研究过程本身改造成一条<b>有留痕、有制衡、有机器防线的流水线</b>：</p>
+<figure class="figure">
+<svg viewBox="0 0 780 190" width="100%" role="img" aria-label="五角色研究流水线与三道机器防线">
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#6b7280"/></marker></defs>
+<g font-size="13" font-family="-apple-system,'PingFang SC',sans-serif">
+<g>
+<rect x="8"   y="26" width="104" height="40" rx="8" fill="#eef4f8" stroke="#0f5f8a"/>
+<text x="60"  y="50" text-anchor="middle" fill="#0f5f8a">① 观察</text>
+<rect x="140" y="26" width="104" height="40" rx="8" fill="#eef4f8" stroke="#0f5f8a"/>
+<text x="192" y="50" text-anchor="middle" fill="#0f5f8a">② 立项假设</text>
+<rect x="272" y="26" width="104" height="40" rx="8" fill="#eef4f8" stroke="#0f5f8a"/>
+<text x="324" y="50" text-anchor="middle" fill="#0f5f8a">③ 研究取证</text>
+<rect x="404" y="26" width="104" height="40" rx="8" fill="#fdf3e3" stroke="#b45309"/>
+<text x="456" y="50" text-anchor="middle" fill="#b45309">④ 批评</text>
+<rect x="536" y="26" width="104" height="40" rx="8" fill="#fdf3e3" stroke="#b45309"/>
+<text x="588" y="50" text-anchor="middle" fill="#b45309">⑤ 独立评审</text>
+<rect x="668" y="26" width="104" height="40" rx="8" fill="#e8f4ee" stroke="#047857"/>
+<text x="720" y="50" text-anchor="middle" fill="#047857">⑥ 成稿/否决</text>
+<line x1="112" y1="46" x2="138" y2="46" stroke="#6b7280" marker-end="url(#ar)"/>
+<line x1="244" y1="46" x2="270" y2="46" stroke="#6b7280" marker-end="url(#ar)"/>
+<line x1="376" y1="46" x2="402" y2="46" stroke="#6b7280" marker-end="url(#ar)"/>
+<line x1="508" y1="46" x2="534" y2="46" stroke="#6b7280" marker-end="url(#ar)"/>
+<line x1="640" y1="46" x2="666" y2="46" stroke="#6b7280" marker-end="url(#ar)"/>
+</g>
+<text x="390" y="94" text-anchor="middle" fill="#6b7280" font-size="12">每个环节落一条结构化留痕（作者角色 · 时间戳 · 引用）→ 留痕数据库全量保存</text>
+<g>
+<rect x="60"  y="116" width="200" height="52" rx="10" fill="#fff" stroke="#0f5f8a"/>
+<text x="160" y="138" text-anchor="middle" fill="#0f5f8a" font-weight="bold">防线 1 · 数字溯源核验</text>
+<text x="160" y="157" text-anchor="middle" fill="#6b7280" font-size="12">覆盖率 &lt;90% 不出稿</text>
+<rect x="290" y="116" width="200" height="52" rx="10" fill="#fff" stroke="#0f5f8a"/>
+<text x="390" y="138" text-anchor="middle" fill="#0f5f8a" font-weight="bold">防线 2 · 16 词合规扫描</text>
+<text x="390" y="157" text-anchor="middle" fill="#6b7280" font-size="12">投资建议话术不过不出稿</text>
+<rect x="520" y="116" width="200" height="52" rx="10" fill="#fff" stroke="#0f5f8a"/>
+<text x="620" y="138" text-anchor="middle" fill="#0f5f8a" font-weight="bold">防线 3 · 每日构建审计链</text>
+<text x="620" y="157" text-anchor="middle" fill="#6b7280" font-size="12">数据库 → 公开页 → git 提交</text>
+</g>
+</g>
+</svg>
+<figcaption>五角色流水线（橙=制衡环节，绿=出口）与三道机器防线。每条研究线的完整时间线可在<a href="index.html">案例库</a>每篇页尾查看。</figcaption>
+</figure>
+<ul>
+<li><b>五类人格角色互相制衡</b>：观察员发现异动、研究经理立项、研究员工具调用取证、批评员做方法论挑刺、评审官独立复现裁决——假设证伪时，系统会自己否决自己。</li>
+<li><b>每个环节落一条结构化留痕</b>：作者角色、时间戳、结构化内容与引用全量入库，成稿页的时间线可以逐条展开原始 JSON。</li>
+<li><b>成稿必须过三道机器防线</b>（上图）：溯源覆盖率不达标自动回落确定性模板；合规词表不过不出稿；每日构建把数据库状态变成 git 提交历史，外部可验证。</li>
+</ul>
+</section>
+
+<section class="q">
+<h2><span class="qnum">问题 4</span>如何证明它有效？</h2>
+<p>以下全部为 <b>2026-10-16 实测</b>，来源为留痕数据库（210 条研究线 × 全量环节）与构建日志：</p>
+<div class="box">
+<ul>
+<li><b>规模</b>：2026-08-27 起的 50 天里，210 条研究线、1,351 条环节留痕、43 个运行日（日均约 31 条）。</li>
+<li><b>制衡真实发生</b>：批评 158 条 + 独立评审 171 条 = 329 条，占全部留痕的 <b>24%</b>——批评与裁决不是装饰性环节。</li>
+<li><b>系统会对自己的假设说不</b>：210 条研究线中已否决 23 条、终止 52 条，合计 <b>36%</b>；同期对外的 6 篇成稿里，3 篇是否决 / 证伪 / 终止记录（如 <a href="T-cr-20261016-001.html">加密高拥挤假设被否决</a>、<a href="T-us-20261015-001.html">美股情绪因子证伪记录</a>）。<b>失败案例是交付物的一部分，不是被遮掉的部分。</b></li>
+<li><b>溯源核验</b>：6 篇成稿的数字溯源覆盖率均为 <span class="tag-ok">100%</span>（合同最低线 90%），每篇页尾「交付与验证」块可查。</li>
+<li><b>可复现实测</b>（本次成稿时执行）：同一条研究线（T-cn-20261014-002）用模板模式连续生成两次，输出<b>逐字节一致</b>，SHA-256 指纹完全相同：</li>
+</ul>
+<pre class="verify">$ compose.py --topic T-cn-20261014-002 --mode template   # 第 1 次
+$ compose.py --topic T-cn-20261014-002 --mode template   # 第 2 次
+$ shasum -a 256 repro1/T-cn-20261014-002.md repro2/T-cn-20261014-002.md
+25b9d5748548f7a4…  repro1/T-cn-20261014-002.md
+25b9d5748548f7a4…  repro2/T-cn-20261014-002.md   ← 逐字节一致</pre>
+<ul>
+<li><b>合规门咬过自己</b>：2026-10-16 一次公开页构建中，词表把页面免责声明里「不提供价格点位与仓位表述」这句<b>自我约束陈述</b>也拦了下来，构建中止；修正扫描范围后重新发布。词表是真的在扫，git 提交历史可查。</li>
+<li><b>成本口径</b>：单条研究线全链路 LLM 成本约 ¥4–6，单篇成稿全链路低于 ¥20（API 计费口径）。</li>
+</ul>
+</div>
+<p><b>边界声明</b>：本页<b>不声称</b>效率提升的百分比，也不涉及任何收益类指标——那需要在客户环境里做对照实验才有资格写。我们只列上面这些可以直接核验的事实。</p>
+</section>
+
+<section class="q">
+<h2><span class="qnum">问题 5</span>最终交付什么？</h2>
+<table>
+<tr><th style="width:26%">交付物</th><th>内容</th><th style="width:24%">形态</th></tr>
+<tr><td><b>成稿包</b></td><td>每条研究线一篇 markdown 原稿 + 自包含 HTML（正文、证据索引、过程时间线）；页尾「交付与验证」块即验收落点</td><td><a href="index.html">案例库 6 篇示例</a></td></tr>
+<tr><td><b>每日动态页</b></td><td>研究组织运行状态自动发布，交付期内持续可审计</td><td><a href="../daily/">每日研究动态</a></td></tr>
+<tr><td><b>交付方法论文档</b></td><td>试点范围单（SOW）模板、成本实测与定价、部署可行性评估、演示 runbook</td><td>面谈提供</td></tr>
+<tr><td><b>交付工具链</b></td><td>成稿引擎等脚本（溯源核验、合规扫描、模板/LLM 双模式）——私有化评估时移交，不是黑箱</td><td>代码 + 文档</td></tr>
+<tr><td><b>研究组织本身</b></td><td>五角色流水线 + 留痕数据库 + 每日构建，按托管或私有化交付</td><td>按项目评估</td></tr>
+</table>
+</section>
+
+<section class="q">
+<h2><span class="qnum">问题 6</span>客户可以从哪里开始？</h2>
+<p>三种起点任选其一，都从<b>一页初步评估意见</b>开始（可行性 / 数据需求 / 验收标准草案）：</p>
+<ol>
+<li><b>给一个数据集</b> → 先做数据口径体检（缺失、断更、复权、换月），出体检报告；</li>
+<li><b>给一条现有研究流水线</b> → 先做复现性体检（干净环境能否重跑出同样结果），出复现差异报告；</li>
+<li><b>给一个研究问题</b> → 直接跑一条完整留痕的研究线给你看，过程与结论都归你。</li>
+</ol>
+<p>初步评估<b>不需要先购买，也不需要准备完整技术方案</b>——把问题发过来就行。</p>
+<div class="cta">
+<a class="btn primary" href="mailto:39189996@qq.com?subject=提交研究工程问题获取初步评估&amp;body=请附：1%29 数据或流水线现状；2%29 想解决的问题；3%29 期望的验收方式。">提交一个问题，获取初步评估</a>
+<a class="btn ghost" href="mailto:39189996@qq.com?subject=预约30分钟演示">预约 30 分钟演示</a>
+</div>
+</section>
+
+<footer>
+本页为服务能力介绍，不构成任何投资建议。两条红线：内容侧绝不荐股——不给买卖方向、目标价与仓位建议；私募侧绝不承诺收益——平台服务按基础设施交付计量，与投资业绩完全隔离。<br>
+页面统计截至 2026-10-16，由构建脚本从留痕数据库自动核验 · <a href="../">首页</a> · <a href="index.html">成稿案例库</a> · <a href="../daily/">每日研究动态</a>
+</footer>
+
+</div>
+</body>
+</html>
