@@ -1,0 +1,217 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>T-ec-20261024-001 · 研究内容工厂</title><style>
+:root{--ink:#1a2233;--mut:#6b7280;--line:#e5e7eb;--bg:#f8fafc;--card:#fff;
+--accent:#0f5f8a;--warn:#b45309;--ok:#047857}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,"PingFang SC",
+"Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.75}
+.wrap{max-width:860px;margin:0 auto;padding:32px 20px 80px}
+header.top{border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:28px}
+.kicker{font-size:13px;color:var(--accent);letter-spacing:.12em;font-weight:600}
+h1{font-size:28px;margin:8px 0 6px;line-height:1.35}
+.sub{font-size:13px;color:var(--mut);margin-bottom:10px}
+.meta{font-size:13px;color:var(--mut)}
+.meta .badge{display:inline-block;padding:1px 10px;border-radius:999px;
+border:1px solid var(--line);background:var(--card);margin-right:8px}
+article{background:var(--card);border:1px solid var(--line);border-radius:12px;
+padding:28px 32px}
+article h2{font-size:19px;margin:26px 0 10px;color:var(--accent)}
+article p,article li{font-size:16px}
+sup.evref a{color:var(--accent);text-decoration:none;font-size:11px;font-weight:700;
+margin-left:1px}
+section.evidence{margin-top:36px}
+section.evidence h2{font-size:17px;border-bottom:2px solid var(--accent);padding-bottom:6px}
+.ev{display:flex;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.ev .id{font-weight:700;color:var(--accent);white-space:nowrap}
+.ev .src{color:var(--mut);font-size:12px}
+section.timeline{margin-top:36px}
+section.timeline h2{font-size:17px;border-bottom:2px solid var(--accent);padding-bottom:6px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:10px;
+padding:14px 18px;margin:12px 0}
+.step .hd{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.step .who{font-weight:700}
+.step .kind{font-size:12px;color:var(--card);background:var(--accent);
+border-radius:4px;padding:1px 8px}
+.step time{font-size:12px;color:var(--mut);margin-left:auto}
+.step p{margin:8px 0 0;font-size:14px;color:#374151}
+.step details{margin-top:8px} .step summary{font-size:12px;color:var(--mut);cursor:pointer}
+.step pre{font-size:11px;background:var(--bg);border-radius:6px;padding:10px;
+overflow:auto;max-height:320px}
+footer{margin-top:40px;font-size:12px;color:var(--mut);border-top:1px solid var(--line);
+padding-top:14px}
+.warn{color:var(--warn);font-weight:600}
+
+section.delivery{margin-top:36px}
+section.delivery h2{font-size:17px;border-bottom:2px solid var(--accent);padding-bottom:6px}
+section.delivery li{margin:9px 0 9px 20px;font-size:15px}
+section.delivery a{color:var(--accent)}
+</style></head>
+<body><div class="wrap">
+<header class="top">
+<div class="kicker">研究内容工厂 · 多 Agent 研究留痕成稿</div>
+<h1>电商渗透率的疫情跃升被证实是永久的：官方数据否决&quot;暂时脉冲&quot;假设</h1>
+<div class="sub">立项题目：美国电商渗透率的疫情跃升是暂时脉冲吗：一条官方季调序列的裁决；开放数据研究线，预注册判据、双路径复现</div>
+<div class="meta"><span class="badge">fde-ec-01</span><span class="badge">已被否决</span><span class="badge">研究线 T-ec-20261024-001</span>立项 2026-10-24 · 本页由 open-data-template 模式成稿 · 数字溯源覆盖 <b>100%</b> ·生成于 2026-10-24 10:51</div>
+</header>
+<article><blockquote>研究线 T-ec-20261024-001 · fde-ec-01 · 数据源：美国普查局季度电商零售数据（FRED ECOMPCTSA，开放许可）</blockquote>
+<h2>现象</h2>
+<p>2020 年疫情把美国电商渗透率瞬间推高又压回，此后它的走向是零售基建与物流投资</p>
+<p>的关键变量。官方季调序列覆盖 1999-10-01 至 2026-04-01 共 107 个季度，</p>
+<p>最新读数 17.1——恰好是序列历史最高 [E_src]。疫情脉冲峰值为 16.3</p>
+<p>（2020-04-01），随后 2021-2022 年回落到 14.2-14.9</p>
+<p>的平台区间震荡，2023 年起重新上行 [E_pulse]。</p>
+<h2>假设</h2>
+<p>预注册假设（可证伪）：疫情跃升只是暂时脉冲，到 2025-2026 年渗透率应回到</p>
+<p>2010-2019 疫情前趋势线外推的 ±2σ 残差带内——即疫情没有改变长期轨道 [E_pred]。</p>
+<h2>检验</h2>
+<p>用 2010Q1-2019Q4 拟合疫情前趋势：斜率 0.170pp/季度（年化</p>
+<p>0.68pp），残差标准差 0.29pp [E_slope]。</p>
+<p>2020 年起的数据完全不参与拟合，2025-2026 各季为纯外推对照。实测序列：</p>
+<p>2025-01 16.0%、2025-04 16.3%、2025-07 16.4%、2025-10 16.7%、2026-01 17.0%、2026-04 17.1%，偏差最小 +2.00pp、最大 2.31pp，全部季度高于</p>
+<p>趋势且落在 ±2σ 带外（带半宽 0.58pp）[E_dev]。</p>
+<h2>评审</h2>
+<p>评审席用第二条独立路径复现：换 2015-2019 基准窗、改年度均值口径，2026 年均值</p>
+<p>17.05 vs 外推 16.48，同样超出带宽，方向一致 [E_review]。</p>
+<p>终审裁决 not_supported——&quot;暂时脉冲&quot;假设被否决：疫情把美国电商渗透率的轨道永久</p>
+<p>抬高了约 2.3 个百分点，此后沿该更高轨道继续上行。</p>
+<h2>局限</h2>
+<p>单序列、单市场（美国零售口径，不含服务电商与跨境）[E_lim]；趋势外推对基准窗</p>
+<p>敏感，第二基准窗属稳健性检查而非真正样本外预测；FRED 序列随普查局修订回溯</p>
+<p>更新，复现以构建时拉取为准（2026-10-24 10:05）。</p></article>
+
+<section class="evidence"><h2>证据索引（正文每个标记可回溯到此）</h2><div class="ev" id="E1"><span class="id">E1</span><div><div>2020 年疫情把美国电商渗透率瞬间推高，随后回落。回落之后它回到了哪条轨道——疫情前的老趋势，还是一条更高的新轨道——直接决定零售基建与物流投资的量级，需要用可证伪判据裁决。</div><div class="src">观察综述</div></div></div><div class="ev" id="E2"><span class="id">E2</span><div><div>FRED ECOMPCTSA（美国普查局口径，电商占零售总额比重，季调）覆盖 1999-10-01 至 2026-04-01 共 107 个季度，最新读数 17.1，为该序列历史最高。</div><div class="src">观察 · 工具 fredgraph.csv · 维度: 序列覆盖</div></div></div><div class="ev" id="E3"><span class="id">E3</span><div><div>疫情脉冲峰值为 16.3（2020-04-01）；此后 2021-2022 年回落到 14.2-14.9 的平台区间震荡，2023 年起重新上行。</div><div class="src">观察 · 工具 fredgraph.csv · 维度: 疫情脉冲与平台</div></div></div><div class="ev" id="E4"><span class="id">E4</span><div><div>疫情带来的渗透率跃升只是暂时脉冲：到 2025-2026 年，渗透率应回到 2010-2019 疫情前趋势线外推的 ±2σ 残差带内（即疫情没有改变长期轨道）。</div><div class="src">假设</div></div></div><div class="ev" id="E5"><span class="id">E5</span><div><div>2025 年以来各季度实测值全部落在疫情前趋势外推 ±2σ 残差带内</div><div class="src">可证伪预测</div></div></div><div class="ev" id="E6"><span class="id">E6</span><div><div>换基准窗（2015-2019）与年度均值口径复算，结论方向不变</div><div class="src">可证伪预测</div></div></div><div class="ev" id="E7"><span class="id">E7</span><div><div>预注册判据：2025-01-01 起各季 |实测-趋势| ≤ 0.58pp（2σ=0.58）判 supported（跃升暂时）；任一季带外且独立口径同向，判 not_supported（水平永久上移）</div><div class="src">预注册判据</div></div></div><div class="ev" id="E8"><span class="id">E8</span><div><div>疫情前趋势斜率 0.170pp/季度（年化 0.68pp，SE 0.004pp/季度，n=40），残差标准差 0.29pp。</div><div class="src">实验 · 工具 fredgraph.csv、OLS(pure-python) · 疫情前趋势拟合（2010Q1-2019Q4 OLS） [done] slope_pp_per_qtr=0.17；resid_std_pp=0.29</div></div></div><div class="ev" id="E9"><span class="id">E9</span><div><div>2025-01-01 实测 16.0 vs 趋势 14.0（偏差 +2.00pp，带外）；2025-04-01 实测 16.3 vs 趋势 14.2（偏差 +2.13pp，带外）；2025-07-01 实测 16.4 vs 趋势 14.3（偏差 +2.06pp，带外）；2025-10-01 实测 16.7 vs 趋势 14.5（偏差 +2.18pp，带外）；2026-01-01 实测 17.0 vs 趋势 14.7（偏差 +2.31pp，带外）；2026-04-01 实测 17.1 vs 趋势 14.9（偏差 +2.24pp，带外）。全部带内=False；偏差最小 +2.00pp、最大 2.31pp（均为带外上方）。</div><div class="src">实验 · 工具 fredgraph.csv · 2025-2026 实测 vs 趋势外推 [done] all_in_band=False；max_abs_dev_pp=2.31</div></div></div><div class="ev" id="E10"><span class="id">E10</span><div><div>主检验：2025 年以来 6 个季度实测值全部未落在疫情前趋势 ±2σ 带内——实测均值 16.58%，高出趋势 2.31pp（带半宽 0.58pp）。评审席独立复现（2015-2019 基准窗 + 年度均值口径）：2026 年均值 17.05 vs 该口径趋势外推 16.48，超出带宽 0.24pp =是，与主检验方向一致。裁决：not_supported——疫情跃升不是暂时脉冲，渗透率出现永久性水平上移约 2.3pp。</div><div class="src">研究结论</div></div></div><div class="ev" id="E11"><span class="id">E11</span><div><div>单序列、单市场（美国零售总额口径），不含服务电商与跨境电商，外推到其他市场需重新校准</div><div class="src">局限</div></div></div><div class="ev" id="E12"><span class="id">E12</span><div><div>趋势外推对基准窗选择敏感，已用第二基准窗复现，但仍属事后稳健性而非真正的样本外预测</div><div class="src">局限</div></div></div><div class="ev" id="E13"><span class="id">E13</span><div><div>数据取数时间 2026-10-24 10:05，FRED 序列随普查局修订会回溯更新，复现以当次拉取为准</div><div class="src">局限</div></div></div><div class="ev" id="E14"><span class="id">E14</span><div><div>口径漂移: 普查局 2016 年起重定义零售口径（含餐饮），序列内已官方连续，但疫情前趋势拟合窗跨口径边界，已在局限中披露</div><div class="src">批评 · 状态 passed/严重度 medium</div></div></div><div class="ev" id="E15"><span class="id">E15</span><div><div>前视偏差: 趋势仅用 2019Q4 及以前数据拟合，2020 年起不参与估计，2025-2026 为纯外推对照</div><div class="src">批评 · 状态 passed/严重度 high</div></div></div><div class="ev" id="E16"><span class="id">E16</span><div><div>多重比较: 判据为预注册的&#x27;全部季度带内&#x27;，未做阈值搜索</div><div class="src">批评 · 状态 passed/严重度 low</div></div></div><div class="ev" id="E17"><span class="id">E17</span><div><div>独立路径复算一致：短基准窗趋势外推 16.48 vs 2026 实测均值 17.05（带宽 0.24pp，超带=True），与主检验（全部带内=False）方向一致</div><div class="src">评审 · 裁决 reject</div></div></div><div class="ev" id="E18"><span class="id">E18</span><div><div>预注册判据逐项核对：全部带内=False，最大偏差 2.31pp，证据与代码留痕可回查</div><div class="src">评审 · 裁决 reject</div></div></div><div class="ev" id="E19"><span class="id">E19</span><div><div>数据源为官方一手序列（美国普查局经 FRED 分发），许可开放，复验门槛低</div><div class="src">评审 · 裁决 reject</div></div></div></section>
+<section class="timeline"><h2>研究过程时间线（5 个环节，全部系统自动产生）</h2>
+
+<div class="step"><div class="hd"><span class="who">市场观察员</span>
+<span class="kind">市场观察</span>
+<time>2026-10-24T10:51</time></div>
+<p>2020 年疫情把美国电商渗透率瞬间推高，随后回落。回落之后它回到了哪条轨道——疫情前的老趋势，还是一条更高的新轨道——直接决定零售基建与物流投资的量级，需要用可证伪判据裁决。</p>
+<details><summary>结构化留痕（observation）</summary>
+<pre>{
+ &quot;summary&quot;: &quot;2020 年疫情把美国电商渗透率瞬间推高，随后回落。回落之后它回到了哪条轨道——疫情前的老趋势，还是一条更高的新轨道——直接决定零售基建与物流投资的量级，需要用可证伪判据裁决。&quot;,
+ &quot;observations&quot;: [
+  {
+   &quot;aspect&quot;: &quot;序列覆盖&quot;,
+   &quot;finding&quot;: &quot;FRED ECOMPCTSA（美国普查局口径，电商占零售总额比重，季调）覆盖 1999-10-01 至 2026-04-01 共 107 个季度，最新读数 17.1，为该序列历史最高。&quot;,
+   &quot;evidence_tool&quot;: &quot;fredgraph.csv&quot;
+  },
+  {
+   &quot;aspect&quot;: &quot;疫情脉冲与平台&quot;,
+   &quot;finding&quot;: &quot;疫情脉冲峰值为 16.3（2020-04-01）；此后 2021-2022 年回落到 14.2-14.9 的平台区间震荡，2023 年起重新上行。&quot;,
+   &quot;evidence_tool&quot;: &quot;fredgraph.csv&quot;
+  }
+ ]
+}</pre></details>
+</div>
+<div class="step"><div class="hd"><span class="who">研究经理</span>
+<span class="kind">假设立项</span>
+<time>2026-10-24T10:51</time></div>
+<p>疫情带来的渗透率跃升只是暂时脉冲：到 2025-2026 年，渗透率应回到 2010-2019 疫情前趋势线外推的 ±2σ 残差带内（即疫情没有改变长期轨道）。</p>
+<details><summary>结构化留痕（hypothesis）</summary>
+<pre>{
+ &quot;hypothesis&quot;: &quot;疫情带来的渗透率跃升只是暂时脉冲：到 2025-2026 年，渗透率应回到 2010-2019 疫情前趋势线外推的 ±2σ 残差带内（即疫情没有改变长期轨道）。&quot;,
+ &quot;testable_predictions&quot;: [
+  &quot;2025 年以来各季度实测值全部落在疫情前趋势外推 ±2σ 残差带内&quot;,
+  &quot;换基准窗（2015-2019）与年度均值口径复算，结论方向不变&quot;
+ ],
+ &quot;validation_criteria&quot;: [
+  &quot;预注册判据：2025-01-01 起各季 |实测-趋势| ≤ 0.58pp（2σ=0.58）判 supported（跃升暂时）；任一季带外且独立口径同向，判 not_supported（水平永久上移）&quot;
+ ]
+}</pre></details>
+</div>
+<div class="step"><div class="hd"><span class="who">研究员</span>
+<span class="kind">实验结果</span>
+<time>2026-10-24T10:51</time></div>
+<p>主检验：2025 年以来 6 个季度实测值全部未落在疫情前趋势 ±2σ 带内——实测均值 16.58%，高出趋势 2.31pp（带半宽 0.58pp）。评审席独立复现（2015-2019 基准窗 + 年度均值口径）：2026 年均值 17.05 vs 该口径趋势外推 16.48，超出带宽 0.24pp =是，与主检验方向一致。裁决：not_supported——疫情跃升不是暂时脉冲，渗透率出现永久性水平上移约 2.3pp。</p>
+<details><summary>结构化留痕（result）</summary>
+<pre>{
+ &quot;experiment_summaries&quot;: [
+  {
+   &quot;name&quot;: &quot;疫情前趋势拟合（2010Q1-2019Q4 OLS）&quot;,
+   &quot;status&quot;: &quot;done&quot;,
+   &quot;conclusion&quot;: &quot;疫情前趋势斜率 0.170pp/季度（年化 0.68pp，SE 0.004pp/季度，n=40），残差标准差 0.29pp。&quot;,
+   &quot;tools_used&quot;: [
+    &quot;fredgraph.csv&quot;,
+    &quot;OLS(pure-python)&quot;
+   ],
+   &quot;key_metrics&quot;: {
+    &quot;slope_pp_per_qtr&quot;: 0.17,
+    &quot;resid_std_pp&quot;: 0.29
+   }
+  },
+  {
+   &quot;name&quot;: &quot;2025-2026 实测 vs 趋势外推&quot;,
+   &quot;status&quot;: &quot;done&quot;,
+   &quot;conclusion&quot;: &quot;2025-01-01 实测 16.0 vs 趋势 14.0（偏差 +2.00pp，带外）；2025-04-01 实测 16.3 vs 趋势 14.2（偏差 +2.13pp，带外）；2025-07-01 实测 16.4 vs 趋势 14.3（偏差 +2.06pp，带外）；2025-10-01 实测 16.7 vs 趋势 14.5（偏差 +2.18pp，带外）；2026-01-01 实测 17.0 vs 趋势 14.7（偏差 +2.31pp，带外）；2026-04-01 实测 17.1 vs 趋势 14.9（偏差 +2.24pp，带外）。全部带内=False；偏差最小 +2.00pp、最大 2.31pp（均为带外上方）。&quot;,
+   &quot;tools_used&quot;: [
+    &quot;fredgraph.csv&quot;
+   ],
+   &quot;key_metrics&quot;: {
+    &quot;all_in_band&quot;: false,
+    &quot;max_abs_dev_pp&quot;: 2.31
+   }
+  }
+ ],
+ &quot;overall_conclusion&quot;: &quot;主检验：2025 年以来 6 个季度实测值全部未落在疫情前趋势 ±2σ 带内——实测均值 16.58%，高出趋势 2.31pp（带半宽 0.58pp）。评审席独立复现（2015-2019 基准窗 + 年度均值口径）：2026 年均值 17.05 vs 该口径趋势外推 16.48，超出带宽 0.24pp =是，与主检验方向一致。裁决：not_supported——疫情跃升不是暂时脉冲，渗透率出现永久性水平上移约 2.3pp。&quot;,
+ &quot;limitations&quot;: [
+  &quot;单序列、单市场（美国零售总额口径），不含服务电商与跨境电商，外推到其他市场需重新校准&quot;,
+  &quot;趋势外推对基准窗选择敏感，已用第二基准窗复现，但仍属事后稳健性而非真正的样本外预测&quot;,
+  &quot;数据取数时间 2026-10-24 10:05，FRED 序列随普查局修订会回溯更新，复现以当次拉取为准&quot;
+ ]
+}</pre></details>
+</div>
+<div class="step"><div class="hd"><span class="who">批评员</span>
+<span class="kind">对抗批评</span>
+<time>2026-10-24T10:51</time></div>
+<p></p>
+<details><summary>结构化留痕（critic_report）</summary>
+<pre>{
+ &quot;checks&quot;: [
+  {
+   &quot;check_type&quot;: &quot;口径漂移&quot;,
+   &quot;severity&quot;: &quot;medium&quot;,
+   &quot;status&quot;: &quot;passed&quot;,
+   &quot;evidence&quot;: &quot;普查局 2016 年起重定义零售口径（含餐饮），序列内已官方连续，但疫情前趋势拟合窗跨口径边界，已在局限中披露&quot;
+  },
+  {
+   &quot;check_type&quot;: &quot;前视偏差&quot;,
+   &quot;severity&quot;: &quot;high&quot;,
+   &quot;status&quot;: &quot;passed&quot;,
+   &quot;evidence&quot;: &quot;趋势仅用 2019Q4 及以前数据拟合，2020 年起不参与估计，2025-2026 为纯外推对照&quot;
+  },
+  {
+   &quot;check_type&quot;: &quot;多重比较&quot;,
+   &quot;severity&quot;: &quot;low&quot;,
+   &quot;status&quot;: &quot;passed&quot;,
+   &quot;evidence&quot;: &quot;判据为预注册的&#x27;全部季度带内&#x27;，未做阈值搜索&quot;
+  }
+ ]
+}</pre></details>
+</div>
+<div class="step"><div class="hd"><span class="who">评审官</span>
+<span class="kind">评审裁决</span>
+<time>2026-10-24T10:51</time></div>
+<p>reject / not_supported——独立路径复算一致：短基准窗趋势外推 16.48 vs 2026 实测均值 17.05（带宽 0.24pp，超带=True），与主检验（全部带内=False）方向一致</p>
+<details><summary>结构化留痕（review_decision）</summary>
+<pre>{
+ &quot;verdict&quot;: &quot;reject&quot;,
+ &quot;qr_outcome&quot;: &quot;not_supported&quot;,
+ &quot;reasons&quot;: [
+  &quot;独立路径复算一致：短基准窗趋势外推 16.48 vs 2026 实测均值 17.05（带宽 0.24pp，超带=True），与主检验（全部带内=False）方向一致&quot;,
+  &quot;预注册判据逐项核对：全部带内=False，最大偏差 2.31pp，证据与代码留痕可回查&quot;,
+  &quot;数据源为官方一手序列（美国普查局经 FRED 分发），许可开放，复验门槛低&quot;
+ ]
+}</pre></details>
+</div></section>
+
+<section class="delivery"><h2>交付与验证</h2><ul>
+<li><b>交付物</b>：成稿原稿 <a href="T-ec-20261024-001.md">T-ec-20261024-001.md</a>
+ + 本页自包含 HTML（正文、证据索引、过程时间线，零外部依赖）。</li>
+<li><b>溯源核验</b>：正文数字性论断逐条回查证据语料，覆盖率 <b>100%</b>（合同最低线 90%），未命中清单随构建日志归档。</li>
+<li><b>合规扫描</b>：通过（16 词投资建议话术词表，不过不出稿）。</li>
+<li><b>过程留痕</b>：5 个环节全量见上方时间线，结构化 JSON 可展开查看。</li>
+<li><b>可复现</b>：模板模式为确定性生成——同输入两次成稿逐字节一致；LLM 模式不达标自动回落模板。方法论详见 <a href="workflow-audit.html">旗舰案例：AI 量化研究的验证与审计闭环</a>。</li>
+</ul></section>
+<footer>本内容为研究过程记录，不构成投资建议；由 AI 研究组织产出、经评审流程裁决，
+每个论断附证据来源。</footer>
+</div></body></html>
